@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_check_char.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 14:37:57 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/10 12:15:48 by mmauchre         ###   ########.fr       */
+/*   Created: 2023/11/10 10:21:32 by mmauchre          #+#    #+#             */
+/*   Updated: 2023/11/10 10:24:58 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <limits.h>
-
-void	*ft_calloc(size_t nmemb, size_t size)
+int	ft_check_char(char c1, char c2)
 {
-	void	*p;
+	if (c1 == c2)
+		return (1);
 
-	if (nmemb == 0 || size == 0 || nmemb > INT_MAX / size)
-		return (NULL);
-	p = malloc(nmemb * size * sizeof(char));
-	if (!p)
-		return (NULL);
-	ft_bzero(p, nmemb * size);
-	return (p);
+	return (0);
 }
