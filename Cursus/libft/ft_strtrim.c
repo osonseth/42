@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 12:20:28 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/11 16:22:02 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/11 16:30:05 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (str);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	char s1[] = "-  he ho max:";
 	char set[] = " -§:";
 
 	printf("%s\n", ft_strtrim(s1, set));
-}
+} */
