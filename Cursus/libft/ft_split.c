@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:03:32 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/10 15:05:17 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:06:18 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**ft_split(char const *s, char c)
 			ft_strcpy_split(tab[i], s, ft_strlen_split(s, c));
 			i++;
 		}
-		if (*s == c && new_words == true)
+		else if (*s == c && new_words == true)
 			new_words = false;
 		s++;
 	}
