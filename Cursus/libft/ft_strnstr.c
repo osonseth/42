@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:18:47 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/09 12:58:52 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/12 20:10:21 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,20 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 		return (NULL);
 	while (len > 0)
 	{
-		if (!ft_strncmp(big, little, len_little))
+		if (!ft_strncmp(big, little, len_little) && len >= len_little)
 			return ((char *)big);
 		big++;
 		len--;
 	}
 	return (NULL);
 }
-
-/* #include <bsd/string.h>
+/*
 #include <stdio.h>
 #include <string.h>
 
 int	main(void)
 {
-	char big[] = "hfwhrewlqkrhjqwlkreyo";
-	char little[] = "yo";
-	printf("%s\n", ft_strnstr(big, little, 40));
-	printf("%s\n", strnstr(big, little, 40));
+	char big[] = "lorem ipsum dolor sit amet";
+	char little[] = "dolor";
+	printf("%s\n", ft_strnstr(big, little, 15));
 } */

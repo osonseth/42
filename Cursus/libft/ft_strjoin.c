@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:48:53 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/09 16:00:11 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/12 22:38:44 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		s2++;
 		i++;
 	}
+	str[i] = '\0';
 	return (str);
 }
 
@@ -42,7 +43,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 int main ()
 {
-	char s1[]= "coucou ";
-	char s2[]= "c'est max !";
+	char    s1[] = "";
+		char    s2[] = "dolor sit amet";
+
 	printf("%s\n", ft_strjoin(s1,s2));
 } */

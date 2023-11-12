@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:17:25 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/11 19:12:49 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/12 22:08:44 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <limits.h>
 #include <stdio.h>
 
-int	ft_abs(int n)
+static int	ft_abs(int n)
 {
 	if (n < 0)
 		return (-n);
@@ -40,14 +40,19 @@ char	*ft_itoa(int n)
 	int		digit;
 	char	*str;
 
+	if (n == 0)
+	{
+		str = malloc(2 * sizeof(char));
+		str[0] = '0';
+		str[1] = '\0';
+		return (str);
+	}
 	digit = ft_count_digit(n);
 	str = malloc((digit + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	if (n < 0)
-	{
 		str[0] = '-';
-	}
 	str[digit] = '\0';
 	while (n != 0)
 	{
@@ -60,8 +65,7 @@ char	*ft_itoa(int n)
 
 /* int	main(void)
 {
-	int	n;
-
-	n = INT_MIN;
-	printf("%s\n", ft_itoa(n));
+		char *res = ft_itoa(0);
+				printf("%s\n",res);
+				free(res);
 } */

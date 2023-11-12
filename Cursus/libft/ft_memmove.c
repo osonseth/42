@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:23:10 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/06 16:47:08 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/12 19:21:11 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	{
 		while (n > 0)
 		{
-			((char *)dest)[n] = ((char *)src)[n];
+			((char *)dest)[n-1] = ((char *)src)[n-1];
 			n--;
 		}
 	}
@@ -64,4 +64,15 @@ int	main(void)
 		printf("%d", tab2[i]);
 	}
 	printf("\n");
+} */
+
+/* int	main(void)
+{
+	char src[] = "lorem ipsum dolor sit amet";
+	char *dest;
+	dest = src + 1;
+
+	ft_memmove(dest, "consectetur", 5);
+	write(1, dest, 22);
+	write(1, "\n", 1);
 } */

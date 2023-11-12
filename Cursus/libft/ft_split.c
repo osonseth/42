@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:03:32 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/11 12:06:18 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:05:25 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	**ft_split(char const *s, char c)
 	return (tab);
 }
 
-int	main(void)
+/* int	main(void)
 
 {
 	char c;
@@ -85,3 +85,4 @@ int	main(void)
 
 	return (0);
 }
+ */

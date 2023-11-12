@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/11 21:18:27 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/12 16:28:56 by mmauchre         ###   ########.fr       */
+/*   Created: 2023/11/12 13:44:11 by mmauchre          #+#    #+#             */
+/*   Updated: 2023/11/12 15:39:44 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "test_libft.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+int	main(void)
 {
-	size_t	i;
-	size_t	len;
-	i = 0;
+	test_ft_isalpha();
+	test_ft_isdigit();
+	test_ft_isalnum();
+	test_ft_isascii();
+	test_ft_isprint();
 
-	if (s == NULL || f == NULL)
-		return ;
-	len = ft_strlen(s);
-	while (i < len)
-	{
-		f(i, &s[i]);
-		i++;
-	}
+	return (0);
 }

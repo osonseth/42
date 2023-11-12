@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 12:20:28 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/11 18:13:46 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/12 22:41:21 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ char	*ft_strtrim(char const *s1, char const *set)
 	str = malloc((final_size + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
-	ft_strlcpy(str, p, final_size);
+	ft_strlcpy(str, p, final_size+1);
 	return (str);
 }
 
 /* int	main(void)
 {
-	char s1[] = " - -";
-	char set[] = " -";
+	char s1[] = "lorem \n ipsum \t dolor \n sit \t amet";
+	char set[] = " ";
 
 	printf("%s\n", ft_strtrim(s1, set));
 } */
