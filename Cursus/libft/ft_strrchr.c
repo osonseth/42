@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 19:07:41 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/06 19:43:12 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/12 23:07:55 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strrchr(const char *s, int c)
 	p = NULL;
 	while (*s)
 	{
-		if (*s == c)
+		if (*s == (unsigned char)c)
 			p = (char *)s;
 		s++;
 	}

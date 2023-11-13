@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:44:09 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/06 19:37:51 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/12 23:05:39 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strchr(const char *s, int c)
 	p = (char *)s;
 	while (*p)
 	{
-		if (*p == c)
+		if (*p == (unsigned char)c)
 			return (p);
 		p++;
 	}
@@ -33,7 +33,12 @@ char	*ft_strchr(const char *s, int c)
 
 int	main(void)
 {
-	char str[] = "coucoumax";
-	printf("%s\n", ft_strchr(str, 0));
-	printf("%s\n", strchr(str, 0));
+	
+	
+	char s[] = "tripouille";
+	
+	 printf ("%s\n",ft_strchr(s, 't' + 256)); 
+	write(1, "\n", 1);
+	
+	return (0);
 } */
