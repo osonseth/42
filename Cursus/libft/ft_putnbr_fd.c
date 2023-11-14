@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:59:34 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/12 21:31:20 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:18:08 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	ft_putnbr_fd(int n, int fd)
 	}
 	if (n > 9)
 	{
-		ft_putnbr_fd(n / 10,fd);
-		ft_putnbr_fd(n % 10,fd);
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
 	}
 	else
 	{

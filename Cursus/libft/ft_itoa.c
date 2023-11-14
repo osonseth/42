@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:17:25 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/12 22:08:44 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:17:47 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int	ft_abs(int n)
 		return (-n);
 	return (n);
 }
+
 int	ft_count_digit(int n)
 {
 	int	digit;

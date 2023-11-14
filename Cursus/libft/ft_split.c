@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:03:32 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/12 16:05:25 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:17:58 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	ft_strlen_split(char const *s, char c)
 	}
 	return (len);
 }
+
 static void	ft_strcpy_split(char *dst, const char *src, int size)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 16:23:10 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/12 19:21:11 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:16:12 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	{
 		while (n > 0)
 		{
-			((char *)dest)[n-1] = ((char *)src)[n-1];
+			((char *)dest)[n - 1] = ((char *)src)[n - 1];
 			n--;
 		}
 	}
