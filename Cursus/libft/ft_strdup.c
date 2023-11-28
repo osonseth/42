@@ -6,11 +6,24 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:55:45 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/09 15:18:50 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:09:46 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static void	ft_strcpy(char *dst, const char *src)
+{
+	size_t	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+}
 
 char	*ft_strdup(const char *s)
 {
