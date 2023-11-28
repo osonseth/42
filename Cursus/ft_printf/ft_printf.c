@@ -6,51 +6,83 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 20:04:36 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/28 18:48:36 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/28 22:03:39 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <limits.h>
-#include <stdarg.h>
 #include <stdio.h>
-#include <unistd.h>
+
+void	ft_treat_flag(t_struct *data, va_list arg)
+{
+	while (*(data->ptr_format) == '%' || *(data->ptr_format) == 'd'
+		|| *(data->ptr_format) == 's' || *(data->ptr_format) == 'c'
+		|| *(data->ptr_format) == 'u')
+	{
+		if (*(data->ptr_format) == 'd')
+		{
+			ft_flag_d(va_arg(arg, int), data);
+		}
+		else if (*(data->ptr_format) == 's')
+		{
+			ft_flag_s(va_arg(arg, char *), data);
+		}
+		else if (*(data->ptr_format) == 'c')
+		{
+			ft_flag_c((char)va_arg(arg, int), data);
+		}
+		else if (*(data->ptr_format) == 'u')
+		{
+			ft_flag_u(va_arg(arg, unsigned int), data);
+		}
+		data->ptr_format++;
+	}
+}
 
 int	ft_printf(const char *format, ...)
 {
-	t_struct	data;
-
+	t_struct(data) = {0};
 	va_list(arg);
 	va_start(arg, format);
-	data.total_len = 0;
-	while (*format)
+	data.ptr_format = format;
+	while (*(data.ptr_format))
 	{
-		if (*format == '%' && (*(format + 1)) == 's')
+		if (*(data.ptr_format) == '%' && *(data.ptr_format + 1) == '%')
 		{
-			ft_print_s(va_arg(arg, char *), &sc);
-			format++;
+			data.total_len += write(1, "%%", 1);
+			data.ptr_format +=2;
 		}
-		if (*format == '%' && (*(format + 1)) == 'd')
+		if (*(data.ptr_format) == '%' && *(data.ptr_format + 1) != '%')
 		{
-			ft_print_d(va_arg(arg, int), &sc);
-			format++;
+			ft_treat_flag(&data, arg);
 		}
-		format++;
-		sc.total_len += write(1, format, 1);
+		data.total_len += write(1, data.ptr_format, 1);
+		data.ptr_format++;
 	}
-	printf("\n%d\n", sc.total_len);
 	va_end(arg);
-	return (sc.len);
+	return (data.total_len);
 }
 
-#include <stdio.h>
+#include <limits.h>
 
 int	main(void)
 {
+	int total_ft = 0;
+	int total_print = 0;
 	char str[] = "coucou";
 	int i = INT_MIN;
+	char c = 'B';
+	char d = 'O';
+	char e = 'S';
+	unsigned int u = 4123567890;
+	void *p = &str;
+	void **pp = p;
 
-	ft_printf("%s\n%d\n", str, i);
+	total_ft = ft_printf("%s\n%d\n%c%c%c%c\n%u\n%%%%\n", str, i, c, d, d, e, u);
+	printf("%d\n", total_ft);
+	printf("--------------------------------------------------------\n");
+	total_print = printf("%p\n%p\n",u,pp);
+	printf("%d\n", total_print);
 
 	// i = ft_printf("coucou\n");
 
