@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 20:04:36 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/25 23:00:02 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/28 18:48:36 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@
 
 int	ft_printf(const char *format, ...)
 {
-	lst	sc;
+	t_struct	data;
 
 	va_list(arg);
 	va_start(arg, format);
-	sc.len = 0;
-	sc.total_len = 0;
+	data.total_len = 0;
 	while (*format)
 	{
 		if (*format == '%' && (*(format + 1)) == 's')
@@ -36,7 +35,6 @@ int	ft_printf(const char *format, ...)
 			ft_print_d(va_arg(arg, int), &sc);
 			format++;
 		}
-		
 		format++;
 		sc.total_len += write(1, format, 1);
 	}
@@ -52,9 +50,7 @@ int	main(void)
 	char str[] = "coucou";
 	int i = INT_MIN;
 
-	ft_printf("%s\n%d\n", str,i);
-
-	
+	ft_printf("%s\n%d\n", str, i);
 
 	// i = ft_printf("coucou\n");
 

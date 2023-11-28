@@ -6,22 +6,22 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 12:26:10 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/25 22:39:24 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/28 18:26:47 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF
-# define FT_PRINTF
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include <stdarg.h>
 # include <stdlib.h>
 
-typedef struct lst
+typedef struct sc
 {
 	int	len;
 	int	total_len;
 
-}		lst;
+}		t_struct;
 
 int		ft_printf(const char *format, ...);
 char	*ft_itoa(int n);
