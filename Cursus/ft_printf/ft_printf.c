@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 20:04:36 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/28 22:03:39 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/29 00:58:13 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_treat_flag(t_struct *data, va_list arg)
 {
 	while (*(data->ptr_format) == '%' || *(data->ptr_format) == 'd'
 		|| *(data->ptr_format) == 's' || *(data->ptr_format) == 'c'
-		|| *(data->ptr_format) == 'u')
+		|| *(data->ptr_format) == 'u'||*(data->ptr_format) == 'X'||*(data->ptr_format) == 'x'||*(data->ptr_format) == 'p')
 	{
 		if (*(data->ptr_format) == 'd')
 		{
@@ -34,6 +34,18 @@ void	ft_treat_flag(t_struct *data, va_list arg)
 		else if (*(data->ptr_format) == 'u')
 		{
 			ft_flag_u(va_arg(arg, unsigned int), data);
+		}
+		else if (*(data->ptr_format) == 'p')
+		{
+			ft_flag_p(va_arg(arg, unsigned long int), data);
+		}
+		else if (*(data->ptr_format) == 'x')
+		{
+			ft_flag_x(va_arg(arg, unsigned int), data);
+		}
+		else if (*(data->ptr_format) == 'X')
+		{
+			ft_flag_X(va_arg(arg, unsigned int), data);
 		}
 		data->ptr_format++;
 	}
@@ -76,12 +88,12 @@ int	main(void)
 	char e = 'S';
 	unsigned int u = 4123567890;
 	void *p = &str;
-	void **pp = p;
+	
 
-	total_ft = ft_printf("%s\n%d\n%c%c%c%c\n%u\n%%%%\n", str, i, c, d, d, e, u);
+	total_ft = ft_printf("%s\n%d\n%c%c%c%c\n%u\n%%%%\n%X\n%x\n%p\n", str, i, c, d, d, e, u,u,u,p);
 	printf("%d\n", total_ft);
 	printf("--------------------------------------------------------\n");
-	total_print = printf("%p\n%p\n",u,pp);
+	total_print = printf("%s\n%d\n%c%c%c%c\n%u\n%%%%\n%X\n%x\n%p\n", str, i, c, d, d, e, u,u,u,p);
 	printf("%d\n", total_print);
 
 	// i = ft_printf("coucou\n");
