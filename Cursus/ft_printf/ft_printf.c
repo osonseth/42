@@ -6,101 +6,44 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 20:04:36 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/29 00:58:13 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:04:43 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-void	ft_treat_flag(t_struct *data, va_list arg)
-{
-	while (*(data->ptr_format) == '%' || *(data->ptr_format) == 'd'
-		|| *(data->ptr_format) == 's' || *(data->ptr_format) == 'c'
-		|| *(data->ptr_format) == 'u'||*(data->ptr_format) == 'X'||*(data->ptr_format) == 'x'||*(data->ptr_format) == 'p')
-	{
-		if (*(data->ptr_format) == 'd')
-		{
-			ft_flag_d(va_arg(arg, int), data);
-		}
-		else if (*(data->ptr_format) == 's')
-		{
-			ft_flag_s(va_arg(arg, char *), data);
-		}
-		else if (*(data->ptr_format) == 'c')
-		{
-			ft_flag_c((char)va_arg(arg, int), data);
-		}
-		else if (*(data->ptr_format) == 'u')
-		{
-			ft_flag_u(va_arg(arg, unsigned int), data);
-		}
-		else if (*(data->ptr_format) == 'p')
-		{
-			ft_flag_p(va_arg(arg, unsigned long int), data);
-		}
-		else if (*(data->ptr_format) == 'x')
-		{
-			ft_flag_x(va_arg(arg, unsigned int), data);
-		}
-		else if (*(data->ptr_format) == 'X')
-		{
-			ft_flag_X(va_arg(arg, unsigned int), data);
-		}
-		data->ptr_format++;
-	}
+void	ft_treat_flag(va_list arg, const char *format, int *total_return)
+{ 
+	while ( )
 }
 
 int	ft_printf(const char *format, ...)
 {
-	t_struct(data) = {0};
+	int (total_return) = 0;
+	int (i) = 0;
+	int (j) = 0;
 	va_list(arg);
 	va_start(arg, format);
-	data.ptr_format = format;
-	while (*(data.ptr_format))
+	while (format[i + j])
 	{
-		if (*(data.ptr_format) == '%' && *(data.ptr_format + 1) == '%')
-		{
-			data.total_len += write(1, "%%", 1);
-			data.ptr_format +=2;
-		}
-		if (*(data.ptr_format) == '%' && *(data.ptr_format + 1) != '%')
-		{
-			ft_treat_flag(&data, arg);
-		}
-		data.total_len += write(1, data.ptr_format, 1);
-		data.ptr_format++;
+		
+		if (format[i + j] == '%')
+			ft_treat_flag(arg, &format[i + j], &total_return);
+		i++;
 	}
 	va_end(arg);
-	return (data.total_len);
+	return (total_return);
 }
 
 #include <limits.h>
 
 int	main(void)
 {
-	int total_ft = 0;
-	int total_print = 0;
-	char str[] = "coucou";
-	int i = INT_MIN;
-	char c = 'B';
-	char d = 'O';
-	char e = 'S';
-	unsigned int u = 4123567890;
-	void *p = &str;
-	
-
-	total_ft = ft_printf("%s\n%d\n%c%c%c%c\n%u\n%%%%\n%X\n%x\n%p\n", str, i, c, d, d, e, u,u,u,p);
-	printf("%d\n", total_ft);
-	printf("--------------------------------------------------------\n");
-	total_print = printf("%s\n%d\n%c%c%c%c\n%u\n%%%%\n%X\n%x\n%p\n", str, i, c, d, d, e, u,u,u,p);
-	printf("%d\n", total_print);
-
-	// i = ft_printf("coucou\n");
-
-	// ft_printf("%d\n%d\n%d\n", i, 12345,6789);
-
-	// printf("%s",str);
-	// printf("%p\n",p);
-	// printf("%d\n",result);
+	int test = 0;
+	void *p = &test;
+	unsigned long int n = (unsigned long int)p;
+	printf("%p\n", p);
+	ft_flag_p(n, &data);
+	printf("\n");
 }

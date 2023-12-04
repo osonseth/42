@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 12:26:10 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/29 00:54:18 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:05:10 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,16 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct sc
-{
-	int			total_len;
-	const char	*ptr_format;
-
-}				t_struct;
-
-int				ft_printf(const char *format, ...);
-void			ft_treat_flag(t_struct *data, va_list arg);
-void			ft_flag_d(int n, t_struct *data);
-void			ft_flag_s(char *str, t_struct *data);
-void			ft_flag_c(char c, t_struct *data);
-void			ft_flag_u(unsigned int n, t_struct *data);
-void			ft_flag_X(unsigned int n, t_struct *data);
-void			ft_flag_x(unsigned int n, t_struct *data);
-void			ft_flag_p(unsigned long int n, t_struct *data);
+int		ft_printf(const char *format, ...);
+void	ft_treat_flag(va_list arg, const char *format, int *total_return);
+void	ft_flag_d(int n, int *total_return);
+void	ft_flag_s(char *str, int *total_return);
+void	ft_flag_c(char c, int *total_return);
+void	ft_flag_u(unsigned int n, int *total_return);
+void	ft_flag_X(unsigned long int n, int *total_return);
+void	ft_flag_x(unsigned long int n, int *total_return);
+void	ft_flag_p(unsigned long int n, int *total_return);
+int		check_flag(char c);
+int		check_bonus(char c);
 
 #endif
