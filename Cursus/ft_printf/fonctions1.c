@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:55 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/12/04 18:35:52 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/12/11 16:38:51 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,21 @@
 
 void	ft_flag_c(char c, int *total_return)
 {
-	total_return += write(1, &c, 1);
+	*total_return += write(1, &c, 1);
 }
 
 // fonction qui affiche une string
 
 void	ft_flag_s(char *str, int *total_return)
 {
+	if (!str)
+	{
+		*total_return += write(1, "(null)", 6);
+		return ;
+	}
 	while (*str)
 	{
-		total_return += write(1, str, 1);
+		*total_return += write(1, str, 1);
 		str++;
 	}
 }
@@ -46,12 +51,12 @@ void	ft_flag_d(int n, int *total_return)
 
 	if (n == -2147483648)
 	{
-		total_return += write(1, "-2147483648", 11);
+		*total_return += write(1, "-2147483648", 11);
 		return ;
 	}
 	else if (n < 0)
 	{
-		total_return += write(1, "-", 1);
+		*total_return += write(1, "-", 1);
 		n = ft_abs(n);
 	}
 	if (n > 9)
@@ -62,7 +67,7 @@ void	ft_flag_d(int n, int *total_return)
 	else
 	{
 		c = n + '0';
-		total_return += write(1, &c, 1);
+		*total_return += write(1, &c, 1);
 	}
 }
 // fonction qui affiche la valeur d'un unsigned int
@@ -79,6 +84,6 @@ void	ft_flag_u(unsigned int n, int *total_return)
 	else
 	{
 		c = n + '0';
-		total_return += write(1, &c, 1);
+		*total_return += write(1, &c, 1);
 	}
 }
