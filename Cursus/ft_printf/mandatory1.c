@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fonctions1.c                                       :+:      :+:    :+:   */
+/*   mandatory1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:55 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/12/12 12:09:35 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/12/12 19:39:03 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <unistd.h>
-#include <stdio.h>
 
 // fonction qui affiche un char
 
@@ -38,7 +37,7 @@ void	ft_flag_s(char *str, int *total_return)
 }
 // fonction qui retoune la valeur absolue d'un int
 
-static int	ft_abs(int n)
+int	ft_abs(int n)
 {
 	if (n < 0)
 		return (-n);
@@ -48,7 +47,6 @@ static int	ft_abs(int n)
 
 void	ft_flag_d(int n, int *total_return)
 {
-	
 	char	c;
 
 	if (n == -2147483648)

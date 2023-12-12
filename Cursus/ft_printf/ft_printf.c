@@ -6,13 +6,14 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 20:04:36 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/12/12 15:21:40 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/12/12 19:57:12 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdbool.h>
 #include <stdio.h>
+#include <unistd.h>
 
 void	ft_treat_bonus(va_list arg, const char *format, int *i,
 		int *total_return)
@@ -43,7 +44,7 @@ void	ft_treat_bonus(va_list arg, const char *format, int *i,
 	}
 	else if (*format == 'X' && dieze == true)
 	{
-		ft_flag_dieze_and_X(va_arg(arg, unsigned long), total_return);
+		ft_flag_dieze_and_bigx(va_arg(arg, unsigned long), total_return);
 		return ;
 	}	
 	else if ((*format == 'd' || *format == 'i') && space == true)
@@ -84,7 +85,7 @@ void	ft_treat_flag(va_list arg, const char *format, int *total_return)
 	}
 	else if (*format == 'X')
 	{
-		ft_flag_X(va_arg(arg, unsigned long int), total_return);
+		ft_flag_bigx(va_arg(arg, unsigned long int), total_return);
 	}
 }
 
@@ -122,7 +123,9 @@ int	ft_printf(const char *format, ...)
 // {
 // 	int res1 = 0;
 // 	int res2 = 0;
-// 	int x = -1;
+// 	char x = 'a';
+// 	char y = '\0';
+// 	char z = '1';
 	
 //    Expected: [+0], return: 2
 //         Got:      [ 0], return: 2
@@ -134,9 +137,9 @@ int	ft_printf(const char *format, ...)
 	
 
 
-// 	res1 = printf("%+d\n", x);
+// 	res1 = printf("%c%c%c*\n", x,y,z);
 // 	printf("\n------------------------------------\n");
-// 	res2 = ft_printf("%+d\n", x);
+// 	res2 = ft_printf("%c%c%c*\n", x,y,z);
 
 // printf("\n------------------------------------\n");
 // 	printf("\nretour printf = %d\nretour ft_printf = %d\n", res1, res2);
