@@ -6,12 +6,13 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:55 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/12/11 16:38:51 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/12/12 12:09:35 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <unistd.h>
+#include <stdio.h>
 
 // fonction qui affiche un char
 
@@ -47,6 +48,7 @@ static int	ft_abs(int n)
 
 void	ft_flag_d(int n, int *total_return)
 {
+	
 	char	c;
 
 	if (n == -2147483648)

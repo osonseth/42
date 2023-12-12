@@ -9,10 +9,18 @@ SRCPATH 	=	./
 SRCS 		=	$(SRCPATH)ft_printf.c		\
 				$(SRCPATH)fonctions1.c		\
 				$(SRCPATH)fonctions2.c		\
+				$(SRCPATH)fonctions3.c		\
+
+SRCBONUS	=	$(SRCPATH)ft_printf.c		\
+				$(SRCPATH)fonctions1.c		\
+				$(SRCPATH)fonctions2.c		\
+				$(SRCPATH)fonctions3.c		\
 
 INCLUDEPATH =	./
 
 OBJ 		=	$(SRCS:.c=.o)
+
+OBJBONUS	=	$(SRCBONUS:.c=.o)
 
 NAME 		=	libftprintf.a
 
@@ -29,6 +37,9 @@ fclean: clean
 	rm -f $(NAME)
 
 all: $(NAME)
+
+bonus:	$(OBJ) $(OBJBONUS)
+	$(CCL) $(NAME) $(OBJ) $(OBJBONUS)
 
 re: fclean all
 

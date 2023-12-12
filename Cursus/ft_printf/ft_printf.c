@@ -6,12 +6,55 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 20:04:36 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/12/11 16:49:10 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:21:40 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdbool.h>
 #include <stdio.h>
+
+void	ft_treat_bonus(va_list arg, const char *format, int *i,
+		int *total_return)
+{
+	bool(dieze) = false;
+	bool(space) = false;
+	bool(plus) = false;
+	va_list (arg_copy);
+	va_copy (arg_copy, arg);
+
+	while (check_bonus(*format))
+	{
+		if (*format == '#')
+			dieze = true;
+		if (*format == ' ')
+			space = true;
+		if (*format == '+')
+			plus = true;
+		(*i)++;
+		format++;
+	}
+	if (space == true && plus == true)
+	space = false;
+	if (*format == 'x' && dieze == true)
+	{
+		ft_flag_dieze_and_x(va_arg(arg, unsigned long), total_return);
+		return ;
+	}
+	else if (*format == 'X' && dieze == true)
+	{
+		ft_flag_dieze_and_X(va_arg(arg, unsigned long), total_return);
+		return ;
+	}	
+	else if ((*format == 'd' || *format == 'i') && space == true)
+		ft_flag_di_and_space(va_arg(arg, int), total_return);
+	else if ((*format == 'd' || *format == 'i') && plus == true)
+		ft_flag_di_and_plus(va_arg(arg, int), total_return);
+	else
+		ft_treat_flag(arg, format, total_return);
+}
+
+
 
 void	ft_treat_flag(va_list arg, const char *format, int *total_return)
 {
@@ -60,8 +103,8 @@ int	ft_printf(const char *format, ...)
 		}
 		else if (format[i] == '%')
 		{
-			ft_treat_flag(arg, &format[i + 1], &total_return);
-			i += 2;
+			ft_treat_bonus(arg, &format[i], &i, &total_return);
+			i++;
 		}
 		else
 		{
@@ -79,13 +122,22 @@ int	ft_printf(const char *format, ...)
 // {
 // 	int res1 = 0;
 // 	int res2 = 0;
-// 	int x = 0;
+// 	int x = -1;
+	
+//    Expected: [+0], return: 2
+//         Got:      [ 0], return: 2
+//      You can rerun this test with sh test 1113
+//      The function was called like this:
+//    ft_printf("%+d", 0);
+
 
 	
 
-// 	res1 = printf("%X", x);
-// 	printf("\n------------------------------------\n");
-// 	res2 = ft_printf("%X",x);
 
-// printf("\nretour printf = %d\nretour ft_printf = %d\n",res1,res2);
+// 	res1 = printf("%+d\n", x);
+// 	printf("\n------------------------------------\n");
+// 	res2 = ft_printf("%+d\n", x);
+
+// printf("\n------------------------------------\n");
+// 	printf("\nretour printf = %d\nretour ft_printf = %d\n", res1, res2);
 // }

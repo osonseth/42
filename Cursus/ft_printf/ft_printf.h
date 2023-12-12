@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 12:26:10 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/12/04 19:05:10 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:00:50 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,11 @@ void	ft_flag_x(unsigned long int n, int *total_return);
 void	ft_flag_p(unsigned long int n, int *total_return);
 int		check_flag(char c);
 int		check_bonus(char c);
+void	ft_treat_bonus(va_list arg, const char *format, int *i,
+			int *total_return);
+void	ft_flag_dieze_and_x(unsigned long int n, int *total_return);
+void	ft_flag_dieze_and_X(unsigned long int n, int *total_return);
+void	ft_flag_di_and_space(int n, int *total_return);
+void	ft_flag_di_and_plus(int n, int *total_return);
 
 #endif
