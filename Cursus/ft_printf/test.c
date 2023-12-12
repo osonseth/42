@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 19:34:19 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/12/12 13:43:11 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:20:59 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,33 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void	putstr(char *str, int *j, int * total)
+int	ft_isdigit(int c)
 {
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
+int	ft_atoi(char *str)
+{
+	int	result;
 	int	i;
 
-	i = *j;
-	while (i > 0)
+	result = 0;
+	i = 0;
+	while (!ft_isdigit(str[i]))
+		i++;
+	while (ft_isdigit(str[i]))
 	{
-		*total+= write(1, &str[i -1], 1);
-		i--;
-	}
-}
-void putnbr(int n,int *total)
-{
-	char(tab)[11];
-	int(i) = 0;
-	long int(nb) = n;
-	if (nb == 0)
-	{
-		*total+= write(1, " 0", 2);
-		return ;
-	}
-
-	if (nb < 0)
-		*total+= write(1, "-", 1);
-	if (nb < 0)
-		nb *= -1;
-	while (nb > 0)
-	{
-		tab[i] = nb % 10 + '0';
-		nb /= 10;
+		result = result * 10 + str[i] - '0';
 		i++;
 	}
-	tab[i] = '\0';
-	putstr(tab, &i,total);
+	return (result);
 }
 
 int	main(void)
-{
-	int i = -123456;
-	int total = 0;
-	putnbr(i,&total);
-	printf("\n----------------------\n");
-	printf("%d\n",total);
+{	int nb;
+	char str[] = "%%->2147483647";
+	nb = ft_atoi(str);
+	printf("%d\n",nb);
 }
