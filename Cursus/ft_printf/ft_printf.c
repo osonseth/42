@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 20:04:36 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/12/12 19:57:12 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/12/13 21:13:42 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ void	ft_treat_flag(va_list arg, const char *format, int *total_return)
 	}
 	else if (*format == 'x')
 	{
-		ft_flag_x(va_arg(arg, unsigned long int), total_return);
+		ft_flag_x(va_arg(arg, unsigned int), total_return);
 	}
 	else if (*format == 'X')
 	{
-		ft_flag_bigx(va_arg(arg, unsigned long int), total_return);
+		ft_flag_bigx(va_arg(arg, unsigned int), total_return);
 	}
 }
 

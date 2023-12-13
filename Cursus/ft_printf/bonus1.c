@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 18:39:20 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/12/12 20:02:13 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/12/13 21:32:49 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_flag_di_and_plus(int n, int *total_return)
 }
 
 // fonction qui affiche la valeur au format hexa précédé de 0x
-void	ft_flag_dieze_and_x(unsigned long int n, int *total_return)
+void	ft_flag_dieze_and_x(unsigned int n, int *total_return)
 {
 	if (!n)
 		*total_return += write(1, "0", 1);
@@ -85,7 +85,7 @@ void	ft_flag_dieze_and_x(unsigned long int n, int *total_return)
 
 // fonction qui affiche la valeur au format hexa précédé de 0X
 
-void	ft_flag_dieze_and_bigx(unsigned long int n, int *total_return)
+void	ft_flag_dieze_and_bigx(unsigned int n, int *total_return)
 {
 	if (!n)
 		*total_return += write(1, "0", 1);

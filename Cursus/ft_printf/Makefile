@@ -10,15 +10,12 @@ SRCS 		=	$(SRCPATH)ft_printf.c		\
 				$(SRCPATH)mandatory1.c		\
 				$(SRCPATH)mandatory2.c		\
 				$(SRCPATH)bonus1.c			\
-				$(SRCPATH)bonus2.c			\
 				
-
 SRCBONUS	=	$(SRCPATH)ft_printf.c		\
 				$(SRCPATH)mandatory1.c		\
 				$(SRCPATH)mandatory2.c		\
 				$(SRCPATH)bonus1.c			\
-				$(SRCPATH)bonus2.c			\
-				
+			
 INCLUDEPATH =	./
 
 OBJ 		=	$(SRCS:.c=.o)
