@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:57:39 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/12/22 10:48:05 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:57:49 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*clean_backup_stash(char *backup_stash, char *stash)
 char	*finded_eol(char *line, char *stash, char *backup_stash)
 {
 	int(i) = 0;
+	int(j) = 0;
 	line = malloc((ft_len_line(stash) + 1) * sizeof(char));
 	if (!line)
 		return (NULL);
@@ -40,14 +41,14 @@ char	*finded_eol(char *line, char *stash, char *backup_stash)
 	}
 	line[i++] = '\n';
 	line[i] = '\0';
-	backup_stash = malloc((ft_strlen(stash) + 1) * sizeof(char));
+	backup_stash = malloc((ft_strlen(&stash[i]) + 1) * sizeof(char));
 	while (stash[i])
 	{
-		*backup_stash = stash[i];
-		printf("%c\n",*backup_stash);
+		backup_stash[j] = stash[i];
 		i++;
-		backup_stash++;
+		j++;
 	}
+	backup_stash[j] = '\0';
 	free(stash);
 	stash = NULL;
 	return (line);
@@ -78,17 +79,16 @@ char	*ft_strjoin(char *buffer, char *stash)
 	}
 	str[i] = '\0';
 	free(stash);
-	stash = NULL;
 	return (str);
 }
 
 char	*get_next_line(int fd)
 {
-	char	buffer[BUFFER_SIZE + 1];
+	char		buffer[BUFFER_SIZE + 1];
+	static char	*backup_stash;
 
 	char *(stash) = NULL;
 	char *(line) = NULL;
-	static char *(backup_stash) = NULL;
 	int(end_of_file) = 1;
 	if (backup_stash)
 		clean_backup_stash(backup_stash, stash);
@@ -100,6 +100,8 @@ char	*get_next_line(int fd)
 		if (check_eol(stash))
 		{
 			line = finded_eol(line, stash, backup_stash);
+			if (backup_stash)
+				printf("%s\n", backup_stash);
 			return (line);
 		}
 	}
@@ -109,6 +111,8 @@ char	*get_next_line(int fd)
 int	main(void)
 {
 	int fd = open("test.txt", O_RDONLY);
+	printf("premier appel de la fonction : \n");
 	get_next_line(fd);
+	printf("deuxième appel de la fonction : \n");
 	get_next_line(fd);
 }
