@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 00:20:13 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/01/10 03:49:19 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/01/10 21:42:01 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,24 @@ char	*ft_clean_stash(char *str)
 	char	*new_stash;
 	int		len;
 
+	int(i) = 0;
 	len = ft_strlen_of_line(str);
-	new_stash = ft_strdup(&str[len + 1]);
+
+	new_stash = malloc((ft_strlen(&str[len]) + 1) * sizeof(char));
+	while (str[len + i])
+	{  
+		new_stash[i] = str[len + i];
+		i++;
+	}
+	new_stash[i] = '\0';
 	free(str);
+	
 	return (new_stash);
 }
 
 char	*ft_line(char *str)
 {
-	char *(line) = malloc((ft_strlen_of_line(str) + 2) * sizeof(char));
+	char *(line) = malloc((ft_strlen_of_line(str) + 1) * sizeof(char));
 	int(i) = 0;
 	while (str[i] != '\n' && str[i] != '\0')
 	{
@@ -39,8 +48,8 @@ char	*ft_line(char *str)
 	}
 	else if (str[i] == '\n')
 	{
-		line[i++] = '\n';
-		line[i] = '\0';
+		line[i] = '\n';
+		line[i + 1] = '\0';
 	}
 	return (line);
 }
@@ -65,27 +74,25 @@ char	*ft_strjoin(char *buffer, char *stash)
 		i++;
 	}
 	str[i] = '\0';
+	free(stash);
 	return (str);
 }
 
 char	*get_next_line(int fd)
 {
-	char	buffer[BUFFER_SIZE + 1];
-
+	char (buffer)[BUFFER_SIZE + 1] = {0};
 	static char *(stash) = NULL;
 	char *(line) = NULL;
-	if (stash)
-	{
-		if (check_eol(stash))
-		{
-			line = ft_line(stash);
-			stash = ft_clean_stash(stash);
-			return (line);
-		}
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	if (stash && check_eol(stash))
+	{ 
+		line = ft_line(stash);
+		stash = ft_clean_stash(stash);
+		return (line);
 	}
 	while (read(fd, buffer, BUFFER_SIZE) > 0)
 	{
-		buffer[BUFFER_SIZE] = '\0';
 		if (!stash)
 			stash = ft_strdup(buffer);
 		else
@@ -94,38 +101,50 @@ char	*get_next_line(int fd)
 		{
 			line = ft_line(stash);
 			stash = ft_clean_stash(stash);
+			
 			return (line);
 		}
 	}
 	if (stash)
 	{
+	
 		line = ft_line(stash);
+		free(stash);
 		stash = NULL;
 		return (line);
 	}
 	return (NULL);
 }
 
-int	main(void)
-{
-	int fd;
-	char *line;
-	int i;
-	int trigger;
+// int	main(void)
+// {
+// 	int fd;
+// 	char *line;
+// 	// int i = 0;
+// 	// int trigger;
 
-	fd = open("test.txt", O_RDONLY);
-	i = 0;
-	trigger = 1;
-	printf("\033[36;01m| vv | le texte demarre a la ligne d'en dessou en blanc | vv |\033[00m\n");
-	while (trigger == 1)
-	{
-		line = get_next_line(fd);
-		printf("\033[36;01m| %2d |\033[00m%s\033[36;01m|\033[00m\n", i, line);
-		if (line == NULL)
-			trigger = 0;
-		free(line);
-		i++;
-	}
-	printf("\033[36;01m| ^^ | le texte prend fin a la ligne du dessus en blanc | ^^ |\033[00m\n");
-	return (0);
-}
+// 	fd = open("test.txt", O_RDONLY);
+	
+// 	while (1)
+// 	{
+// 		line = get_next_line(fd);
+// 		printf("%s", line);
+// 		if (line == NULL)
+// 			break ;
+		
+// 		free(line);
+// 	}
+	// trigger = 1;
+	// printf("\033[36;01m| vv | le texte demarre a la ligne d'en dessou en blanc | vv |\033[00m\n");
+	// while (trigger == 1)
+	// {
+	// 	line = get_next_line(fd);
+	// 	printf("\033[36;01m| %2d |\033[00m%s\033[36;01m|\033[00m\n", i, line);
+	// 	if (line == NULL)
+	// 		trigger = 0;
+	// 	free(line);
+	// 	i++;
+	// }
+	// printf("\033[36;01m| ^^ | le texte prend fin a la ligne du dessus en blanc | ^^ |\033[00m\n");
+// 	return (0);
+// }

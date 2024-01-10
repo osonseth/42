@@ -1,4 +1,0 @@
-Coucou c'est max !
-je veux tester un fichier
-avec 
-4 lignes.

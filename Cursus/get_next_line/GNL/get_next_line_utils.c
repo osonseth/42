@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 00:20:11 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/01/10 03:29:50 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/01/10 21:29:26 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_strlen(char *str)
 {
-	int (i) = 0;
+	int(i) = 0;
 	if (!str)
 		return (0);
 	while (str[i])
@@ -26,13 +26,16 @@ int	ft_strlen(char *str)
 
 int	ft_strlen_of_line(char *str)
 {
+	 
 	int(i) = 0;
 	if (!str)
 		return (0);
-	while (str[i] != '\n' && str[i] != '\0')
+	while (str[i] != '\n' && str[i])
 	{
 		i++;
 	}
+	if (str[i] == '\n')
+		i++;
 	return (i);
 }
 
@@ -74,6 +77,17 @@ void	ft_strcpy(char *dst, char *src)
 }
 
 char	*ft_strdup(char *s)
+{
+	char	*dest;
+
+	dest = malloc(1 + ft_strlen(s) * sizeof(char));
+	if (!dest)
+		return (NULL);
+	ft_strcpy(dest, s);
+	return (dest);
+}
+
+char	*ft_strdup_two(char *s)
 {
 	char	*dest;
 
