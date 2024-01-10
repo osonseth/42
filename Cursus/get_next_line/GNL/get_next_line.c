@@ -6,11 +6,23 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 00:20:13 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/01/10 23:38:41 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/01/10 23:51:39 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	ft_bzero(void *s, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((char *)s)[i] = '\0';
+		i++;
+	}
+}
 
 char	*ft_clean_stash(char *str)
 {
@@ -78,8 +90,6 @@ char	*ft_strjoin(char *buffer, char *stash)
 
 char	*get_next_line(int fd)
 {
-	int	i;
-
 	char(buffer)[BUFFER_SIZE + 1] = {0};
 	static char *(stash) = NULL;
 	char *(line) = NULL;
@@ -93,7 +103,6 @@ char	*get_next_line(int fd)
 	}
 	while (read(fd, buffer, BUFFER_SIZE) > 0)
 	{
-		i = 0;
 		if (!stash)
 			stash = ft_strdup(buffer);
 		else
@@ -104,11 +113,7 @@ char	*get_next_line(int fd)
 			stash = ft_clean_stash(stash);
 			return (line);
 		}
-		while (i < BUFFER_SIZE)
-		{
-			buffer[i] = '\0';
-			i++;
-		}
+		ft_bzero(buffer, BUFFER_SIZE);
 	}
 	if (stash)
 	{

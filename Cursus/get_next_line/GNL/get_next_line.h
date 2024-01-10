@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 00:20:07 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/01/10 22:11:57 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/01/10 23:55:30 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		ft_strlen_of_line(char *str);
 char	*ft_strdup(char *s);
 void	ft_strcpy(char *dst, char *src);
 char	*ft_strjoin(char *buffer, char *stash);
-bool	check_eof(char *str);
-char	*ft_strdup_two(char *s);
+void	ft_bzero(void *s, int n);
+
 
 #endif
