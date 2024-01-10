@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 00:20:11 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/01/10 22:09:52 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/01/10 23:42:05 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,7 @@ bool	check_eol(char *str)
 	return (false);
 }
 
-bool	check_eof(char *str)
-{
-	int(i) = 0;
-	while (str[i])
-	{
-		if (str[i] == '\0')
-			return (true);
-		i++;
-	}
-	return (false);
-}
+
 
 void	ft_strcpy(char *dst, char *src)
 {
