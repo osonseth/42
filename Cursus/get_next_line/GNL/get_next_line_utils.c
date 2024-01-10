@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 00:20:11 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/01/10 21:29:26 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/01/10 22:09:52 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,4 @@ char	*ft_strdup(char *s)
 	return (dest);
 }
 
-char	*ft_strdup_two(char *s)
-{
-	char	*dest;
 
-	dest = malloc(1 + ft_strlen(s) * sizeof(char));
-	if (!dest)
-		return (NULL);
-	ft_strcpy(dest, s);
-	return (dest);
-}
