@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 00:20:07 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/01/11 00:17:15 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/01/11 01:43:51 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ int		ft_strlen(char *str);
 int		ft_strlen_of_line(char *str);
 char	*ft_strjoin(char *buffer, char *stash);
 void	ft_bzero(void *s, int n);
+char	*ft_clean_stash(char *str);
+char	*make_line(char **line, char **stash);
 
 #endif

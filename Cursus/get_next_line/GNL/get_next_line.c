@@ -6,20 +6,25 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 00:20:13 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/01/11 00:18:00 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/01/11 01:44:50 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-
+char	*make_line(char **line, char **stash)
+{
+	*line = ft_line(*stash);
+	*stash = ft_clean_stash(*stash);
+	return (*line);
+}
 
 char	*ft_clean_stash(char *str)
 {
 	char	*new_stash;
 	int		len;
 
-	int(i) = 0;
+	int (i) = 0;
 	len = ft_strlen_of_line(str);
 	new_stash = malloc((ft_strlen(&str[len]) + 1) * sizeof(char));
 	while (str[len + i])
@@ -35,7 +40,7 @@ char	*ft_clean_stash(char *str)
 char	*ft_line(char *str)
 {
 	char *(line) = malloc((ft_strlen_of_line(str) + 1) * sizeof(char));
-	int(i) = 0;
+	int (i) = 0;
 	while (str[i] != '\n' && str[i] != '\0')
 	{
 		line[i] = str[i];
@@ -56,9 +61,9 @@ char	*ft_line(char *str)
 
 char	*ft_strjoin(char *buffer, char *stash)
 {
-	int(i) = 0;
-	int(j) = 0;
-	int(total_len) = ft_strlen(buffer) + ft_strlen(stash);
+	int (i) = 0;
+	int (j) = 0;
+	int (total_len) = ft_strlen(buffer) + ft_strlen(stash);
 	char *(str) = malloc((1 + total_len) * sizeof(char));
 	if (!str)
 		return (NULL);
@@ -83,35 +88,24 @@ char	*ft_strjoin(char *buffer, char *stash)
 
 char	*get_next_line(int fd)
 {
-	char(buffer)[BUFFER_SIZE + 1] = {0};
+	char (buffer)[BUFFER_SIZE + 1] = {0};
 	static char *(stash) = NULL;
 	char *(line) = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (stash && check_eol(stash))
-	{
-		line = ft_line(stash);
-		stash = ft_clean_stash(stash);
-		return (line);
-	}
+		return (make_line(&line, &stash));
 	while (read(fd, buffer, BUFFER_SIZE) > 0)
 	{
 		stash = ft_strjoin(buffer, stash);
 		if (check_eol(stash))
-		{
-			line = ft_line(stash);
-			stash = ft_clean_stash(stash);
-			return (line);
-		}
+			return (make_line(&line, &stash));
 		ft_bzero(buffer, BUFFER_SIZE);
 	}
 	if (stash)
 	{
 		if (stash[0] == '\0')
-		{
-			free(stash);
-			return (NULL);
-		}
+			return (free(stash), NULL);
 		line = ft_line(stash);
 		free(stash);
 		stash = NULL;
@@ -119,36 +113,3 @@ char	*get_next_line(int fd)
 	}
 	return (NULL);
 }
-
-// int	main(void)
-// {
-// 	int fd;
-// 	char *line;
-// 	int i = 0;
-// 	// int trigger;
-
-// fd = open("test.txt", O_RDONLY);
-
-// while ( i < 2)
-// {
-// 	line = get_next_line(fd);
-// 	printf("%s", line);
-// 	// if (line == NULL)
-// 	// 	break ;
-// 	i++;
-// 	free(line);
-// }
-// trigger = 1;
-// printf("\033[36;01m| vv | le texte demarre a la ligne d'en dessou en blanc | vv |\033[00m\n");
-// while (trigger == 1)
-// {
-// 	line = get_next_line(fd);
-// 	printf("\033[36;01m| %2d |\033[00m%s\033[36;01m|\033[00m\n", i, line);
-// 	if (line == NULL)
-// 		trigger = 0;
-// 	free(line);
-// 	i++;
-// }
-// printf("\033[36;01m| ^^ | le texte prend fin a la ligne du dessus en blanc | ^^ |\033[00m\n");
-// 	return (0);
-// }
