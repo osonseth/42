@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 20:04:36 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/12/15 18:38:08 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/12/15 15:42:07 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	ft_printf(const char *format, ...)
 		else if (format[i] == '%')
 		{
 			ft_treat_bonus(arg, &format[i], &i, &total_return);
-			if (format[i])
 			i++;
 		}
 		else
