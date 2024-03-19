@@ -1,0 +1,11 @@
+-L./minilibx-linux -lmlx -lXext -lX11
+
+liste chainée 
+
+empty_list
+print_list
+list_lenght
+
+
+declarer et malloc un noeud
+le next devient ce noeud et le next de ce noeud est a null
