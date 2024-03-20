@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:42:31 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/03/20 15:49:53 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:02:02 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ t_list				*cut_back_list(t_list *map);
 t_list				*remove_front_list(t_list *list);
 t_list				*clear_list(t_list *list);
 t_list				*manage(t_data *data, t_list *map);
+void				check_map_is_rectangle(t_list *map);
+void				display_error(char *str);
 
 #endif
