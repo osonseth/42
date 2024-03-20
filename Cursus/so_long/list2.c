@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:46:50 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/03/19 19:54:22 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:41:50 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,25 @@ t_list	*insert_back_list(t_list *list, char *line)
 		tmp = tmp->next;
 	tmp->next = node;
 	return (list);
+}
+
+t_list	*cut_back_list(t_list *map)
+{
+	t_list	*tmp;
+	t_list	*front_node;
+
+	tmp = map;
+	front_node = map;
+	while (tmp->next != NULL)
+	{
+		front_node = tmp;
+		tmp = tmp->next;
+		if (*(tmp->line_of_map) == '\n')
+		{
+			front_node->next = NULL;
+			clear_list(tmp);
+			return (map);
+		}
+	}
+	return (map);
 }

@@ -6,13 +6,13 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:49:23 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/03/20 01:58:56 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:37:08 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	manage(t_data *data, t_list *map)
+t_list	*make_list(t_data *data, t_list *map)
 {
 	char	*tmp;
 
@@ -26,19 +26,25 @@ void	manage(t_data *data, t_list *map)
 			break ;
 		map = insert_back_list(map, tmp);
 	}
-	data->number_of_line = list_length(map);
-	printf("\n-----------------\n");
-	print_list(map);
-	printf("\n-----------------\n");
+	close(data->fd);
+	return (map);
+}
+
+t_list	*cut_front_list(t_list *map)
+{
 	while (*(map->line_of_map) == '\n')
 	{
 		map = remove_front_list(map);
 	}
-	printf("\n-----------------\n");
-	print_list(map);
-	printf("\n-----------------\n");
-	clear_list(map);
-	close(data->fd);
+	return (map);
+}
+
+t_list	*manage(t_data *data, t_list *map)
+{
+	map = make_list(data, map);
+	map = cut_front_list(map);
+	map = cut_back_list(map);
+	return (map);
 }
 
 int	main(void)
@@ -47,6 +53,7 @@ int	main(void)
 
 	map = NULL;
 	t_data(data) = {0};
-	manage(&data, map);
-	printf("\n%d\n", data.number_of_line);
+	map = manage(&data, map);
+	print_list (map);
+	clear_list(map);
 }
