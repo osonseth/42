@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:42:31 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/03/20 15:04:46 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:49:53 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ typedef struct s_list
 bool				list_is_empty(t_list *list);
 int					list_length(t_list *list);
 void				print_list(t_list *list);
+t_list				*make_list(t_data *data, t_list *map);
 t_list				*insert_back_list(t_list *list, char *line);
+t_list				*cut_front_list(t_list *map);
 t_list				*cut_back_list(t_list *map);
 t_list				*remove_front_list(t_list *list);
 t_list				*clear_list(t_list *list);
+t_list				*manage(t_data *data, t_list *map);
 
 #endif
