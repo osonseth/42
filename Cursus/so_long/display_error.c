@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   display_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:51:48 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/03/20 18:06:56 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/03/25 13:51:32 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	display_error(char *str)
+void display_error(char *str)
 {
 	printf("%s\n", str);
-	return;
 }

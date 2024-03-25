@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:52:07 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/03/20 18:18:45 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:47:03 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 /* fonctions pour le parsing*/
 
 // calcul la longueur d'une lignes de la map
-int	ft_strlen_so_long(char *str)
+int ft_strlen_so_long(char *str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (!str)
@@ -29,28 +29,86 @@ int	ft_strlen_so_long(char *str)
 	return (i);
 }
 
+void check_first_wall(t_list *map)
+{
+
+	int i;
+	i = 0;
+
+	while (map->line_of_map[i])
+	{
+		if (map->line_of_map[i] != '1' && map->line_of_map[i] != '\n')
+			error(map);
+		i++;
+	}
+}
+
+void check_middles_wall(t_list *map)
+{
+	t_list *temp;
+	temp = map->next;
+	int len;
+	len = ft_strlen_so_long(temp->line_of_map);
+
+	while (temp->next != NULL)
+	{
+		if (temp->line_of_map[0] != '1' || temp->line_of_map[len - 1] != '1')
+			error(map);
+		temp = temp->next;
+	}
+}
+
+void check_last_wall(t_list *map)
+{
+	int i;
+	i = 0;
+	t_list *temp;
+	temp = map;
+
+	while (temp->next != NULL)
+	{
+		temp = temp->next;
+	}
+
+	while (temp->line_of_map[i])
+	{
+		if (temp->line_of_map[i] != '1')
+			error(map);
+		i++;
+	}
+}
+
 /* check que toutes les lignes fassent la meme longueur et que la longeur soit
  supérieur a la largeur*/
-void	check_map_is_rectangle(t_list *map)
+void check_map_is_rectangle(t_list *map)
 {
-	int	width;
-	int	length;
+	int width;
+	int length;
+
+	t_list *temp;
+	temp = map;
 
 	length = 0;
 	width = list_length(map);
-	while (map != NULL)
+	while (temp != NULL)
 	{
-		length += ft_strlen_so_long(map->line_of_map);
-		map = map->next;
+		length += ft_strlen_so_long(temp->line_of_map);
+		temp = temp->next;
 	}
 	if (length == 0 && width == 0)
-		display_error("Error\nmap vide");
+		error(map);
 	else if (length % width != 0)
-		display_error("Error\nles lignes ne font pas toutes la meme longueur");
+		error(map);
 	else
 	{
 		length /= width;
-		if (length <= width)
-			display_error("Error\nla map n'est pas un rectangle");
+		if (length < width)
+			error(map);
 	}
+}
+void error(t_list *map)
+{
+	printf("Error\nmap invalide\n");
+	clear_list(map);
+	exit(EXIT_FAILURE);
 }
