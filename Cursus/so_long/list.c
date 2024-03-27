@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:45:01 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/03/25 14:16:01 by max              ###   ########.fr       */
+/*   Updated: 2024/03/27 21:13:07 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,28 @@ t_list *clear_list(t_list *list)
 		temp = next_node;
 	}
 	return (NULL);
+}
+
+void ft_strcpy(char *dst, char *src)
+{
+	size_t i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+}
+
+char *ft_strdup(char *s)
+{
+	char *dest;
+
+	dest = malloc(1 + ft_strlen(s) * sizeof(char));
+	if (!dest)
+		return (NULL);
+	ft_strcpy(dest, s);
+	return (dest);
 }

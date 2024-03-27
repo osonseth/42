@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:42:31 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/03/25 14:33:17 by max              ###   ########.fr       */
+/*   Updated: 2024/03/27 21:49:12 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,9 @@ t_list *clear_list(t_list *list);
 t_list *manage(t_data *data, t_list *map);
 void check_map_is_rectangle(t_list *map);
 void display_error(char *str);
+int ft_strlen(char *str);
+void ft_strcpy(char *dst, char *src);
+char *ft_strdup(char *s);
+void clear_map(t_data *data);
 
 #endif
