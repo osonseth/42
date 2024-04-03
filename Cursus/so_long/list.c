@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:45:01 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/03/27 21:13:07 by max              ###   ########.fr       */
+/*   Updated: 2024/04/03 09:34:06 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,42 +15,76 @@
 /*fonctions servant a la création et manipulation de listes chainées*/
 
 // ouvre le .ber et crée une liste dont chaque noeud contient une ligne
-t_list *make_list(t_data *data, t_list *map)
+t_list *make_list(t_list *map,t_data *data)
 {
 	char *tmp;
+	int fd;
 
-	data->fd = open("map.ber", O_RDONLY);
+	fd = open(data->arg, O_RDONLY);
+
+	if (fd == -1)
+	{
+		perror("Erreur lors de l'ouverture du fichier");
+		exit(EXIT_FAILURE);
+	}
 	map = NULL;
 	tmp = NULL;
 	while (1)
 	{
-		tmp = get_next_line(data->fd);
+		tmp = get_next_line(fd);
 		if (tmp == NULL)
 			break;
 		map = insert_back_list(map, tmp);
 	}
-	close(data->fd);
+	close(fd);
 	return (map);
 }
 
-// free la liste et son champ char *
-
-t_list *clear_list(t_list *list)
+void make_map(t_data *data, t_list *map)
 {
-	t_list *temp;
-	t_list *next_node;
+	unsigned int i;
+	i = 0;
+	data->map = malloc(data->number_of_line * sizeof(char *));
 
-	if (list_is_empty(list))
-		return (list);
-	temp = list;
-	while (temp != NULL)
+	if (data->map == NULL)
 	{
-		next_node = temp->next;
-		free(temp->line_of_map);
-		free(temp);
-		temp = next_node;
+		clear_list(map);
+		exit(EXIT_FAILURE);
 	}
-	return (NULL);
+
+	while (i < data->number_of_line)
+	{
+		data->map[i] = ft_strdup(map->line_of_map);
+
+		if (data->map[i] == NULL)
+		{
+			clear_map(data);
+			clear_list(map);
+			exit(EXIT_FAILURE);
+		}
+
+		map = map->next;
+		i++;
+	}
+}
+
+void clear_map(t_data *data)
+{
+	unsigned int i;
+	i = 0;
+
+	while (i < data->number_of_line)
+	{
+		if (data->map[i])
+			free(data->map[i]);
+		else
+		{
+			free(data->map);
+			break;
+		}
+		i++;
+	}
+	free(data->map);
 }
 
 void ft_strcpy(char *dst, char *src)

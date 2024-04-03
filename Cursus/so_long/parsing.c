@@ -6,28 +6,13 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:52:07 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/03/25 21:46:37 by max              ###   ########.fr       */
+/*   Updated: 2024/04/03 09:49:09 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 /* fonctions pour le parsing*/
-
-// calcul la longueur d'une lignes de la map
-int ft_strlen_so_long(char *str)
-{
-	int i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] && str[i] != '\n')
-	{
-		i++;
-	}
-	return (i);
-}
 
 void check_first_wall(t_list *map)
 {
@@ -108,7 +93,7 @@ void check_map_is_rectangle(t_list *map)
 }
 void error(t_list *map)
 {
-	printf("Error\nmap invalide\n");
+	printf("Error\ninvalid map\n");
 	clear_list(map);
 	exit(EXIT_FAILURE);
 }

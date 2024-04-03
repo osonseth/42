@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 19:46:50 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/03/25 14:16:42 by max              ###   ########.fr       */
+/*   Updated: 2024/04/03 08:51:31 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,3 +79,22 @@ t_list *insert_back_list(t_list *list, char *line)
 	return (list);
 }
 
+// free la liste et son champ char *
+
+t_list *clear_list(t_list *list)
+{
+	t_list *temp;
+	t_list *next_node;
+
+	if (list_is_empty(list))
+		return (list);
+	temp = list;
+	while (temp != NULL)
+	{
+		next_node = temp->next;
+		free(temp->line_of_map);
+		free(temp);
+		temp = next_node;
+	}
+	return (NULL);
+}

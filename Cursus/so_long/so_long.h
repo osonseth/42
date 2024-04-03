@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:42:31 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/03/27 21:49:12 by max              ###   ########.fr       */
+/*   Updated: 2024/04/03 10:22:21 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 typedef struct s_data
 {
-	int fd;
 	unsigned int number_of_line;
+	char *arg;
 	char **map;
 
 } t_data;
@@ -38,19 +38,24 @@ void check_middles_wall(t_list *map);
 void check_last_wall(t_list *map);
 bool list_is_empty(t_list *list);
 int list_length(t_list *list);
+int ft_strlen_so_long(char *str);
 void print_list(t_list *list);
-t_list *make_list(t_data *data, t_list *map);
+t_list *make_list(t_list *map, t_data *data);
 t_list *insert_back_list(t_list *list, char *line);
 t_list *cut_front_list(t_list *map);
 t_list *cut_back_list(t_list *map);
 t_list *remove_front_list(t_list *list);
 t_list *clear_list(t_list *list);
-t_list *manage(t_data *data, t_list *map);
+t_list *parsing(t_data *data, t_list *map);
 void check_map_is_rectangle(t_list *map);
 void display_error(char *str);
 int ft_strlen(char *str);
 void ft_strcpy(char *dst, char *src);
 char *ft_strdup(char *s);
 void clear_map(t_data *data);
+void manage(t_data *data);
+void make_map(t_data *data, t_list *map);
+void check_argument(char *argument);
+int ft_strncmp(char *s1, char *s2, int n);
 
 #endif
