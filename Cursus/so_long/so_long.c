@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 17:49:23 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/04/03 09:42:54 by max              ###   ########.fr       */
+/*   Updated: 2024/04/09 22:46:21 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ void manage(t_data *data)
 	map = NULL;
 	map = parsing(data, map);
 	clear_list(map);
+	make_double_map(data);
+	// unsigned int i = 0;
+	// while (i < data->number_of_line)
 
-	unsigned int i = 0;
-	while (i < data->number_of_line)
-
-	{
-		printf("%s", data->map[i]);
-		i++;
-	}
+	// {
+	// 	printf("%s", data->map[i]);
+	// 	i++;
+	// }
 	clear_map(data);
 }
 

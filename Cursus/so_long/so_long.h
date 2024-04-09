@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:42:31 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/04/03 10:22:21 by max              ###   ########.fr       */
+/*   Updated: 2024/04/09 22:50:22 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_data
 	unsigned int number_of_line;
 	char *arg;
 	char **map;
+	char **double_map;
 
 } t_data;
 
@@ -57,5 +58,7 @@ void manage(t_data *data);
 void make_map(t_data *data, t_list *map);
 void check_argument(char *argument);
 int ft_strncmp(char *s1, char *s2, int n);
+void make_double_map(t_data *data);
+void clear_double_map(t_data *data);
 
 #endif
