@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:24 by max               #+#    #+#             */
-/*   Updated: 2024/04/11 18:52:08 by max              ###   ########.fr       */
+/*   Updated: 2024/04/12 00:21:16 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ typedef struct s_data
     char **map;
     size_t player_x;
     size_t player_y;
+    size_t number_of_collectibles;
+    size_t number_of_players;
+    size_t number_of_exits;
 
 } t_data;
 
@@ -43,8 +46,12 @@ void ft_strcpy_split(char *dst, const char *src, int size);
 char **ft_split(char const *s, t_data *data, char c);
 void display_error(char *str);
 void clear_array(char **array, int i);
-void check_first_wall(t_data *data);
 void check_map_constraints(t_data *data);
 void check_map_is_rectangle(t_data *data);
+void check_up_wall(t_data *data);
+void check_middles_wall(t_data *data);
+void check_down_wall(t_data *data);
+void collect_map_data (t_data *data);
+void check_collectibles_player_exit(t_data *data);
 
 #endif

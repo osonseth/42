@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:52:07 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/04/03 09:49:09 by max              ###   ########.fr       */
+/*   Updated: 2024/04/11 23:46:40 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void check_first_wall(t_list *map)
 	while (map->line_of_map[i])
 	{
 		if (map->line_of_map[i] != '1' && map->line_of_map[i] != '\n')
+		
 			error(map);
+		
 		i++;
 	}
 }
