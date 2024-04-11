@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 02:10:15 by max               #+#    #+#             */
-/*   Updated: 2024/04/11 16:33:35 by max              ###   ########.fr       */
+/*   Updated: 2024/04/12 00:46:30 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char **ft_split(char const *s, t_data *data, char c)
             data->split_new_words = true;
             tab[i] = malloc(1 + ft_strlen_split(s, c) * sizeof(char));
             if (tab[i] == NULL)
-                clear_array(tab, i);
+                clear_array_split(tab, i);
             ft_strcpy_split(tab[i], s, ft_strlen_split(s, c));
             i++;
         }
