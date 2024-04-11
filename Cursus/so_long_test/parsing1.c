@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:01:35 by max               #+#    #+#             */
-/*   Updated: 2024/04/11 03:19:54 by max              ###   ########.fr       */
+/*   Updated: 2024/04/11 19:32:28 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,12 @@ void check_map_name(char *argument)
 
     if (ft_strncmp(".ber", &argument[i - 4], 4))
     {
-        printf("Error\ninvalid map name\n");
+        ft_printf("Error\nInvalid map name\n");
         exit(EXIT_FAILURE);
     }
 }
 
-void display_error(char * str)
-{
-
-    ft_printf("%s\n",str);
-    exit(EXIT_FAILURE);
-}
+// lis le fichier .ber ligne par ligne et le concatène dans une seule string
 char *read_map(char *map)
 {
     int fd;
@@ -45,7 +40,7 @@ char *read_map(char *map)
 
     if (fd == -1)
     {
-        perror("Error opening file");
+        perror("Error\nOpening file");
         exit(EXIT_FAILURE);
     }
     while (1)
@@ -59,6 +54,12 @@ char *read_map(char *map)
     }
     close(fd);
     if (str == NULL)
-        display_error("Error\nempty map");
+        display_error("Error\nEmpty map");
     return str;
+}
+
+void check_map_constraints(t_data *data)
+{
+    check_map_is_rectangle(data);
+    
 }

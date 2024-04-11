@@ -6,12 +6,13 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 01:20:36 by max               #+#    #+#             */
-/*   Updated: 2024/04/11 01:54:33 by max              ###   ########.fr       */
+/*   Updated: 2024/04/11 17:02:47 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+// fonction strncmp basique
 int ft_strncmp(char *s1, char *s2, int n)
 {
     if (n == 0)
@@ -64,4 +65,11 @@ char *ft_strjoin_solong(char *s1, char *s2)
     if (s1)
         free(s1);
     return str;
+}
+// affiche la string en paramètre et exit (EXIT_FAILURE)
+void display_error(char * str)
+{
+
+    ft_printf("%s\n",str);
+    exit(EXIT_FAILURE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 00:20:11 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/01/11 00:19:17 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:16:49 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,15 @@ bool	check_eol(char *str)
 	return (false);
 }
 
-void	ft_bzero(void *s, int n)
+void ft_bzero(void *s, size_t n)
 {
-	int	i;
+    size_t i;
 
-	i = 0;
-	while (i < n)
-	{
-		((char *)s)[i] = '\0';
-		i++;
-	}
+    i = 0;
+    while (i < n)
+    {
+        ((char *)s)[i] = '\0';
+        i++;
+    }
 }
+
