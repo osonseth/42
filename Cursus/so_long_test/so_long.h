@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:24 by max               #+#    #+#             */
-/*   Updated: 2024/04/11 01:57:32 by max              ###   ########.fr       */
+/*   Updated: 2024/04/11 03:18:44 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_data
 {
     int number_of_map_lines;
     char *map_name;
+    char **map;
 
 } t_data;
 
@@ -31,6 +32,15 @@ void check_map_name(char *argument);
 void parsing_management(t_data *data);
 char *ft_strcpy(char *dest, const char *src);
 char *ft_strjoin_solong(char *s1, char *s2);
-char *read_map(char * map);
+char *read_map(char *map);
+//-------------------------------------------------
+void ft_bzero_solong(void *s, size_t n);
+void *ft_calloc(size_t nmemb, size_t size);
+int ft_count_words(char *str, char c);
+int ft_strlen_split(char const *s, char c);
+void ft_strcpy_split(char *dst, const char *src, int size);
+char **ft_split(char const *s, char c);
+//------------------------
+void display_error(char * str);
 
 #endif

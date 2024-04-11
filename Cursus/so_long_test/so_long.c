@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:19 by max               #+#    #+#             */
-/*   Updated: 2024/04/11 02:00:30 by max              ###   ########.fr       */
+/*   Updated: 2024/04/11 03:20:46 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ void parsing_management(t_data *data)
 	char *map_in_string;
 	check_map_name(data->map_name);
 	map_in_string = read_map(data->map_name);
+	data->map = ft_split(map_in_string, '\n');
+	
+	
 }
 
 int main(int argc, char **argv)

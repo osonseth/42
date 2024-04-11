@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:01:35 by max               #+#    #+#             */
-/*   Updated: 2024/04/11 01:58:37 by max              ###   ########.fr       */
+/*   Updated: 2024/04/11 03:19:54 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void check_map_name(char *argument)
     }
 }
 
+void display_error(char * str)
+{
+
+    ft_printf("%s\n",str);
+    exit(EXIT_FAILURE);
+}
 char *read_map(char *map)
 {
     int fd;
@@ -51,7 +57,8 @@ char *read_map(char *map)
         free(tmp);
         tmp = NULL;
     }
-
     close(fd);
+    if (str == NULL)
+        display_error("Error\nempty map");
     return str;
 }
