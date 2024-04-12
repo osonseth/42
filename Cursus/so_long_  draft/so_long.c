@@ -5,42 +5,53 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 20:03:19 by max               #+#    #+#             */
-/*   Updated: 2024/04/12 01:41:00 by max              ###   ########.fr       */
+/*   Created: 2024/03/19 17:49:23 by mmauchre          #+#    #+#             */
+/*   Updated: 2024/04/09 22:46:21 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void parsing_management(t_data *data)
+t_list *parsing(t_data *data, t_list *map)
 {
-	// size_t x;
-	// size_t y;
+	check_argument(data->arg);
+	map = make_list(map,data);
 
-	char *map_in_string;
-	check_map_name(data->map_name);
-	map_in_string = read_map(data->map_name);
-	data->map = ft_split(map_in_string, data, '\n');
-	free(map_in_string);
-	check_map_constraints(data);
-	make_duplicate_of_map(data);
-	flood_fill(data, data->player_y, data->player_x);
-	check_valid_way(data);
-	
-	
-	clear_array(data->map, data->number_of_map_lines);
-	clear_array(data->duplicate_of_map, data->number_of_map_lines);
+	check_map_is_rectangle(map);
+	check_first_wall(map);
+	check_last_wall(map);
+	check_middles_wall(map);
+	data->number_of_line = list_length(map);
+	make_map(data, map);
+
+	return (map);
+}
+void manage(t_data *data)
+{
+	t_list *map;
+	map = NULL;
+	map = parsing(data, map);
+	clear_list(map);
+	make_double_map(data);
+	// unsigned int i = 0;
+	// while (i < data->number_of_line)
+
+	// {
+	// 	printf("%s", data->map[i]);
+	// 	i++;
+	// }
+	clear_map(data);
 }
 
 int main(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		ft_printf("Error\ninvalid number of arguments\n");
+		printf("Error\ninvalid number of arguments\n");
 		return 1;
 	}
-
 	t_data(data) = {0};
-	data.map_name = argv[1];
-	parsing_management(&data);
+	data.arg = argv[1];
+
+	manage(&data);
 }

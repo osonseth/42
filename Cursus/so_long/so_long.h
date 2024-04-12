@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 14:42:31 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/04/09 22:50:22 by max              ###   ########.fr       */
+/*   Created: 2024/04/10 20:03:24 by max               #+#    #+#             */
+/*   Updated: 2024/04/12 01:35:44 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,51 @@
 #define SO_LONG_H
 
 #include "get_next_line.h"
+#include "ft_printf.h"
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdio.h>
 
 typedef struct s_data
 {
-	unsigned int number_of_line;
-	char *arg;
-	char **map;
-	char **double_map;
+    bool split_new_words;
+    int number_of_map_lines;
+    char *map_name;
+    char **map;
+    char **duplicate_of_map;
+    size_t player_x;
+    size_t player_y;
+    size_t number_of_collectibles;
+    size_t number_of_players;
+    size_t number_of_exits;
 
 } t_data;
 
-typedef struct s_list
-{
-	char *line_of_map;
-	struct s_list *next;
-} t_list;
-
-void error(t_list *map);
-void check_first_wall(t_list *map);
-void check_middles_wall(t_list *map);
-void check_last_wall(t_list *map);
-bool list_is_empty(t_list *list);
-int list_length(t_list *list);
-int ft_strlen_so_long(char *str);
-void print_list(t_list *list);
-t_list *make_list(t_list *map, t_data *data);
-t_list *insert_back_list(t_list *list, char *line);
-t_list *cut_front_list(t_list *map);
-t_list *cut_back_list(t_list *map);
-t_list *remove_front_list(t_list *list);
-t_list *clear_list(t_list *list);
-t_list *parsing(t_data *data, t_list *map);
-void check_map_is_rectangle(t_list *map);
-void display_error(char *str);
-int ft_strlen(char *str);
-void ft_strcpy(char *dst, char *src);
-char *ft_strdup(char *s);
-void clear_map(t_data *data);
-void manage(t_data *data);
-void make_map(t_data *data, t_list *map);
-void check_argument(char *argument);
 int ft_strncmp(char *s1, char *s2, int n);
-void make_double_map(t_data *data);
-void clear_double_map(t_data *data);
+char *ft_strdup(const char *s);
+void check_map_name(char *argument);
+void parsing_management(t_data *data);
+char *ft_strcpy(char *dest, const char *src);
+char *ft_strjoin_solong(char *s1, char *s2);
+char *read_map(char *map);
+void *ft_calloc(size_t nmemb, size_t size);
+int ft_count_words(char *str, char c);
+int ft_strlen_split(char const *s, char c);
+void ft_strcpy_split(char *dst, const char *src, int size);
+char **ft_split(char const *s, t_data *data, char c);
+void display_error(char *str);
+void display_error_and_clear_array(t_data *data, char *str);
+void clear_array_split(char **array, int j);
+void clear_array(char **array, int i);
+void check_map_constraints(t_data *data);
+void check_map_is_rectangle(t_data *data);
+void check_up_wall(t_data *data);
+void check_middles_wall(t_data *data);
+void check_down_wall(t_data *data);
+void collect_map_data(t_data *data);
+void check_collectibles_player_exit(t_data *data);
+void make_duplicate_of_map(t_data *data);
+void flood_fill(t_data *data, size_t y, size_t x);
+void check_valid_way(t_data *data);
 
 #endif

@@ -5,13 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 09:38:02 by max               #+#    #+#             */
-/*   Updated: 2024/04/09 22:55:00 by max              ###   ########.fr       */
+/*   Created: 2024/04/11 01:20:36 by max               #+#    #+#             */
+/*   Updated: 2024/04/11 17:02:47 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+// fonction strncmp basique
 int ft_strncmp(char *s1, char *s2, int n)
 {
     if (n == 0)
@@ -27,86 +28,48 @@ int ft_strncmp(char *s1, char *s2, int n)
     return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
-// calcul la longueur d'une lignes de la map
-int ft_strlen_so_long(char *str)
+/*copie la src dans la dest uniquement si src != NULL car
+dans le premier appel src == NULL (segfault)*/
+char *ft_strcpy(char *dest, const char *src)
 {
-    int i;
-
-    i = 0;
-    if (!str)
-        return (0);
-    while (str[i] && str[i] != '\n')
+    int i = 0;
+    if (src)
     {
-        i++;
-    }
-    return (i);
-}
-// fonction qui check que le fichier (map) finisse bien par .ber
-void check_argument(char *argument)
-{
-    int i;
-
-    i = 0;
-
-    while (argument[i])
-        i++;
-
-    if (ft_strncmp(".ber", &argument[i - 4], 4))
-    {
-        printf("Error\ninvalid name of map\n");
-        exit(EXIT_FAILURE);
-    }
-}
-// fonction qui clean le double de la map 
-void clear_double_map(t_data *data)
-{
-	unsigned int i;
-	i = 0;
-
-	while (i < data->number_of_line)
-	{
-		if (data->double_map[i])
-			free(data->double_map[i]);
-		else
-		{
-			free(data->double_map);
-			break;
-		}
-		i++;
-	}
-	free(data->double_map);
-}
-// fonction qui crée un double de la map 
-void make_double_map(t_data *data)
-{
-    
-    unsigned int i;
-    i = 0;
-
-    data->double_map = malloc(data->number_of_line * sizeof(char *));
-    if (data->double_map == NULL)
-    {
-        clear_map(data);
-        exit(EXIT_FAILURE);
-    }
-
-    while (i < data->number_of_line)
-    {
-        data->double_map[i] = ft_strdup(data->map[i]);
-
-        if (data->double_map[i] == NULL)
+        while (src[i])
         {
-            clear_map(data);
-            exit(EXIT_FAILURE);
+            dest[i] = src[i];
+            i++;
         }
-        i++;
     }
-    i = 0;
-	while (i < data->number_of_line)
 
-	{
-		printf("%s", data->double_map[i]);
-		i++;
-	}
-    clear_double_map(data);
+    dest[i] = '\0';
+    return dest;
+}
+/* malloc une string de la taille des 2 reçues en paramètres puis les
+ envoie a ft_strcpy, free S1 si non NULL car le premier appel de la
+ fonction aura s1 == NULL, renvoie ensuite la string*/
+
+char *ft_strjoin_solong(char *s1, char *s2)
+{
+
+    int len1 = ft_strlen(s1);
+    int len2 = ft_strlen(s2);
+    char *str = malloc(1 + len1 + len2);
+    if (!str)
+        return NULL;
+
+    ft_strcpy(str, s1);
+
+    ft_strcpy(str + len1, s2);
+
+    if (s1)
+        free(s1);
+    return str;
+}
+// affiche la string en paramètre et exit (EXIT_FAILURE)
+void display_error(char * str)
+{
+
+    ft_printf("%s\n",str);
+    exit(EXIT_FAILURE);
 }
