@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 01:22:30 by max               #+#    #+#             */
-/*   Updated: 2024/04/14 03:17:41 by max              ###   ########.fr       */
+/*   Updated: 2024/04/14 07:36:51 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,3 @@ void display_game(t_data *data)
     }
 }
 
-void game_management(t_data *data)
-{
-    init_and_window(data);
-    open_image(data);
-    display_game(data);
-    mlx_loop(data->mlx_init);
-}

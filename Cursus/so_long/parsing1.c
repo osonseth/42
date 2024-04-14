@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:01:35 by max               #+#    #+#             */
-/*   Updated: 2024/04/14 03:09:35 by max              ###   ########.fr       */
+/*   Updated: 2024/04/14 07:55:57 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ char *read_map(char *map)
         free(tmp);
         tmp = NULL;
     }
-    close(fd);
-    if (str == NULL)
+     if (str == NULL)
         display_error("Error\nEmpty map");
+    close(fd);
     return str;
 }
 
@@ -106,14 +106,13 @@ void check_collectibles_player_exit(t_data *data)
 void check_map_constraints(t_data *data)
 {
     check_map_is_rectangle(data);
-     data->map_width = ft_strlen(data->map[0]);
+    data->map_width = ft_strlen(data->map[0]);
     check_up_wall(data);
     check_down_wall(data);
     check_middles_wall(data);
     collect_map_data(data);
     check_collectibles_player_exit(data);
-   
-	if (data->map_height > 18 || data->map_width > 30)
-        display_error_and_clear_array(data,"Error\nThe map is too big");
-    
+
+    if (data->map_height > 18 || data->map_width > 30)
+        display_error_and_clear_array(data, "Error\nThe map is too big");
 }
