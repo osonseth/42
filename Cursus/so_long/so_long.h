@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:24 by max               #+#    #+#             */
-/*   Updated: 2024/04/14 03:23:16 by max              ###   ########.fr       */
+/*   Updated: 2024/04/14 13:06:02 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "minilibx-linux/mlx.h"
+#include "X11/keysym.h"
+
+#define UP 122   
+#define LEFT 113  
+#define DOWN 115 
+#define RIGHT 100 
+
 
 typedef struct s_data
 {
@@ -76,7 +83,12 @@ void check_valid_way(t_data *data);
 void game_management(t_data *data);
 void init_and_window(t_data *data);
 void open_image (t_data *data);
-void clear_array_and_destroy_image(t_data *data);
-void display_game (t_data *data);
+void clear_array_and_destroy(t_data *data, char * str);
+int display_game(t_data *data);
+int keypress(int keycode, t_data *data);
+void keypress_is_up (t_data *data);
+void keypress_is_down (t_data *data);
+void keypress_is_right (t_data *data);
+void keypress_is_left (t_data *data);
 
 #endif

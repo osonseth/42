@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx.c                                              :+:      :+:    :+:   */
+/*   mlx1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 01:22:30 by max               #+#    #+#             */
-/*   Updated: 2024/04/14 07:36:51 by max              ###   ########.fr       */
+/*   Updated: 2024/04/14 13:07:59 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,22 @@ void open_image(t_data *data)
 {
     data->mlx_image_asteroid = mlx_xpm_file_to_image(data->mlx_init, "xpm/asteroid.xpm", &(data->image_width), &(data->image_height));
     if (data->mlx_image_asteroid == NULL)
-        clear_array_and_destroy_image(data);
+        clear_array_and_destroy(data, "Error\nMlx open image failed");
     data->mlx_image_space = mlx_xpm_file_to_image(data->mlx_init, "xpm/space.xpm", &(data->image_width), &(data->image_height));
     if (data->mlx_image_space == NULL)
-        clear_array_and_destroy_image(data);
+        clear_array_and_destroy(data, "Error\nMlx open image failed");
     data->mlx_image_spaceship = mlx_xpm_file_to_image(data->mlx_init, "xpm/spaceship.xpm", &(data->image_width), &(data->image_height));
     if (data->mlx_image_spaceship == NULL)
-        clear_array_and_destroy_image(data);
+        clear_array_and_destroy(data, "Error\nMlx open image failed");
     data->mlx_image_astro = mlx_xpm_file_to_image(data->mlx_init, "xpm/astro.xpm", &(data->image_width), &(data->image_height));
     if (data->mlx_image_astro == NULL)
-        clear_array_and_destroy_image(data);
+        clear_array_and_destroy(data, "Error\nMlx open image failed");
     data->mlx_image_exit = mlx_xpm_file_to_image(data->mlx_init, "xpm/exit.xpm", &(data->image_width), &(data->image_height));
     if (data->mlx_image_exit == NULL)
-        clear_array_and_destroy_image(data);
+        clear_array_and_destroy(data, "Error\nMlx open image failed");
 }
 
-void display_game(t_data *data)
+int display_game(t_data *data)
 {
     int i = 0;
     int j;
@@ -67,5 +67,21 @@ void display_game(t_data *data)
         }
         i++;
     }
+    return 0;
 }
 
+int keypress(int keycode, t_data *data)
+{
+
+    if (keycode == UP)
+        keypress_is_up(data);
+    else if (keycode == DOWN)
+        keypress_is_down(data);
+    else if (keycode == RIGHT)
+        keypress_is_right(data);
+    else if (keycode == LEFT)
+        keypress_is_left(data);
+    else
+        return 0;
+    return 1;
+}

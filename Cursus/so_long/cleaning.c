@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:41:19 by max               #+#    #+#             */
-/*   Updated: 2024/04/14 02:41:46 by max              ###   ########.fr       */
+/*   Updated: 2024/04/14 11:25:43 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void display_error_and_clear_array(t_data *data, char *str)
         clear_array(data->duplicate_of_map, data->map_height);
     display_error(str);
 }
-void clear_array_and_destroy_image(t_data *data)
+void clear_array_and_destroy(t_data *data, char * str)
 {
 
     if (data->mlx_image_asteroid != NULL)
@@ -68,5 +68,8 @@ void clear_array_and_destroy_image(t_data *data)
         mlx_destroy_image(data->mlx_init, data->mlx_image_exit);
 
     clear_array(data->map, data->map_height);
-    display_error("Error\nMlx open image failed");
+    mlx_destroy_window(data->mlx_init, data->mlx_windows);
+    mlx_destroy_display(data->mlx_init);
+    free(data->mlx_init);
+    display_error(str);
 }

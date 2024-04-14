@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:19 by max               #+#    #+#             */
-/*   Updated: 2024/04/14 07:56:13 by max              ###   ########.fr       */
+/*   Updated: 2024/04/14 13:09:45 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void game_management(t_data *data)
 {
 	init_and_window(data);
 	open_image(data);
-	display_game(data);
+
+	mlx_loop_hook(data->mlx_init, display_game, data);
+	mlx_key_hook(data->mlx_windows, keypress, data);
+
 	mlx_loop(data->mlx_init);
 }
 
@@ -51,8 +54,7 @@ int main(int argc, char **argv)
 
 	t_data(data) = {0};
 	data.map_name = argv[1];
+
 	parsing_management(&data);
 	game_management(&data);
 }
-
-// clear_array(data->map, data->map_height);
