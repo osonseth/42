@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:01:35 by max               #+#    #+#             */
-/*   Updated: 2024/04/12 00:21:27 by max              ###   ########.fr       */
+/*   Updated: 2024/04/14 03:09:35 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void collect_map_data(t_data *data)
     int j;
     i = 0;
 
-    while (i < data->number_of_map_lines)
+    while (i < data->map_height)
     {
         j = 0;
         while (data->map[i][j])
@@ -88,17 +88,17 @@ void check_collectibles_player_exit(t_data *data)
 {
     if (data->number_of_exits != 1)
     {
-        clear_array(data->map, data->number_of_map_lines);
+        clear_array(data->map, data->map_height);
         display_error("Error\nInvalid number of exit");
     }
     if (data->number_of_players != 1)
     {
-        clear_array(data->map, data->number_of_map_lines);
+        clear_array(data->map, data->map_height);
         display_error("Error\nInvalid number of player");
     }
     if (data->number_of_collectibles < 1)
     {
-        clear_array(data->map, data->number_of_map_lines);
+        clear_array(data->map, data->map_height);
         display_error("Error\nInvalid number of collectibles");
     }
 }
@@ -106,9 +106,14 @@ void check_collectibles_player_exit(t_data *data)
 void check_map_constraints(t_data *data)
 {
     check_map_is_rectangle(data);
+     data->map_width = ft_strlen(data->map[0]);
     check_up_wall(data);
     check_down_wall(data);
     check_middles_wall(data);
     collect_map_data(data);
     check_collectibles_player_exit(data);
+   
+	if (data->map_height > 18 || data->map_width > 30)
+        display_error_and_clear_array(data,"Error\nThe map is too big");
+    
 }

@@ -6,11 +6,26 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 01:20:36 by max               #+#    #+#             */
-/*   Updated: 2024/04/11 17:02:47 by max              ###   ########.fr       */
+/*   Updated: 2024/04/14 03:23:23 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void *ft_calloc(size_t nmemb, size_t size)
+{
+    void *p;
+
+    if (nmemb == 0 || size == 0)
+        return (malloc(0));
+    if (nmemb > INT_MAX / size)
+        return (NULL);
+    p = malloc(nmemb * size * sizeof(char));
+    if (!p)
+        return (NULL);
+    ft_bzero(p, nmemb * size);
+    return (p);
+}
 
 // fonction strncmp basique
 int ft_strncmp(char *s1, char *s2, int n)
@@ -67,9 +82,9 @@ char *ft_strjoin_solong(char *s1, char *s2)
     return str;
 }
 // affiche la string en paramètre et exit (EXIT_FAILURE)
-void display_error(char * str)
+void display_error(char *str)
 {
 
-    ft_printf("%s\n",str);
+    ft_printf("%s\n", str);
     exit(EXIT_FAILURE);
 }

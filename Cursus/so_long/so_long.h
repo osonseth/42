@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:24 by max               #+#    #+#             */
-/*   Updated: 2024/04/12 01:35:44 by max              ###   ########.fr       */
+/*   Updated: 2024/04/14 03:23:16 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,20 @@
 
 #include "get_next_line.h"
 #include "ft_printf.h"
+#include <limits.h>
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include "minilibx-linux/mlx.h"
 
 typedef struct s_data
 {
     bool split_new_words;
-    int number_of_map_lines;
+    int count_words;
+    int map_height;
+    int map_width;
+    int image_height;
+    int image_width;
     char *map_name;
     char **map;
     char **duplicate_of_map;
@@ -31,6 +37,13 @@ typedef struct s_data
     size_t number_of_collectibles;
     size_t number_of_players;
     size_t number_of_exits;
+    void *mlx_init;
+    void *mlx_windows;
+    void *mlx_image_asteroid;
+    void *mlx_image_space;
+    void *mlx_image_astro;
+    void *mlx_image_spaceship;
+    void *mlx_image_exit;
 
 } t_data;
 
@@ -60,5 +73,10 @@ void check_collectibles_player_exit(t_data *data);
 void make_duplicate_of_map(t_data *data);
 void flood_fill(t_data *data, size_t y, size_t x);
 void check_valid_way(t_data *data);
+void game_management(t_data *data);
+void init_and_window(t_data *data);
+void open_image (t_data *data);
+void clear_array_and_destroy_image(t_data *data);
+void display_game (t_data *data);
 
 #endif

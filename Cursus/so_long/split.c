@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   spilt.c                                            :+:      :+:    :+:   */
+/*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 02:10:15 by max               #+#    #+#             */
-/*   Updated: 2024/04/12 00:46:30 by max              ###   ########.fr       */
+/*   Updated: 2024/04/14 03:27:10 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <limits.h>
 
-void *ft_calloc(size_t nmemb, size_t size)
-{
-    void *p;
 
-    if (nmemb == 0 || size == 0)
-        return (malloc(0));
-    if (nmemb > INT_MAX / size)
-        return (NULL);
-    p = malloc(nmemb * size * sizeof(char));
-    if (!p)
-        return (NULL);
-    ft_bzero(p, nmemb * size);
-    return (p);
-}
+
 
 int ft_count_words(char *str, char c)
 {
@@ -88,8 +75,8 @@ char **ft_split(char const *s, t_data *data, char c)
 
     i = 0;
     data->split_new_words = false;
-    data->number_of_map_lines = ft_count_words((char *)s, c);
-    tab = ft_calloc(data->number_of_map_lines, sizeof(char *));
+    data->map_height = ft_count_words((char *)s, c);
+    tab = ft_calloc(data->map_height, sizeof(char *));
     if (!tab)
         return (NULL);
     while (*s)

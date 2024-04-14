@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 00:32:22 by max               #+#    #+#             */
-/*   Updated: 2024/04/12 01:42:48 by max              ###   ########.fr       */
+/*   Updated: 2024/04/14 02:37:53 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ void make_duplicate_of_map(t_data *data)
 {
     int i;
 
-    data->duplicate_of_map = malloc(data->number_of_map_lines * sizeof(char *));
+    data->duplicate_of_map = malloc(data->map_height * sizeof(char *));
     if (data->duplicate_of_map == NULL)
     {
-        clear_array(data->map, data->number_of_map_lines);
+        clear_array(data->map, data->map_height);
         perror("Error\nMemory allocation error");
         exit(EXIT_FAILURE);
     }
     i = 0;
 
-    while (i < data->number_of_map_lines)
+    while (i < data->map_height)
     {
         data->duplicate_of_map[i] = ft_strdup(data->map[i]);
         if (data->duplicate_of_map[i] == NULL)
         {
-            clear_array(data->map, data->number_of_map_lines);
+            clear_array(data->map, data->map_height);
             clear_array(data->duplicate_of_map, i);
             perror("Error\nMemory allocation error");
             exit(EXIT_FAILURE);
@@ -66,7 +66,7 @@ void check_valid_way(t_data *data)
     int j;
     i = 0;
 
-    while (i < data->number_of_map_lines)
+    while (i < data->map_height)
     {
         j = 0;
         while (data->duplicate_of_map[i][j])
@@ -84,9 +84,4 @@ void check_valid_way(t_data *data)
         i++;
     }
 }
-void display_error_and_clear_array(t_data *data, char *str)
-{
-    clear_array(data->map,data->number_of_map_lines);
-    clear_array(data->duplicate_of_map,data->number_of_map_lines);
-    display_error(str);
-}
+

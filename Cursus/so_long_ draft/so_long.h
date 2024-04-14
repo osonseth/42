@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:42:31 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/04/09 22:50:22 by max              ###   ########.fr       */
+/*   Updated: 2024/04/14 01:10:27 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include "minilibx-linux/mlx.h"
+
 
 typedef struct s_data
 {
@@ -32,6 +34,19 @@ typedef struct s_list
 	char *line_of_map;
 	struct s_list *next;
 } t_list;
+typedef struct s_mlx
+{
+
+    int map_heigh;
+    void *mlx;
+    void *windows;
+    void *image_aste;
+    void *image_space;
+    void *image_astro;
+    void *image_ship;
+    void *image_exit;
+
+} t_mlx;
 
 void error(t_list *map);
 void check_first_wall(t_list *map);
