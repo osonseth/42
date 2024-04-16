@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:01:35 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 19:07:53 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:10:39 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ void	check_map_constraints(t_data *data)
 	check_middles_wall(data);
 	collect_map_data(data);
 	check_collectibles_player_exit(data);
-	if (data->map_height > 18 || data->map_width > 30)
+	if (data->map_height > 15 || data->map_width > 30)
 		display_error_and_clear_array(data, "Error\nThe map is too big");
 }

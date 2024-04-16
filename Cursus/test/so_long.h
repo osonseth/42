@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:24 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 19:51:52 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:00:41 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ void		clear_array_and_array_of_sprite(t_data *data, int j);
 void		read_sprite(t_data *data);
 void		clear_mlx_image_sprite(t_data *dat, int j);
 void		display_sprite(t_data *data, int x, int y);
+void		display_utils(t_data *data, int i, int j);
 
 #endif

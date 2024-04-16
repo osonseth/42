@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 01:22:30 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 19:55:29 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:28:07 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	init_and_window(t_data *data)
 	if (data->mlx_init == NULL)
 		display_error_and_clear_array(data, "Error\nMlx initialization failed");
 	data->mlx_windows = mlx_new_window(data->mlx_init, data->map_width * 64,
-			data->map_height * 64, "SO LONG");
+			(data->map_height * 64) + 64, "SO LONG");
 	if (data->mlx_windows == NULL)
 		display_error_and_clear_array(data, "Error\nMlx open window failed");
 }
@@ -70,31 +70,16 @@ int	display_game(t_data *data)
 	int	i;
 	int	j;
 
+	data->time += 200;
 	i = 0;
 	while (i < data->map_height)
 	{
-		data->time += 3;
 		j = 0;
-		while (j < data->map_width)
-		{
-			if (data->map[i][j] == '1')
-				mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-					data->mlx_image_asteroid, j * 64, i * 64);
-			if (data->map[i][j] == '0')
-				mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-					data->mlx_image_space, j * 64, i * 64);
-			if (data->map[i][j] == 'C')
-				mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-					data->mlx_image_astro, j * 64, i * 64);
-			if (data->map[i][j] == 'P')
-				mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-					data->mlx_image_spaceship, j * 64, i * 64);
-			if (data->map[i][j] == 'E')
-				display_sprite(data, j * 64, i * 64);
-			j++;
-		}
+		display_utils(data, i, j);
 		i++;
 	}
+	mlx_string_put(data->mlx_init, data->mlx_windows, 0, (data->map_height * 64)
+		+ 32, 150, "coucou");
 	if (data->time > 200000)
 		data->time = 0;
 	return (0);

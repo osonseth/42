@@ -6,11 +6,33 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 22:03:00 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 19:26:06 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:00:13 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	display_utils(t_data *data, int i, int j)
+{
+	while (j < data->map_width)
+	{
+		if (data->map[i][j] == '1')
+			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
+				data->mlx_image_asteroid, j * 64, i * 64);
+		if (data->map[i][j] == '0')
+			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
+				data->mlx_image_space, j * 64, i * 64);
+		if (data->map[i][j] == 'C')
+			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
+				data->mlx_image_astro, j * 64, i * 64);
+		if (data->map[i][j] == 'P')
+			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
+				data->mlx_image_spaceship, j * 64, i * 64);
+		if (data->map[i][j] == 'E')
+			display_sprite(data, j * 64, i * 64);
+		j++;
+	}
+}
 
 void	read_sprite(t_data *data)
 {
