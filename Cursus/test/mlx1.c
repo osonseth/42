@@ -6,14 +6,16 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 01:22:30 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 01:46:00 by max              ###   ########.fr       */
+/*   Updated: 2024/04/16 06:58:07 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <stdint.h>
 
 void open_sprite(t_data *data)
 {
+
     int i;
     i = 0;
     data->mlx_image_sprite = malloc(20 * sizeof(void *));
@@ -21,8 +23,8 @@ void open_sprite(t_data *data)
         clear_array_and_destroy(data, "Error\nMlx open image failed");
     while (i < 20)
     {
-       
         data->mlx_image_sprite[i] = mlx_xpm_file_to_image(data->mlx_init, data->sprite[i], &(data->image_width), &(data->image_height));
+
         if (data->mlx_image_sprite[i] == NULL)
         {
             clear_mlx_image_sprite(data, i);
@@ -45,7 +47,8 @@ void init_and_window(t_data *data)
 
 void open_image(t_data *data)
 {
-    // open_sprite(data);
+  
+    open_sprite(data);
     data->mlx_image_asteroid = mlx_xpm_file_to_image(data->mlx_init, "xpm/asteroid.xpm", &(data->image_width), &(data->image_height));
     if (data->mlx_image_asteroid == NULL)
         clear_array_and_destroy(data, "Error\nMlx open image failed");
@@ -58,13 +61,14 @@ void open_image(t_data *data)
     data->mlx_image_astro = mlx_xpm_file_to_image(data->mlx_init, "xpm/crystals.xpm", &(data->image_width), &(data->image_height));
     if (data->mlx_image_astro == NULL)
         clear_array_and_destroy(data, "Error\nMlx open image failed");
-    data->mlx_image_exit = mlx_xpm_file_to_image(data->mlx_init, "xpm/exit.xpm", &(data->image_width), &(data->image_height));
-    if (data->mlx_image_exit == NULL)
-        clear_array_and_destroy(data, "Error\nMlx open image failed");
+    // data->mlx_image_exit = mlx_xpm_file_to_image(data->mlx_init, "xpm/exit.xpm", &(data->image_width), &(data->image_height));
+    // if (data->mlx_image_exit == NULL)
+    //     clear_array_and_destroy(data, "Error\nMlx open image failed");
 }
 
 int display_game(t_data *data)
 {
+    
     int i = 0;
     int j;
 
@@ -82,7 +86,8 @@ int display_game(t_data *data)
             if (data->map[i][j] == 'P')
                 mlx_put_image_to_window(data->mlx_init, data->mlx_windows, data->mlx_image_spaceship, j * 64, i * 64);
             if (data->map[i][j] == 'E')
-                mlx_put_image_to_window(data->mlx_init, data->mlx_windows, data->mlx_image_exit, j * 64, i * 64);
+                display_sprite(data);
+           
             j++;
         }
         i++;
