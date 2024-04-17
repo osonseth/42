@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:19 by max               #+#    #+#             */
-/*   Updated: 2024/04/17 13:50:31 by max              ###   ########.fr       */
+/*   Updated: 2024/04/17 21:05:25 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ void parsing_management(t_data *data)
 
 void game_management(t_data *data)
 {
+
 	init_and_window(data);
 	read_sprite(data);
 	open_image(data);
 	mlx_loop_hook(data->mlx_init, display_game, data);
-	mlx_hook(data->mlx_windows,2,1,keypress,data);
-	mlx_hook(data->mlx_windows,17,0,close_windows,data);
+	mlx_hook(data->mlx_windows, 2, 1, keypress, data);
+	mlx_hook(data->mlx_windows, 17, 0, close_windows, data);
 	mlx_loop(data->mlx_init);
 }
 

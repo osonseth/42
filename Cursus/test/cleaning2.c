@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cleaning2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:00:40 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 19:13:24 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:50:02 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	destroy_windows_and_display(t_data *data)
+void destroy_windows_and_display(t_data *data)
 {
 	if (data->mlx_windows != NULL)
 		mlx_destroy_window(data->mlx_init, data->mlx_windows);
@@ -21,7 +21,7 @@ void	destroy_windows_and_display(t_data *data)
 	free(data->mlx_init);
 }
 
-void	destroy_image(t_data *data)
+void destroy_image(t_data *data)
 {
 	if (data->mlx_image_asteroid != NULL)
 		mlx_destroy_image(data->mlx_init, data->mlx_image_asteroid);
@@ -31,13 +31,13 @@ void	destroy_image(t_data *data)
 		mlx_destroy_image(data->mlx_init, data->mlx_image_spaceship);
 	if (data->mlx_image_astro != NULL)
 		mlx_destroy_image(data->mlx_init, data->mlx_image_astro);
-	if (data->mlx_image_exit != NULL)
-		mlx_destroy_image(data->mlx_init, data->mlx_image_exit);
+	if (data->mlx_image_alien != NULL)
+		mlx_destroy_image(data->mlx_init, data->mlx_image_alien);
 }
 
-void	clear_mlx_image_sprite(t_data *data, int j)
+void clear_mlx_image_sprite(t_data *data, int j)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (i < j)

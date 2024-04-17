@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:01:35 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 20:10:39 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:07:35 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	collect_map_data(t_data *data)
 		}
 		i++;
 	}
+	coord_alien(data);
 }
 
 void	check_collectibles_player_exit(t_data *data)

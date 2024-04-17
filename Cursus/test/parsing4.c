@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parsing4.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 00:32:22 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 19:09:41 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:09:37 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char	*ft_strdup(const char *s)
+char *ft_strdup(const char *s)
 {
-	char	*dest;
+	char *dest;
 
 	dest = malloc(1 + ft_strlen((char *)s) * sizeof(char));
 	if (!dest)
@@ -23,9 +23,9 @@ char	*ft_strdup(const char *s)
 	return (dest);
 }
 
-void	make_duplicate_of_map(t_data *data)
+void make_duplicate_of_map(t_data *data)
 {
-	int	i;
+	int i;
 
 	data->duplicate_of_map = malloc(data->map_height * sizeof(char *));
 	if (data->duplicate_of_map == NULL)
@@ -49,7 +49,7 @@ void	make_duplicate_of_map(t_data *data)
 	}
 }
 
-void	flood_fill(t_data *data, size_t y, size_t x)
+void flood_fill(t_data *data, size_t y, size_t x)
 {
 	if (data->duplicate_of_map[y][x] != '1')
 	{
@@ -61,10 +61,10 @@ void	flood_fill(t_data *data, size_t y, size_t x)
 	}
 }
 
-void	check_valid_way(t_data *data)
+void check_valid_way(t_data *data)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	while (i < data->map_height)
@@ -74,12 +74,34 @@ void	check_valid_way(t_data *data)
 		{
 			if (data->duplicate_of_map[i][j] == 'C')
 				display_error_and_clear_array(data,
-					"Error\nImpossible to collect all collectibles");
+											  "Error\nImpossible to collect all collectibles");
 			if (data->duplicate_of_map[i][j] == 'E')
 				display_error_and_clear_array(data,
-					"Error\nImpossible to reach exit");
+											  "Error\nImpossible to reach exit");
 			j++;
 		}
 		i++;
 	}
 }
+void coord_alien(t_data *data)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < data->map_height)
+	{
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (data->map[i][j] == 'A')
+			{
+				data->alien_x = j;
+				data->alien_y = i;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+

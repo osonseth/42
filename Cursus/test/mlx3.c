@@ -6,38 +6,58 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 22:03:00 by max               #+#    #+#             */
-/*   Updated: 2024/04/17 13:07:39 by max              ###   ########.fr       */
+/*   Updated: 2024/04/17 19:13:19 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	display_utils(t_data *data, int i, int j)
+void move_alien(t_data *data)
+{
+    if (data->movement_diagram > 3)
+        data->movement_diagram = 0;
+
+    if (data->movement_diagram == 0)
+        movement_diagram_one(data);
+    else if (data->movement_diagram == 1)
+        movement_diagram_two(data);
+    else if (data->movement_diagram == 2)
+        movement_diagram_three(data);
+    else if (data->movement_diagram == 3)
+        movement_diagram_four(data);
+
+    data->movement_diagram++;
+}
+
+void display_utils(t_data *data, int i, int j)
 {
 	while (j < data->map_width)
 	{
 		if (data->map[i][j] == '1')
 			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-				data->mlx_image_asteroid, j * 64, i * 64);
+									data->mlx_image_asteroid, j * 64, i * 64);
+		if (data->map[i][j] == 'A')
+			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
+									data->mlx_image_alien, j * 64, i * 64);
 		if (data->map[i][j] == '0')
 			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-				data->mlx_image_space, j * 64, i * 64);
+									data->mlx_image_space, j * 64, i * 64);
 		if (data->map[i][j] == 'C')
 			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-				data->mlx_image_astro, j * 64, i * 64);
+									data->mlx_image_astro, j * 64, i * 64);
 		if (data->map[i][j] == 'P')
 			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-				data->mlx_image_spaceship, j * 64, i * 64);
+									data->mlx_image_spaceship, j * 64, i * 64);
 		if (data->map[i][j] == 'E')
 			display_sprite(data, j * 64, i * 64);
 		j++;
 	}
 }
 
-void	read_sprite(t_data *data)
+void read_sprite(t_data *data)
 {
-	int	i;
-	int	fd;
+	int i;
+	int fd;
 
 	i = 0;
 	fd = open("sprite.txt", O_RDONLY);
@@ -56,66 +76,66 @@ void	read_sprite(t_data *data)
 	}
 }
 
-void	display_sprite(t_data *data, int x, int y)
+void display_sprite(t_data *data, int x, int y)
 {
 	if (data->time <= 10000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[0], x, y);
+								data->mlx_image_sprite[0], x, y);
 	if (data->time > 10000 && data->time <= 20000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[1], x, y);
+								data->mlx_image_sprite[1], x, y);
 	if (data->time > 20000 && data->time <= 30000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[2], x, y);
+								data->mlx_image_sprite[2], x, y);
 	if (data->time > 30000 && data->time <= 40000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[3], x, y);
+								data->mlx_image_sprite[3], x, y);
 	if (data->time > 40000 && data->time <= 50000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[4], x, y);
+								data->mlx_image_sprite[4], x, y);
 	if (data->time > 50000 && data->time <= 60000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[5], x, y);
+								data->mlx_image_sprite[5], x, y);
 	if (data->time > 60000 && data->time <= 70000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[6], x, y);
+								data->mlx_image_sprite[6], x, y);
 	if (data->time > 70000 && data->time <= 80000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[7], x, y);
+								data->mlx_image_sprite[7], x, y);
 	if (data->time > 80000 && data->time <= 90000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[8], x, y);
+								data->mlx_image_sprite[8], x, y);
 	if (data->time > 90000 && data->time <= 100000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[9], x, y);
+								data->mlx_image_sprite[9], x, y);
 	if (data->time > 100000 && data->time <= 110000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[10], x, y);
+								data->mlx_image_sprite[10], x, y);
 	if (data->time > 110000 && data->time <= 120000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[11], x, y);
+								data->mlx_image_sprite[11], x, y);
 	if (data->time > 120000 && data->time <= 130000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[12], x, y);
+								data->mlx_image_sprite[12], x, y);
 	if (data->time > 130000 && data->time <= 140000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[13], x, y);
+								data->mlx_image_sprite[13], x, y);
 	if (data->time > 140000 && data->time <= 150000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[14], x, y);
+								data->mlx_image_sprite[14], x, y);
 	if (data->time > 150000 && data->time <= 160000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[15], x, y);
+								data->mlx_image_sprite[15], x, y);
 	if (data->time > 160000 && data->time <= 170000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[16], x, y);
+								data->mlx_image_sprite[16], x, y);
 	if (data->time > 170000 && data->time <= 180000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[17], x, y);
+								data->mlx_image_sprite[17], x, y);
 	if (data->time > 180000 && data->time <= 190000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[18], x, y);
+								data->mlx_image_sprite[18], x, y);
 	if (data->time > 190000 && data->time <= 200000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-			data->mlx_image_sprite[19], x, y);
+								data->mlx_image_sprite[19], x, y);
 }

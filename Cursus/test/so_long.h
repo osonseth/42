@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:24 by max               #+#    #+#             */
-/*   Updated: 2024/04/17 13:50:23 by max              ###   ########.fr       */
+/*   Updated: 2024/04/17 20:47:03 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,14 @@ typedef struct s_data
 	int map_width;
 	int image_height;
 	int image_width;
+	int count_move;
 	char *map_name;
 	char **map;
 	char **sprite;
 	char **duplicate_of_map;
+	int alien_x;
+	int alien_y;
+	int movement_diagram;
 	size_t player_x;
 	size_t player_y;
 	size_t number_of_collectibles;
@@ -56,6 +60,7 @@ typedef struct s_data
 	size_t number_of_exits;
 	void *mlx_init;
 	void *mlx_windows;
+	void *mlx_image_alien;
 	void *mlx_image_asteroid;
 	void *mlx_image_space;
 	void *mlx_image_astro;
@@ -87,6 +92,7 @@ void check_up_wall(t_data *data);
 void check_middles_wall(t_data *data);
 void check_down_wall(t_data *data);
 void collect_map_data(t_data *data);
+void coord_alien(t_data *data);
 void check_collectibles_player_exit(t_data *data);
 void make_duplicate_of_map(t_data *data);
 void flood_fill(t_data *data, size_t y, size_t x);
@@ -108,6 +114,15 @@ void read_sprite(t_data *data);
 void clear_mlx_image_sprite(t_data *dat, int j);
 void display_sprite(t_data *data, int x, int y);
 void display_utils(t_data *data, int i, int j);
-int close_windows (t_data *data);
+int close_windows(t_data *data);
+void move_alien(t_data *data);
+void move_alien_up (t_data *data);
+void move_alien_down (t_data *data);
+void move_alien_left (t_data *data);
+void move_alien_right (t_data *data);
+void movement_diagram_one(t_data *data);
+void movement_diagram_two(t_data *data);
+void movement_diagram_three(t_data *data);
+void movement_diagram_four(t_data *data);
 
 #endif
