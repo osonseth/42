@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 22:03:00 by max               #+#    #+#             */
-/*   Updated: 2024/04/17 19:13:19 by max              ###   ########.fr       */
+/*   Updated: 2024/04/18 01:19:38 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void move_alien(t_data *data)
 {
-    if (data->movement_diagram > 3)
-        data->movement_diagram = 0;
+	if (data->movement_diagram > 3)
+		data->movement_diagram = 0;
 
-    if (data->movement_diagram == 0)
-        movement_diagram_one(data);
-    else if (data->movement_diagram == 1)
-        movement_diagram_two(data);
-    else if (data->movement_diagram == 2)
-        movement_diagram_three(data);
-    else if (data->movement_diagram == 3)
-        movement_diagram_four(data);
+	if (data->movement_diagram == 0)
+		movement_diagram_one(data);
+	else if (data->movement_diagram == 1)
+		movement_diagram_two(data);
+	else if (data->movement_diagram == 2)
+		movement_diagram_three(data);
+	else if (data->movement_diagram == 3)
+		movement_diagram_four(data);
 
-    data->movement_diagram++;
+	data->movement_diagram++;
 }
 
 void display_utils(t_data *data, int i, int j)
@@ -44,7 +44,7 @@ void display_utils(t_data *data, int i, int j)
 									data->mlx_image_space, j * 64, i * 64);
 		if (data->map[i][j] == 'C')
 			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-									data->mlx_image_astro, j * 64, i * 64);
+									data->mlx_image_crystal, j * 64, i * 64);
 		if (data->map[i][j] == 'P')
 			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
 									data->mlx_image_spaceship, j * 64, i * 64);
@@ -76,56 +76,40 @@ void read_sprite(t_data *data)
 	}
 }
 
+void open_fonts(t_data *data)
+{
+	data->mlx_image_font_zero = mlx_xpm_file_to_image(data->mlx_init, "fonts/00.xpm", &(data->image_width), &(data->image_height));
+	if (data->mlx_image_font_zero == NULL)
+		clean_all(data, "Error\nMlx open image failed");
+	data->mlx_image_font_one = mlx_xpm_file_to_image(data->mlx_init, "fonts/01.xpm", &(data->image_width), &(data->image_height));
+	if (data->mlx_image_font_one == NULL)
+		clean_all(data, "Error\nMlx open image failed");
+	data->mlx_image_font_two = mlx_xpm_file_to_image(data->mlx_init, "fonts/02.xpm", &(data->image_width), &(data->image_height));
+	if (data->mlx_image_font_two == NULL)
+		clean_all(data, "Error\nMlx open image failed");
+	data->mlx_image_font_three = mlx_xpm_file_to_image(data->mlx_init, "fonts/03.xpm", &(data->image_width), &(data->image_height));
+	if (data->mlx_image_font_three == NULL)
+		clean_all(data, "Error\nMlx open image failed");
+	data->mlx_image_font_four = mlx_xpm_file_to_image(data->mlx_init, "fonts/04.xpm", &(data->image_width), &(data->image_height));
+	if (data->mlx_image_font_four == NULL)
+		clean_all(data, "Error\nMlx open image failed");
+	data->mlx_image_font_five = mlx_xpm_file_to_image(data->mlx_init, "fonts/05.xpm", &(data->image_width), &(data->image_height));
+	if (data->mlx_image_font_five == NULL)
+		clean_all(data, "Error\nMlx open image failed");
+	data->mlx_image_font_six = mlx_xpm_file_to_image(data->mlx_init, "fonts/06.xpm", &(data->image_width), &(data->image_height));
+	if (data->mlx_image_font_six == NULL)
+		clean_all(data, "Error\nMlx open image failed");
+	data->mlx_image_font_seven = mlx_xpm_file_to_image(data->mlx_init, "fonts/07.xpm", &(data->image_width), &(data->image_height));
+	if (data->mlx_image_font_seven == NULL)
+		clean_all(data, "Error\nMlx open image failed");
+}
+
 void display_sprite(t_data *data, int x, int y)
 {
-	if (data->time <= 10000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[0], x, y);
-	if (data->time > 10000 && data->time <= 20000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[1], x, y);
-	if (data->time > 20000 && data->time <= 30000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[2], x, y);
-	if (data->time > 30000 && data->time <= 40000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[3], x, y);
-	if (data->time > 40000 && data->time <= 50000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[4], x, y);
-	if (data->time > 50000 && data->time <= 60000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[5], x, y);
-	if (data->time > 60000 && data->time <= 70000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[6], x, y);
-	if (data->time > 70000 && data->time <= 80000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[7], x, y);
-	if (data->time > 80000 && data->time <= 90000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[8], x, y);
-	if (data->time > 90000 && data->time <= 100000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[9], x, y);
-	if (data->time > 100000 && data->time <= 110000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[10], x, y);
-	if (data->time > 110000 && data->time <= 120000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[11], x, y);
-	if (data->time > 120000 && data->time <= 130000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[12], x, y);
-	if (data->time > 130000 && data->time <= 140000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[13], x, y);
-	if (data->time > 140000 && data->time <= 150000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[14], x, y);
-	if (data->time > 150000 && data->time <= 160000)
-		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-								data->mlx_image_sprite[15], x, y);
+	if (data->time >= 0 && data->time <= 80000)
+		display_sprite_zero_to_seven(data, x, y);
+	if (data->time > 70000 && data->time <= 160000)
+		display_sprite_eight_to_fiveteen(data, x, y);
 	if (data->time > 160000 && data->time <= 170000)
 		mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
 								data->mlx_image_sprite[16], x, y);

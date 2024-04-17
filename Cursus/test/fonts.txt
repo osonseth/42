@@ -1,0 +1,10 @@
+fonts/00.xpm
+fonts/01.xpm
+fonts/02.xpm
+fonts/03.xpm
+fonts/04.xpm
+fonts/05.xpm
+fonts/06.xpm
+fonts/07.xpm
+fonts/08.xpm
+fonts/09.xpm

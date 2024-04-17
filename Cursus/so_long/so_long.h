@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:24 by max               #+#    #+#             */
-/*   Updated: 2024/04/17 13:07:39 by max              ###   ########.fr       */
+/*   Updated: 2024/04/18 00:22:36 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_data
     void *mlx_windows;
     void *mlx_image_asteroid;
     void *mlx_image_space;
-    void *mlx_image_astro;
+    void *mlx_image_crystal;
     void *mlx_image_spaceship;
     void **mlx_image_sprite;
     void *mlx_image_exit;

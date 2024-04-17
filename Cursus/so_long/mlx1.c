@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 01:22:30 by max               #+#    #+#             */
-/*   Updated: 2024/04/17 13:07:39 by max              ###   ########.fr       */
+/*   Updated: 2024/04/18 00:22:36 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	open_image(t_data *data)
 			"xpm/spaceship.xpm", &(data->image_width), &(data->image_height));
 	if (data->mlx_image_spaceship == NULL)
 		clean_all(data, "Error\nMlx open image failed");
-	data->mlx_image_astro = mlx_xpm_file_to_image(data->mlx_init,
+	data->mlx_image_crystal = mlx_xpm_file_to_image(data->mlx_init,
 			"xpm/crystals.xpm", &(data->image_width), &(data->image_height));
-	if (data->mlx_image_astro == NULL)
+	if (data->mlx_image_crystal == NULL)
 		clean_all(data, "Error\nMlx open image failed");
 	data->mlx_image_exit = mlx_xpm_file_to_image(data->mlx_init, "xpm/exit.xpm",
 			&(data->image_width), &(data->image_height));
@@ -87,7 +87,7 @@ int	display_game(t_data *data)
 					data->mlx_image_space, j * 64, i * 64);
 			if (data->map[i][j] == 'C')
 				mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-					data->mlx_image_astro, j * 64, i * 64);
+					data->mlx_image_crystal, j * 64, i * 64);
 			if (data->map[i][j] == 'P')
 				mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
 					data->mlx_image_spaceship, j * 64, i * 64);

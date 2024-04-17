@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 01:22:30 by max               #+#    #+#             */
-/*   Updated: 2024/04/17 19:22:41 by max              ###   ########.fr       */
+/*   Updated: 2024/04/18 01:17:28 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@ void init_and_window(t_data *data)
 void open_image(t_data *data)
 {
 	open_sprite(data);
+	open_fonts(data);
+	data->mlx_image_font_eight = mlx_xpm_file_to_image(data->mlx_init, "fonts/08.xpm", &(data->image_width), &(data->image_height));
+	if (data->mlx_image_font_eight == NULL)
+		clean_all(data, "Error\nMlx open image failed8");
+		
+	data->mlx_image_font_nine = mlx_xpm_file_to_image(data->mlx_init, "fonts/09.xpm", &(data->image_width), &(data->image_height));
+	if (data->mlx_image_font_nine == NULL)
+		clean_all(data, "Error\nMlx open image failed9");
+		
 	data->mlx_image_alien = mlx_xpm_file_to_image(data->mlx_init, "xpm/alien.xpm", &(data->image_width), &(data->image_height));
 	if (data->mlx_image_alien == NULL)
 		clean_all(data, "Error\nMlx open image failed");
@@ -59,8 +68,8 @@ void open_image(t_data *data)
 	data->mlx_image_spaceship = mlx_xpm_file_to_image(data->mlx_init, "xpm/spaceship.xpm", &(data->image_width), &(data->image_height));
 	if (data->mlx_image_spaceship == NULL)
 		clean_all(data, "Error\nMlx open image failed");
-	data->mlx_image_astro = mlx_xpm_file_to_image(data->mlx_init, "xpm/crystals.xpm", &(data->image_width), &(data->image_height));
-	if (data->mlx_image_astro == NULL)
+	data->mlx_image_crystal = mlx_xpm_file_to_image(data->mlx_init, "xpm/crystals.xpm", &(data->image_width), &(data->image_height));
+	if (data->mlx_image_crystal == NULL)
 		clean_all(data, "Error\nMlx open image failed");
 }
 
@@ -69,9 +78,9 @@ int display_game(t_data *data)
 	int i;
 	int j;
 
-	data->time += 500;
+	
 	i = 0;
-
+	display_movement_count(data);
 	while (i < data->map_height)
 	{
 		j = 0;
@@ -79,6 +88,7 @@ int display_game(t_data *data)
 		i++;
 	}
 	move_alien(data);
+	data->time += 500;
 
 	if (data->time > 200000)
 		data->time = 0;

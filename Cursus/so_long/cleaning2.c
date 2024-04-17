@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:00:40 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 02:28:56 by max              ###   ########.fr       */
+/*   Updated: 2024/04/18 00:22:36 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void destroy_image(t_data *data)
         mlx_destroy_image(data->mlx_init, data->mlx_image_space);
     if (data->mlx_image_spaceship != NULL)
         mlx_destroy_image(data->mlx_init, data->mlx_image_spaceship);
-    if (data->mlx_image_astro != NULL)
-        mlx_destroy_image(data->mlx_init, data->mlx_image_astro);
+    if (data->mlx_image_crystal != NULL)
+        mlx_destroy_image(data->mlx_init, data->mlx_image_crystal);
     if (data->mlx_image_exit != NULL)
         mlx_destroy_image(data->mlx_init, data->mlx_image_exit);
 }

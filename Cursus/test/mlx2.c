@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 11:15:57 by max               #+#    #+#             */
-/*   Updated: 2024/04/17 19:21:19 by max              ###   ########.fr       */
+/*   Updated: 2024/04/18 01:36:21 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,23 @@ void keypress_is_up(t_data *data)
 		data->map[data->player_y][data->player_x] = '0';
 		data->map[data->player_y - 1][data->player_x] = 'P';
 		data->player_y = data->player_y - 1;
+		data->count_move++;
 	}
 	else if (data->map[data->player_y - 1][data->player_x] == 'C')
-	{
+	{data->count_move++;
 		data->map[data->player_y][data->player_x] = '0';
 		data->map[data->player_y - 1][data->player_x] = 'P';
 		data->player_y = data->player_y - 1;
 		data->number_of_collectibles--;
+		data->count_move++;
 	}
 	else if (data->map[data->player_y - 1][data->player_x] == 'A')
 		clean_all(data, "Ennemy kill you !");
 	else if (data->map[data->player_y - 1][data->player_x] == 'E' && data->number_of_collectibles == 0)
+	{
 		clean_all(data, "END OF THE GAME !");
+		data->count_move++;
+	}
 	else
 		return;
 }
@@ -42,6 +47,7 @@ void keypress_is_down(t_data *data)
 		data->map[data->player_y][data->player_x] = '0';
 		data->map[data->player_y + 1][data->player_x] = 'P';
 		data->player_y = data->player_y + 1;
+		data->count_move++;
 	}
 	else if (data->map[data->player_y + 1][data->player_x] == 'C')
 	{
@@ -49,11 +55,15 @@ void keypress_is_down(t_data *data)
 		data->map[data->player_y + 1][data->player_x] = 'P';
 		data->player_y = data->player_y + 1;
 		data->number_of_collectibles--;
+		data->count_move++;
 	}
 	else if (data->map[data->player_y + 1][data->player_x] == 'A')
 		clean_all(data, "Ennemy kill you !");
 	else if (data->map[data->player_y + 1][data->player_x] == 'E' && data->number_of_collectibles == 0)
+	{
 		clean_all(data, "END OF THE GAME !");
+		data->count_move++;
+	}
 	else
 		return;
 }
@@ -65,6 +75,7 @@ void keypress_is_right(t_data *data)
 		data->map[data->player_y][data->player_x] = '0';
 		data->map[data->player_y][data->player_x + 1] = 'P';
 		data->player_x = data->player_x + 1;
+		data->count_move++;
 	}
 	else if (data->map[data->player_y][data->player_x + 1] == 'C')
 	{
@@ -72,11 +83,15 @@ void keypress_is_right(t_data *data)
 		data->map[data->player_y][data->player_x + 1] = 'P';
 		data->player_x = data->player_x + 1;
 		data->number_of_collectibles--;
+		data->count_move++;
 	}
 	else if (data->map[data->player_y][data->player_x + 1] == 'A')
 		clean_all(data, "Ennemy kill you !");
 	else if (data->map[data->player_y][data->player_x + 1] == 'E' && data->number_of_collectibles == 0)
+	{
 		clean_all(data, "END OF THE GAME !");
+		data->count_move++;
+	}
 	else
 		return;
 }
@@ -88,6 +103,7 @@ void keypress_is_left(t_data *data)
 		data->map[data->player_y][data->player_x] = '0';
 		data->map[data->player_y][data->player_x - 1] = 'P';
 		data->player_x = data->player_x - 1;
+		data->count_move++;
 	}
 	else if (data->map[data->player_y][data->player_x - 1] == 'C')
 	{
@@ -95,11 +111,15 @@ void keypress_is_left(t_data *data)
 		data->map[data->player_y][data->player_x - 1] = 'P';
 		data->player_x = data->player_x - 1;
 		data->number_of_collectibles--;
+		data->count_move++;
 	}
 	else if (data->map[data->player_y][data->player_x - 1] == 'A')
 		clean_all(data, "Ennemy kill you !");
 	else if (data->map[data->player_y][data->player_x - 1] == 'E' && data->number_of_collectibles == 0)
+	{
 		clean_all(data, "END OF THE GAME !");
+		data->count_move++;
+	}
 	else
 		return;
 }
