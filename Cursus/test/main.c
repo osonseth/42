@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:19 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 19:05:04 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:50:31 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	parsing_management(t_data *data)
+void parsing_management(t_data *data)
 {
-	char	*map_in_string;
+	char *map_in_string;
 
 	check_map_name(data->map_name);
 	map_in_string = read_map(data->map_name);
-	if (map_in_string[0] == '\n' || map_in_string[ft_strlen(map_in_string)
-			- 1] == '\n')
+	if (map_in_string[0] == '\n' || map_in_string[ft_strlen(map_in_string) - 1] == '\n')
 	{
 		free(map_in_string);
 		display_error("Error\nInvalid map");
@@ -35,17 +34,18 @@ void	parsing_management(t_data *data)
 	data->image_width = 64;
 }
 
-void	game_management(t_data *data)
+void game_management(t_data *data)
 {
 	init_and_window(data);
 	read_sprite(data);
 	open_image(data);
 	mlx_loop_hook(data->mlx_init, display_game, data);
-	mlx_key_hook(data->mlx_windows, keypress, data);
+	mlx_hook(data->mlx_windows,2,1,keypress,data);
+	mlx_hook(data->mlx_windows,17,0,close_windows,data);
 	mlx_loop(data->mlx_init);
 }
 
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	if (argc != 2)
 	{

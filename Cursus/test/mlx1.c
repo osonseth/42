@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 01:22:30 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 20:28:07 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:09:44 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	open_sprite(t_data *data)
 	i = 0;
 	data->mlx_image_sprite = malloc(20 * sizeof(void *));
 	if (data->mlx_image_sprite == NULL)
-		clear_array_and_destroy(data, "Error\nMlx open image failed");
+		clean_all(data, "Error\nMlx open image failed");
 	while (i < 20)
 	{
 		data->mlx_image_sprite[i] = mlx_xpm_file_to_image(data->mlx_init,
@@ -27,7 +27,7 @@ void	open_sprite(t_data *data)
 		if (data->mlx_image_sprite[i] == NULL)
 		{
 			clear_mlx_image_sprite(data, i);
-			clear_array_and_destroy(data, "Error\nMlx open image failed");
+			clean_all(data, "Error\nMlx open image failed");
 		}
 		i++;
 	}
@@ -50,19 +50,19 @@ void	open_image(t_data *data)
 	data->mlx_image_asteroid = mlx_xpm_file_to_image(data->mlx_init,
 			"xpm/asteroid.xpm", &(data->image_width), &(data->image_height));
 	if (data->mlx_image_asteroid == NULL)
-		clear_array_and_destroy(data, "Error\nMlx open image failed");
+		clean_all(data, "Error\nMlx open image failed");
 	data->mlx_image_space = mlx_xpm_file_to_image(data->mlx_init,
 			"xpm/space.xpm", &(data->image_width), &(data->image_height));
 	if (data->mlx_image_space == NULL)
-		clear_array_and_destroy(data, "Error\nMlx open image failed");
+		clean_all(data, "Error\nMlx open image failed");
 	data->mlx_image_spaceship = mlx_xpm_file_to_image(data->mlx_init,
 			"xpm/spaceship.xpm", &(data->image_width), &(data->image_height));
 	if (data->mlx_image_spaceship == NULL)
-		clear_array_and_destroy(data, "Error\nMlx open image failed");
+		clean_all(data, "Error\nMlx open image failed");
 	data->mlx_image_astro = mlx_xpm_file_to_image(data->mlx_init,
 			"xpm/crystals.xpm", &(data->image_width), &(data->image_height));
 	if (data->mlx_image_astro == NULL)
-		clear_array_and_destroy(data, "Error\nMlx open image failed");
+		clean_all(data, "Error\nMlx open image failed");
 }
 
 int	display_game(t_data *data)
@@ -70,7 +70,7 @@ int	display_game(t_data *data)
 	int	i;
 	int	j;
 
-	data->time += 200;
+	data->time += 1000;
 	i = 0;
 	while (i < data->map_height)
 	{
@@ -78,8 +78,7 @@ int	display_game(t_data *data)
 		display_utils(data, i, j);
 		i++;
 	}
-	mlx_string_put(data->mlx_init, data->mlx_windows, 0, (data->map_height * 64)
-		+ 32, 150, "coucou");
+
 	if (data->time > 200000)
 		data->time = 0;
 	return (0);
@@ -96,6 +95,6 @@ int	keypress(int keycode, t_data *data)
 	else if (keycode == LEFT)
 		keypress_is_left(data);
 	else if (keycode == ESCAPE)
-		clear_array_and_destroy(data, "You left the game !/n");
+		clean_all(data, "You left the game !");
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaning1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:41:19 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 19:12:15 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:07:39 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	display_error_and_clear_array(t_data *data, char *str)
 	display_error(str);
 }
 
-void	clear_array_and_destroy(t_data *data, char *str)
+void	clean_all(t_data *data, char *str)
 {
 	destroy_image(data);
 	if (data->mlx_image_sprite)
@@ -80,5 +80,5 @@ void	clear_array_and_array_of_sprite(t_data *data, int j)
 	}
 	free(data->sprite);
 	data->sprite = NULL;
-	clear_array_and_destroy(data, "Error\nmemory allocation");
+	clean_all(data, "Error\nmemory allocation");
 }

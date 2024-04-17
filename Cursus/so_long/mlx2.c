@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 11:15:57 by max               #+#    #+#             */
-/*   Updated: 2024/04/14 13:21:22 by max              ###   ########.fr       */
+/*   Updated: 2024/04/17 13:07:39 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void keypress_is_up(t_data *data)
         data->player_y = data->player_y - 1;
     }
     else if (data->map[data->player_y - 1][data->player_x] == 'E')
-        clear_array_and_destroy(data, "END OF THE GAME !");
+        clean_all(data, "END OF THE GAME !");
     else
         return;
 }
@@ -47,7 +47,7 @@ void keypress_is_down(t_data *data)
         data->player_y = data->player_y + 1;
     }
     else if (data->map[data->player_y + 1][data->player_x] == 'E')
-        clear_array_and_destroy(data, "END OF THE GAME !");
+        clean_all(data, "END OF THE GAME !");
     else
         return;
 }
@@ -66,7 +66,7 @@ void keypress_is_right(t_data *data)
         data->player_x = data->player_x + 1;
     }
     else if (data->map[data->player_y][data->player_x + 1] == 'E')
-        clear_array_and_destroy(data, "END OF THE GAME !");
+        clean_all(data, "END OF THE GAME !");
     else
         return;
 }
@@ -85,7 +85,7 @@ void keypress_is_left(t_data *data)
         data->player_x = data->player_x - 1;
     }
     else if (data->map[data->player_y][data->player_x - 1] == 'E')
-        clear_array_and_destroy(data, "END OF THE GAME !");
+        clean_all(data, "END OF THE GAME !");
     else
         return;
 }

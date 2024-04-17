@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:24 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 02:12:04 by max              ###   ########.fr       */
+/*   Updated: 2024/04/17 13:07:39 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "minilibx-linux/mlx.h"
-// #include "X11/keysym.h"
+#include "X11/keysym.h"
+#include "X11/Xlib.h"
 
 #define UP 122
 #define LEFT 113
@@ -84,7 +85,7 @@ void check_valid_way(t_data *data);
 void game_management(t_data *data);
 void init_and_window(t_data *data);
 void open_image(t_data *data);
-void clear_array_and_destroy(t_data *data, char *str);
+void clean_all(t_data *data, char *str);
 void destroy_windows_and_display(t_data *data);
 void destroy_image(t_data *data);
 int display_game(t_data *data);

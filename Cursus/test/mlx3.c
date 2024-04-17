@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 22:03:00 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 20:00:13 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:07:39 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	read_sprite(t_data *data)
 	i = 0;
 	fd = open("sprite.txt", O_RDONLY);
 	if (fd == -1)
-		clear_array_and_destroy(data, "Error\nOpening file");
+		clean_all(data, "Error\nOpening file");
 	data->sprite = malloc(20 * sizeof(char *));
 	if (data->sprite == NULL)
-		clear_array_and_destroy(data, "Error\nMemory allocation error");
+		clean_all(data, "Error\nMemory allocation error");
 	while (i < 20)
 	{
 		data->sprite[i] = get_next_line(fd);
