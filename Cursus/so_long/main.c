@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:19 by max               #+#    #+#             */
-/*   Updated: 2024/04/16 02:29:36 by max              ###   ########.fr       */
+/*   Updated: 2024/04/18 03:32:30 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,16 @@ void parsing_management(t_data *data)
 	data->image_height = 64;
 	data->image_width = 64;
 }
+
 void game_management(t_data *data)
 {
+
 	init_and_window(data);
-	// read_sprite(data);
+	read_sprite(data);
 	open_image(data);
 	mlx_loop_hook(data->mlx_init, display_game, data);
-	mlx_key_hook(data->mlx_windows, keypress, data);
-
+	mlx_hook(data->mlx_windows, 2, 1, keypress, data);
+	mlx_hook(data->mlx_windows, 17, 0, close_windows, data);
 	mlx_loop(data->mlx_init);
 }
 
@@ -49,12 +51,10 @@ int main(int argc, char **argv)
 	if (argc != 2)
 	{
 		ft_printf("Error\ninvalid number of arguments\n");
-		return 1;
+		return (1);
 	}
-
 	t_data(data) = {0};
 	data.map_name = argv[1];
-
 	parsing_management(&data);
 	game_management(&data);
 }
