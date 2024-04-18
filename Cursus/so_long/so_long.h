@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:24 by max               #+#    #+#             */
-/*   Updated: 2024/04/18 01:54:26 by max              ###   ########.fr       */
+/*   Updated: 2024/04/18 17:24:11 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #define SO_LONG_H
 
 #include "X11/keysym.h"
-#include "ft_printf.h"
-#include "get_next_line.h"
+#include "libft/ft_printf.h"
+#include "libft/get_next_line.h"
 #include "minilibx-linux/mlx.h"
 #include "time.h"
 #include <fcntl.h>
@@ -24,17 +24,17 @@
 #include <stdio.h>
 #include "X11/Xlib.h"
 
-// # define UP 119
-// # define LEFT 97
-// # define DOWN 115
-// # define RIGHT 100
-// # define ESCAPE 65307
+# define UP 119
+# define LEFT 97
+# define DOWN 115
+# define RIGHT 100
+# define ESCAPE 65307
 
-#define UP 122
-#define LEFT 113
-#define DOWN 115
-#define RIGHT 100
-#define ESCAPE 65307
+// #define UP 122
+// #define LEFT 113
+// #define DOWN 115
+// #define RIGHT 100
+// #define ESCAPE 65307
 
 typedef struct s_data
 {
@@ -81,8 +81,8 @@ typedef struct s_data
 
 } t_data;
 
-int ft_count_digit(int n);
-int ft_abs_so_long(int n);
+// int ft_count_digit(int n);
+// int ft_abs_so_long(int n);
 char *ft_itoa(int n);
 int ft_strncmp(char *s1, char *s2, int n);
 char *ft_strdup(const char *s);

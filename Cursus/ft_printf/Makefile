@@ -26,7 +26,7 @@ NAME 		=	libftprintf.a
 
 $(NAME): $(OBJ)
 	$(CCL) $(NAME) $(OBJ)
-
+#cd libft && make && make clean && cd .. && 
 .c.o:
 	$(CC) $(FLAGS) -c $< -I $(INCLUDEPATH) -o ${<:.c=.o}
 

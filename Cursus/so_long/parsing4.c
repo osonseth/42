@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing4.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 00:32:22 by max               #+#    #+#             */
-/*   Updated: 2024/04/17 18:09:37 by max              ###   ########.fr       */
+/*   Updated: 2024/04/18 17:40:08 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void make_duplicate_of_map(t_data *data)
 
 void flood_fill(t_data *data, size_t y, size_t x)
 {
-	if (data->duplicate_of_map[y][x] != '1')
+	if (data->duplicate_of_map[y][x] != '1' && data->duplicate_of_map[y][x] != 'E')
 	{
 		data->duplicate_of_map[y][x] = '1';
 		flood_fill(data, y, x - 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 01:22:30 by max               #+#    #+#             */
-/*   Updated: 2024/04/18 03:55:23 by max              ###   ########.fr       */
+/*   Updated: 2024/04/18 17:36:26 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int display_game(t_data *data)
 	}
 	if (data->alien_x > 0 && data->alien_y > 0)
 		move_alien(data);
-	data->time += 500;
+	data->time += 50;
 
 	if (data->time > 200000)
 		data->time = 0;
