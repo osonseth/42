@@ -6,13 +6,13 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 01:43:19 by max               #+#    #+#             */
-/*   Updated: 2024/04/18 17:27:20 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:59:57 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
- static int	ft_abs(int n)
+static int	ft_abs(int n)
 {
 	if (n < 0)
 		return (-n);
@@ -36,8 +36,8 @@ int	ft_count_digit(int n)
 
 char	*ft_itoa(int n)
 {
-	int digit;
-	char *str;
+	int		digit;
+	char	*str;
 
 	if (n == 0)
 	{
