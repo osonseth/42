@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:19 by max               #+#    #+#             */
-/*   Updated: 2024/04/20 16:46:38 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:22:26 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	parsing_management(t_data *data)
 		free(map_in_string);
 		display_error("Error\nInvalid map");
 	}
+	check_newline(map_in_string);
 	data->map = ft_split(map_in_string, data, '\n');
 	free(map_in_string);
 	check_map_constraints(data);

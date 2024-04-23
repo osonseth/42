@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:24 by max               #+#    #+#             */
-/*   Updated: 2024/04/20 17:22:19 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:34:01 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,6 @@ void		display_movement_count(t_data *data);
 void		display_movement_count_split(t_data *data, int i);
 void		check_map_char(t_data *data);
 void		open_font_split(t_data *data);
+void		check_newline(char *map);
 
 #endif

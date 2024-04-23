@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 02:10:15 by max               #+#    #+#             */
-/*   Updated: 2024/04/20 14:47:31 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:23:34 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,20 @@ char	**ft_split(char const *s, t_data *data, char c)
 		s++;
 	}
 	return (tab);
+}
+
+void	check_newline(char *map)
+{
+	int	i;
+
+	i = 1;
+	while (map[i])
+	{
+		if (map[i] == '\n' && map[i - 1] == '\n')
+		{
+			free(map);
+			display_error("Error\nInvalid map");
+		}
+		i++;
+	}
 }
