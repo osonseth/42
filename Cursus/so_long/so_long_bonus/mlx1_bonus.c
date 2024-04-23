@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 01:22:30 by max               #+#    #+#             */
-/*   Updated: 2024/04/20 17:28:25 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:37:35 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	display_game(t_data *data)
 	}
 	if (data->alien_x > 0 && data->alien_y > 0)
 		move_alien(data);
-	data->time += 100;
+	data->time += 40;
 	if (data->time > 200000)
 		data->time = 0;
 	return (0);
