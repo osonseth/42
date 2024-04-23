@@ -1,67 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:19 by max               #+#    #+#             */
-/*   Updated: 2024/04/20 16:46:38 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/20 17:12:48 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-
-void	update_data(t_data *data, int x)
-{
-	if (x == 1)
-	{
-		data->map[data->player_y][data->player_x] = '0';
-		data->map[data->player_y - 1][data->player_x] = 'P';
-		data->player_y = data->player_y - 1;
-	}
-	if (x == 2)
-	{
-		data->map[data->player_y][data->player_x] = '0';
-		data->map[data->player_y + 1][data->player_x] = 'P';
-		data->player_y = data->player_y + 1;
-	}
-	if (x == 3)
-	{
-		data->map[data->player_y][data->player_x] = '0';
-		data->map[data->player_y][data->player_x + 1] = 'P';
-		data->player_x = data->player_x + 1;
-	}
-	if (x == 4)
-	{
-		data->map[data->player_y][data->player_x] = '0';
-		data->map[data->player_y][data->player_x - 1] = 'P';
-		data->player_x = data->player_x - 1;
-	}
-}
-
-void	display_utils(t_data *data, int i, int j)
-{
-	while (j < data->map_width)
-	{
-		if (data->map[i][j] == '1')
-			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-				data->mlx_image_asteroid, j * 64, i * 64);
-		if (data->map[i][j] == '0')
-			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-				data->mlx_image_space, j * 64, i * 64);
-		if (data->map[i][j] == 'C')
-			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-				data->mlx_image_crystal, j * 64, i * 64);
-		if (data->map[i][j] == 'P')
-			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-				data->mlx_image_spaceship, j * 64, i * 64);
-		if (data->map[i][j] == 'E')
-			mlx_put_image_to_window(data->mlx_init, data->mlx_windows,
-				data->mlx_image_exit, j * 64, i * 64);
-		j++;
-	}
-}
+#include "so_long_bonus.h"
 
 void	parsing_management(t_data *data)
 {
@@ -89,8 +38,8 @@ void	parsing_management(t_data *data)
 void	game_management(t_data *data)
 {
 	init_and_window(data);
+	read_sprite(data);
 	open_image(data);
-	display_movement_count(data);
 	mlx_loop_hook(data->mlx_init, display_game, data);
 	mlx_hook(data->mlx_windows, 2, 1, keypress, data);
 	mlx_hook(data->mlx_windows, 17, 0, close_windows, data);
