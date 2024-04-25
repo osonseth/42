@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:53:40 by max               #+#    #+#             */
-/*   Updated: 2024/04/20 14:52:41 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/25 03:52:14 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,6 @@ void	check_map_is_rectangle(t_data *data)
 	if (length % data->map_height != 0)
 		display_error_and_clear_array(data,
 			"Error\nThe map is not a rectangle");
-	else
-	{
-		length /= data->map_height;
-		if (length < data->map_height)
-			display_error_and_clear_array(data,
-				"Error\nThe map is not a rectangle");
-	}
 }
 
 void	check_up_wall(t_data *data)
