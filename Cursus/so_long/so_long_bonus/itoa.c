@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 01:43:19 by max               #+#    #+#             */
-/*   Updated: 2024/04/25 04:32:58 by max              ###   ########.fr       */
+/*   Updated: 2024/04/25 04:45:30 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	*ft_itoa(t_data *data, int n)
 	int		digit;
 	char	*str;
 
+	digit = ft_count_digit(n);
+	
 	str = malloc((digit + 1) * sizeof(char));
 	if (!str)
 		clean_all(data,"Error\nMemory allocation error");
