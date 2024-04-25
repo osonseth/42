@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx6_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 00:28:52 by max               #+#    #+#             */
-/*   Updated: 2024/04/20 17:28:41 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/25 04:07:30 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	display_sprite_eight_to_fiveteen(t_data *data, int x, int y)
 void	display_movement_count(t_data *data)
 {
 	int (i) = 0;
-	data->str_count_move = ft_itoa(data->count_move);
+	data->str_count_move = ft_itoa(data, data->count_move);
 	while (data->str_count_move[i])
 	{
 		display_movement_count_split(data, i);

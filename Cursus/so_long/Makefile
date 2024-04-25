@@ -49,6 +49,7 @@ SRCBONUS     =		$(SRCBONUSPATH)cleaning1_bonus.c	\
 					$(SRCBONUSPATH)parsing3_bonus.c		\
 					$(SRCBONUSPATH)parsing4_bonus.c		\
 					$(SRCBONUSPATH)split_bonus.c		\
+					$(SRCBONUSPATH)itoa.c		\
 
 NAME 		=	so_long
 

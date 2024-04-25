@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:24 by max               #+#    #+#             */
-/*   Updated: 2024/04/23 18:34:01 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/25 04:25:20 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ typedef struct s_data
 }			t_data;
 
 int			ft_count_digit(int n);
-int			ft_abs_so_long(int n);
-char		*ft_itoa(int n);
+int			ft_abs_solong (int n);
+char		*ft_itoa(t_data *data, int n);
 int			ft_strncmp(char *s1, char *s2, int n);
 char		*ft_strdup(const char *s);
 void		check_map_name(char *argument);

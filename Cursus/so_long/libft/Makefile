@@ -14,8 +14,7 @@ SRCS 		=	$(SRCPATH)ft_printf.c				\
 				$(SRCPATH)get_next_line_utils.c		\
 				$(SRCPATH)mandatory1.c				\
 				$(SRCPATH)mandatory2.c				\
-				$(SRCPATH)itoa.c					\
-								
+				
 OBJ 		=	$(SRCS:.c=.o)
 
 NAME 		=	libft.a

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   itoa.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 01:43:19 by max               #+#    #+#             */
-/*   Updated: 2024/04/23 17:59:57 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/25 04:32:58 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "so_long_bonus.h"
 
-static int	ft_abs(int n)
+int	ft_abs_solong(int n)
 {
 	if (n < 0)
 		return (-n);
@@ -34,30 +34,23 @@ int	ft_count_digit(int n)
 	return (digit);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(t_data *data, int n)
 {
 	int		digit;
 	char	*str;
 
-	if (n == 0)
-	{
-		str = malloc(2 * sizeof(char));
-		str[0] = '0';
-		str[1] = '\0';
-		return (str);
-	}
-	digit = ft_count_digit(n);
 	str = malloc((digit + 1) * sizeof(char));
 	if (!str)
-		return (NULL);
-	if (n < 0)
-		str[0] = '-';
-	str[digit] = '\0';
+		clean_all(data,"Error\nMemory allocation error");
+	if (n == 0)
+		str[0] = '0';
+	str[1] = '\0';
 	while (n != 0)
 	{
 		str[digit - 1] = ft_abs(n % 10) + '0';
 		digit--;
 		n /= 10;
 	}
+	
 	return (str);
 }
