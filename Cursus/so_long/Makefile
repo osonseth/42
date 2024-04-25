@@ -16,6 +16,14 @@ SRCPATH 	 =	./
 
 SRCBONUSPATH = so_long_bonus/
 
+ifdef BONUS
+	INCLUDE_OPTION = -I$(SRCBONUSPATH)
+	HEADER		   = $(SRCBONUSPATH)so_long_bonus.h
+else
+	INCLUDE_OPTION = -I$(SRCPATH)
+	HEADER		   = so_long.h
+endif
+
 SRC 		 =		$(SRCPATH)cleaning1.c	\
 					$(SRCPATH)cleaning2.c	\
 					$(SRCPATH)main.c		\
@@ -50,16 +58,17 @@ OBJBONUS	=	$(SRCBONUS:.c=.o)
 
 NAME_BONUS	=	so_long_b
 
-$(NAME): $(MLX) $(LIB) $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIB_PATH) $(LDLIBS) -o $(NAME)
+$(NAME): $(MLX) $(LIB) $(OBJ) $(HEADER)
+	$(CC) $(FLAGS) $(OBJ) $(LIB_PATH) $(LDLIBS) $(INCLUDE_OPTION) -o $(NAME)
 
-$(NAME_BONUS): $(MLX) $(LIB) $(OBJBONUS)
-	$(CC) $(FLAGS) $(OBJBONUS) $(LIB_PATH) $(LDLIBS) -o $(NAME_BONUS)
+$(NAME_BONUS): $(MLX) $(LIB) $(HEADER) $(OBJBONUS) 
+	$(CC) $(FLAGS) $(OBJBONUS) $(LIB_PATH) $(LDLIBS) $(INCLUDE_OPTION) -o $(NAME_BONUS)
 
-bonus: $(NAME_BONUS)
+bonus:
+	$(MAKE) BONUS=1 $(NAME_BONUS)
 
-.c.o:
-	$(CC) $(FLAGS) -c $< -I $(INCLUDEPATH) -o ${<:.c=.o}
+%.o: %.c $(HEADER)
+	$(CC) $(FLAGS) -c $< -o $@ $(INCLUDE_OPTION)
 
 minilibx-linux/libmlx.a:
 	$(MAKE) -C minilibx-linux
