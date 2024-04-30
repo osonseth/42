@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing2.c                                         :+:      :+:    :+:   */
+/*   parsing2_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 01:20:36 by max               #+#    #+#             */
-/*   Updated: 2024/04/30 10:40:14 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/30 10:38:14 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
@@ -80,6 +80,7 @@ char	*ft_strjoin_solong(char *s1, char *s2)
 			free(s1);
 		if (s2)
 			free(s2);
+		printf("prout\n");
 		display_error("Error\nMemory allocation");
 	}
 	ft_strcpy(str, s1);

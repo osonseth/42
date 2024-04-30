@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing4.c                                         :+:      :+:    :+:   */
+/*   parsing4_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 00:32:22 by max               #+#    #+#             */
-/*   Updated: 2024/04/30 10:19:48 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/30 11:22:31 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 char	*ft_strdup(const char *s)
 {
@@ -90,7 +90,7 @@ void	check_valid_way(t_data *data)
 	}
 }
 
-void	check_map_char(t_data *data)
+void	coord_alien(t_data *data)
 {
 	int	i;
 	int	j;
@@ -101,11 +101,10 @@ void	check_map_char(t_data *data)
 		j = 0;
 		while (data->map[i][j])
 		{
-			if (data->map[i][j] != '1' && data->map[i][j] != '0'
-				&& data->map[i][j] != 'E' && data->map[i][j] != 'C'
-				&& data->map[i][j] != 'P')
+			if (data->map[i][j] == 'A')
 			{
-				clean_all(data, "Error\nInvalid map");
+				data->alien_x = j;
+				data->alien_y = i;
 			}
 			j++;
 		}

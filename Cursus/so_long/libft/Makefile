@@ -2,7 +2,7 @@ CC			=	cc
 
 ARRC			=	ar rc
 
-FLAGS 		=	-Wall -Wextra -Werror
+FLAGS 		 =	-Wall -Wextra -Werror -MMD -MP -g3
 
 SRCPATH 	=	./
 
@@ -17,16 +17,18 @@ SRCS 		=	$(SRCPATH)ft_printf.c				\
 				
 OBJ 		=	$(SRCS:.c=.o)
 
+DEP		=   $(patsubst %.o,%.d, $(OBJ))
+
 NAME 		=	libft.a
 
 $(NAME): $(OBJ)
 	$(ARRC) $(NAME) $(OBJ)
 
-.c.o:
-	$(CC) $(FLAGS) -c $< -I $(INCLUDEPATH) -o ${<:.c=.o}
+%.o: %.c 
+	$(CC) $(FLAGS) -c $< -o $@ 
 
 clean:
-	rm -f $(OBJ) $(OBJBONUS)
+	rm -f $(OBJ) $(OBJBONUS) $(DEP)
 	
 fclean: clean
 	rm -f $(NAME)
@@ -36,3 +38,5 @@ all: $(NAME)
 re: fclean all
 
 .PHONY: clean fclean all re
+
+-include $(DEP)

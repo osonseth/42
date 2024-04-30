@@ -1,6 +1,6 @@
 CC 			 = cc
 
-FLAGS 		 =	-Wall -Wextra -Werror
+FLAGS 		 =	-Wall -Wextra -Werror -MMD -MP -g3
 
 LDLIBS		 =  -lmlx -lXext -lX11 -lft
 
@@ -14,15 +14,9 @@ INCLUDEPATH  =	./
 
 SRCPATH 	 =	./
 
-SRCBONUSPATH = so_long_bonus/
+SRCBONUSPATH = bonus/
 
-ifdef BONUS
-	INCLUDE_OPTION = -I$(SRCBONUSPATH)
-	HEADER		   = $(SRCBONUSPATH)so_long_bonus.h
-else
-	INCLUDE_OPTION = -I$(SRCPATH)
-	HEADER		   = so_long.h
-endif
+
 
 SRC 		 =		$(SRCPATH)cleaning1.c	\
 					$(SRCPATH)cleaning2.c	\
@@ -52,24 +46,22 @@ SRCBONUS     =		$(SRCBONUSPATH)cleaning1_bonus.c	\
 					$(SRCBONUSPATH)itoa.c		\
 
 NAME 		=	so_long
-
 OBJ 		=	$(SRC:.c=.o)
-
 OBJBONUS	=	$(SRCBONUS:.c=.o)
+DEP		    = 	$(patsubst %.o,%.d, $(OBJ) $(OBJBONUS))
+NAME_BONUS	=	so_long_bonus
 
-NAME_BONUS	=	so_long_b
+$(NAME): $(MLX) $(LIB) $(OBJ) 
+	$(CC) $(FLAGS) $(OBJ) $(LIB_PATH) $(LDLIBS) -o $(NAME)
 
-$(NAME): $(MLX) $(LIB) $(OBJ) $(HEADER)
-	$(CC) $(FLAGS) $(OBJ) $(LIB_PATH) $(LDLIBS) $(INCLUDE_OPTION) -o $(NAME)
-
-$(NAME_BONUS): $(MLX) $(LIB) $(HEADER) $(OBJBONUS) 
-	$(CC) $(FLAGS) $(OBJBONUS) $(LIB_PATH) $(LDLIBS) $(INCLUDE_OPTION) -o $(NAME_BONUS)
+$(NAME_BONUS): $(MLX) $(LIB) $(OBJBONUS) 
+	$(CC) $(FLAGS) $(OBJBONUS) $(LIB_PATH) $(LDLIBS) -o $(NAME_BONUS)
 
 bonus:
-	$(MAKE) BONUS=1 $(NAME_BONUS)
+	$(MAKE) $(NAME_BONUS)
 
-%.o: %.c $(HEADER)
-	$(CC) $(FLAGS) -c $< -o $@ $(INCLUDE_OPTION)
+%.o: %.c 
+	$(CC) $(FLAGS) -c $< -o $@ 
 
 minilibx-linux/libmlx.a:
 	$(MAKE) -C minilibx-linux
@@ -80,14 +72,15 @@ libft/libft.a:
 all: $(NAME)
 
 clean:
-	rm -f $(OBJ) $(OBJBONUS)
+	rm -f $(OBJ) $(OBJBONUS) $(DEP)
 	$(MAKE) -C libft clean
 	
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(NAME_BONUS)
 	$(MAKE) -C libft fclean
-
 
 re : fclean all
 
 .PHONY: clean fclean all re bonus
+
+-include $(DEP)

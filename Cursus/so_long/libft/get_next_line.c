@@ -5,115 +5,152 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 00:20:13 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/01/24 21:27:58 by mmauchre         ###   ########.fr       */
+/*   Created: 2024/04/30 10:21:02 by mmauchre          #+#    #+#             */
+/*   Updated: 2024/04/30 10:21:05 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*make_line(char **line, char **stash)
+char	*read_line_from_start(char *buffer)
 {
-	*line = ft_line(*stash);
-	*stash = ft_clean_stash(*stash);
-	return (*line);
-}
+	int		i;
+	char	*line;
 
-char	*ft_clean_stash(char *str)
-{
-	char	*new_stash;
-	int		len;
-
-	int (i) = 0;
-	len = ft_strlen_of_line(str);
-	new_stash = malloc((ft_strlen(&str[len]) + 1) * sizeof(char));
-	if (!new_stash)
+	if (!buffer || !buffer[0])
 		return (NULL);
-	while (str[len + i])
-	{
-		new_stash[i] = str[len + i];
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	}
-	new_stash[i] = '\0';
-	free(str);
-	return (new_stash);
-}
-
-char	*ft_line(char *str)
-{
-	char *(line) = malloc((ft_strlen_of_line(str) + 1) * sizeof(char));
+	if (buffer[i] == '\n')
+		i++;
+	line = (char *)malloc(1 + i);
 	if (!line)
 		return (NULL);
-	int (i) = 0;
-	while (str[i] != '\n' && str[i] != '\0')
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
 	{
-		line[i] = str[i];
+		line[i] = buffer[i];
 		i++;
 	}
-	if (str[i] == '\0')
-	{
-		line[i] = '\0';
-		return (line);
-	}
-	else if (str[i] == '\n')
-	{
-		line[i] = '\n';
-		line[i + 1] = '\0';
-	}
+	if (buffer[i] == '\n')
+		line[i++] = '\n';
+	line[i] = '\0';
 	return (line);
 }
 
-char	*ft_strjoin(char *buffer, char *stash)
+char	*allocate_and_copy_remaining(char *buffer, int length)
 {
-	int (i) = 0;
-	int (j) = 0;
-	int (total_len) = ft_strlen(buffer) + ft_strlen(stash);
-	char *(str) = malloc((1 + total_len) * sizeof(char));
-	if (!str)
+	int		j;
+	char	*new_buffer;
+
+	j = 0;
+	new_buffer = (char *)malloc(1 + gnl_strlen(buffer) - length);
+	if (!new_buffer)
 		return (NULL);
-	if (stash)
+	while (buffer[length + j])
 	{
-		while (stash[i])
-		{
-			str[i] = stash[i];
-			i++;
-		}
-	}
-	while (buffer[j])
-	{
-		str[i] = buffer[j];
+		new_buffer[j] = buffer[length + j];
 		j++;
-		i++;
 	}
-	str[i] = '\0';
-	free(stash);
-	return (str);
+	new_buffer[j] = '\0';
+	free(buffer);
+	return (new_buffer);
+}
+
+char	*move_start_buffer(char *buffer)
+{
+	int	i;
+
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	if (buffer[i] == '\0')
+	{
+		free(buffer);
+		return (NULL);
+	}
+	return (allocate_and_copy_remaining(buffer, i + 1));
 }
 
 char	*get_next_line(int fd)
 {
-	char (buffer)[BUFFER_SIZE + 1] = {0};
-	static char *(stash) = NULL;
-	char *(line) = NULL;
+	int			read_result;
+	char		*temp_buffer;
+	static char	*start_buffer;
+
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (stash && check_eol(stash))
-		return (make_line(&line, &stash));
-	while (read(fd, buffer, BUFFER_SIZE) > 0)
+	read_result = 1;
+	temp_buffer = (char *)malloc(1 + BUFFER_SIZE);
+	if (!temp_buffer)
+		return (NULL);
+	while (!(gnl_strchr(start_buffer, '\n')) && read_result != 0)
 	{
-		stash = ft_strjoin(buffer, stash);
-		if (check_eol(stash))
-			return (make_line(&line, &stash));
-		ft_bzero(buffer, BUFFER_SIZE);
+		read_result = read(fd, temp_buffer, BUFFER_SIZE);
+		if (read_result == -1)
+		{
+			free(temp_buffer);
+			return (NULL);
+		}
+		temp_buffer[read_result] = '\0';
+		start_buffer = gnl_strjoin(start_buffer, temp_buffer);
 	}
-	if (stash)
-	{
-		if (stash[0] == '\0')
-			return (free(stash), NULL);
-		line = ft_line(stash);
-		free(stash);
-		stash = NULL;
-		return (line);
-	}
-	return (NULL);
+	free(temp_buffer);
+	temp_buffer = read_line_from_start(start_buffer);
+	start_buffer = move_start_buffer(start_buffer);
+	return (temp_buffer);
 }
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	int		fd;
+	char	*line;
+
+	fd = open("tests.txt", O_RDONLY);
+	if (fd == -1)
+	{
+		printf("ERREUR: Le fichier n'a pas pu etre ouvert\n");
+		return (-1);
+	}
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		printf("%s", line);
+		free(line);
+	}
+	close(fd);
+	return (0);
+}
+*/
+
+/* MAIN TEST (ARGC, ARGV)
+
+#include <stdio.h>
+
+int	main(int argc, char *argv[])
+{
+	int		fd;
+	char	*line;
+
+	if (argc != 2)
+	{
+		printf("Usage: %s <tests.txt>\n", argv[0]);
+		return (1);
+	}
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+	{
+		printf("ERREUR: Le fichier %s n'a pas pu être ouvert\n", argv[1]);
+		return (-1);
+	}
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		printf("%s", line);
+		free(line);
+	}
+	close(fd);
+	return (0);
+}
+*/

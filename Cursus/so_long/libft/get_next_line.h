@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 00:20:07 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/04/23 18:41:28 by mmauchre         ###   ########.fr       */
+/*   Created: 2024/04/30 10:20:45 by mmauchre          #+#    #+#             */
+/*   Updated: 2024/04/30 14:12:38 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,18 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 10
+
 # endif
 
 # include <fcntl.h>
-# include <stdbool.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
+int		gnl_strlen(char *str);
+int		gnl_strchr(char *str, char c);
+char	*gnl_strjoin(char *s1, char *s2);
+char	*concatenate_strings(char *dest, char *s1, char *s2);
 char	*get_next_line(int fd);
-char	*ft_line(char *str);
-bool	check_eol(char *str);
-int		ft_strlen(char *str);
-int		ft_strlen_of_line(char *str);
-char	*ft_strjoin(char *buffer, char *stash);
-void	ft_bzero(void *s, size_t n);
-char	*ft_clean_stash(char *str);
-char	*make_line(char **line, char **stash);
 
 #endif
