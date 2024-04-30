@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 12:26:10 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/04/30 08:06:21 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:15:15 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdarg.h>
 # include <stdlib.h>
-  
+
 int		ft_printf(const char *format, ...);
 int		ft_abs(int n);
 void	ft_treat_flag(va_list arg, const char *format, int *total_return);

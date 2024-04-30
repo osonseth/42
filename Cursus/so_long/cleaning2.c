@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 21:00:40 by max               #+#    #+#             */
-/*   Updated: 2024/04/30 10:18:08 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:14:09 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	destroy_image(t_data *data)
 	if (data->mlx_image_exit != NULL)
 		mlx_destroy_image(data->mlx_init, data->mlx_image_exit);
 }
+
 void	ft_bzero(void *s, size_t n)
 {
 	size_t	i;
