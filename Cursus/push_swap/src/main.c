@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:53:47 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/02 00:25:10 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/02 01:50:53 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char **argv)
 	data.argc = argc;
 	data.argv = argv;
 	parsing_management(&data);
+	
 	clean_all(&data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 21:22:50 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/02 00:25:20 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/02 01:47:26 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,10 @@ void	parsing_management(t_data *data)
 {
 	join_arguments(data);
 	check_char(data);
+	data->array_number = split(data, data->join_argv, ' ');
+	if (data->array_number == NULL)
+	{
+		perror("Error memory:\n");
+		clean_all(data);
+	}
 }
