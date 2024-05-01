@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 01:22:30 by max               #+#    #+#             */
-/*   Updated: 2024/04/27 17:40:52 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/30 22:04:43 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_and_window(t_data *data)
 	if (data->map_width > sizex || data->map_height > sizey)
 		clean_all(data, "Error\nInvalid size of windows");
 	data->mlx_windows = mlx_new_window(data->mlx_init, data->map_width * 64,
-			(data->map_height * 64) + 64, "SO LONG");
+			(data->map_height * 64), "SO LONG");
 	if (data->mlx_windows == NULL)
 		display_error_and_clear_array(data, "Error\nMlx open window failed");
 }

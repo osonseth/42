@@ -6,15 +6,15 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:24 by max               #+#    #+#             */
-/*   Updated: 2024/04/30 10:17:59 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/30 21:37:01 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_BONUS_H
 # define SO_LONG_BONUS_H
 
-# include "../libft/ft_printf.h"
-# include "../libft/get_next_line.h"
+# include "ft_printf.h"
+# include "get_next_line.h"
 # include "../minilibx-linux/mlx.h"
 # include "X11/Xlib.h"
 # include "X11/keysym.h"

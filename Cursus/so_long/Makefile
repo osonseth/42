@@ -10,9 +10,9 @@ MLX			 =   minilibx-linux/libmlx.a
 
 LIB_PATH     =  -L minilibx-linux/ -L libft/
 
-INCLUDEPATH  =	./
+INCLUDEPATH  =	./include/
 
-SRCPATH 	 =	./
+SRCPATH 	 =	./src/
 
 SRCBONUSPATH = bonus/
 
@@ -52,16 +52,16 @@ DEP		    = 	$(patsubst %.o,%.d, $(OBJ) $(OBJBONUS))
 NAME_BONUS	=	so_long_bonus
 
 $(NAME): $(MLX) $(LIB) $(OBJ) 
-	$(CC) $(FLAGS) $(OBJ) $(LIB_PATH) $(LDLIBS) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) $(LIB_PATH) -Ilibft/ $(LDLIBS) -o $(NAME)
 
 $(NAME_BONUS): $(MLX) $(LIB) $(OBJBONUS) 
-	$(CC) $(FLAGS) $(OBJBONUS) $(LIB_PATH) $(LDLIBS) -o $(NAME_BONUS)
+	$(CC) $(FLAGS) $(OBJBONUS) $(LIB_PATH) -Ilibft/ $(LDLIBS) -o $(NAME_BONUS)
 
 bonus:
 	$(MAKE) $(NAME_BONUS)
 
 %.o: %.c 
-	$(CC) $(FLAGS) -c $< -o $@ 
+	$(CC) $(FLAGS) -I$(INCLUDEPATH) -Ilibft/ -c $< -o $@ 
 
 minilibx-linux/libmlx.a:
 	$(MAKE) -C minilibx-linux

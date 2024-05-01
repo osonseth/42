@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:03:24 by max               #+#    #+#             */
-/*   Updated: 2024/04/30 10:17:30 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/04/30 21:06:36 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define SO_LONG_H
 
 # include "X11/keysym.h"
-# include "libft/ft_printf.h"
-# include "libft/get_next_line.h"
-# include "minilibx-linux/mlx.h"
+# include "ft_printf.h"
+# include "get_next_line.h"
+# include "../minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <limits.h>
 # include <stdbool.h>
