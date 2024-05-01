@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:09:58 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/01 23:53:54 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/02 00:24:31 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,15 @@ void	check_char(t_data *data)
 	while (data->join_argv[i])
 	{
 		if (!is_digit_sign_space(data->join_argv[i]))
-			clean_all(data);
+			error(data);
 		if (is_sign(data->join_argv[i]) && is_sign(data->join_argv[i - 1]))
-			clean_all(data);
+			error(data);
 		if (is_sign(data->join_argv[i]) && !is_space(data->join_argv[i - 1]))
-			clean_all(data);
+			error(data);
 		if (is_space(data->join_argv[i]) && is_sign(data->join_argv[i - 1]))
-			clean_all(data);
+			error(data);
 		if (is_sign(data->join_argv[i]) && data->join_argv[i + 1] == '\0')
-			clean_all(data);
+			error(data);
 		i++;
 	}
 }

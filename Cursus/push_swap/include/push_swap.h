@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:53:43 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/01 23:11:23 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/02 00:23:53 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void		ft_strjoin_push_swap(t_data *data, int i);
 void		join_arguments(t_data *data);
 void		check_char(t_data *data);
 void		clean_all(t_data *data);
+void		error(t_data *data);
 void		display_error(void);
 
 //----------------------------------------------

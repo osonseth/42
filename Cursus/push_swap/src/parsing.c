@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 21:22:50 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/01 23:21:49 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/02 00:25:20 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void	join_arguments(t_data *data)
 	while (i < data->argc)
 	{
 		if (data->argv[i][0] == '\0')
-		{
-			clean_all(data);
-		}
+			error(data);
 		ft_strjoin_push_swap(data, i);
 		i++;
 	}
