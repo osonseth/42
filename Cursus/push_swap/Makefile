@@ -16,6 +16,8 @@ SRCNAME 	 =	main.c 			 \
 			    utils.c 		 \
 				display_error.c  \
 				cleaning.c		 \
+				parsing.c		 \
+				check_char.c 	 \
 
 SRC			 = $(addprefix $(SRCPATH), $(SRCNAME))
 
