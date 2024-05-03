@@ -13,6 +13,7 @@ SRCS 		=	$(SRCPATH)ft_printf.c				\
 				$(SRCPATH)mandatory1.c				\
 				$(SRCPATH)mandatory2.c				\
 				$(SRCPATH)ft_strlen.c				\
+				$(SRCPATH)ft_atoi.c					\
 				
 OBJ 		=	$(SRCS:.c=.o)
 

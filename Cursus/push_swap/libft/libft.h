@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 12:26:10 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/01 19:48:34 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:26:52 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ void	ft_flag_di_and_plus(int n, int *total_return);
 //-------------------------------------------------------------
 
 int		ft_strlen(char *str);
+int		ft_atoi(char *str);
 
 #endif

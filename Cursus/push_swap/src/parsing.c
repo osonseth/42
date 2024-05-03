@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 21:22:50 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/02 01:47:26 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:30:59 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	join_arguments(t_data *data)
 	}
 }
 
-void	parsing_management(t_data *data)
+void	parsing_management(t_data *data, t_list **stack_a)
 {
 	join_arguments(data);
 	check_char(data);
@@ -36,4 +36,7 @@ void	parsing_management(t_data *data)
 		perror("Error memory:\n");
 		clean_all(data);
 	}
+	make_list(data, stack_a);
+	
+	
 }

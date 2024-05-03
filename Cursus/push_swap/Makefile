@@ -19,6 +19,7 @@ SRCNAME 	 =	main.c 			 \
 				parsing.c		 \
 				check_char.c 	 \
 				split.c 		 \
+				ft_list.c		 \
 
 SRC			 = $(addprefix $(SRCPATH), $(SRCNAME))
 
