@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:24:15 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/03 15:52:06 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:57:52 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	clean_array_number(t_data *data)
 	data->array_number = NULL;
 }
 
-void	clean_all(t_data *data)
+void	clean_parsing(t_data *data)
 {
 	if (data->join_argv)
 	{
@@ -41,6 +41,6 @@ void	clean_all(t_data *data)
 
 void	error(t_data *data)
 {
-	clean_all(data);
+	clean_parsing(data);
 	display_error();
 }

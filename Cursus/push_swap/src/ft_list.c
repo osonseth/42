@@ -6,11 +6,23 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:15:32 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/03 16:38:21 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:05:14 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	print_list(t_list *stack)
+{
+	t_list	*current;
+
+	current = stack;
+	while (current)
+	{
+		printf("val = %d\n", current->value);
+		current = current->next;
+	}
+}
 
 void	ft_lstclear(t_list **lst)
 {
@@ -49,11 +61,10 @@ t_list	*ft_lstnew(int value)
 	if (list == NULL)
 		return (NULL);
 	list->value = value;
-	list->number_of_value = 0;
 	list->next = NULL;
 	return (list);
 }
-void make_list(t_data *data, t_list **stack_a)
+void	make_list(t_data *data, t_list **stack_a)
 {
 	t_list	*temp;
 	int		i;
@@ -66,11 +77,13 @@ void make_list(t_data *data, t_list **stack_a)
 		{
 			ft_lstclear(stack_a);
 			perror("Error : memory allocation\n");
-			clean_all(data);
+			clean_parsing(data);
 			exit(EXIT_FAILURE);
 		}
+		check_double(stack_a, temp, data);
 		ft_lstadd_back(stack_a, temp);
 		i++;
 	}
 	return ;
 }
+
