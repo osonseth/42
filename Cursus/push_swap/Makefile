@@ -20,6 +20,9 @@ SRCNAME 	 =	main.c 			 \
 				check_char.c 	 \
 				split.c 		 \
 				ft_list.c		 \
+				instructions.c   \
+				instructions2.c  \
+				instructions3.c  \
 
 SRC			 = $(addprefix $(SRCPATH), $(SRCNAME))
 

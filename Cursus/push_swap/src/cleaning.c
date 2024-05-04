@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 19:24:15 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/03 17:57:52 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:07:34 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	clean_parsing(t_data *data)
 	}
 	if (data->array_number)
 		clean_array_number(data);
-	
 }
 
 void	error(t_data *data)

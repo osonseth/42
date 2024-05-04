@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:53:43 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/03 18:05:03 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/04 02:05:57 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,20 @@ void				ft_lstclear(t_list **lst);
 void				ft_lstadd_back(t_list **lst, t_list *new);
 void				print_list(t_list *stack);
 void				check_double(t_list **stack_a, t_list *new, t_data *data);
+void				management(t_data *data, t_list **stack_a,
+						t_list **stack_b);
+
+//----------------------------------------------------
+void				swap_a(t_list **stack_a);
+void				swap_b(t_list **stack_b);
+void				swap_a_and_swap_b(t_list **stack_a, t_list **stack_b);
+void				push_b(t_list **stack_a, t_list **stack_b);
+void				push_a(t_list **stack_a, t_list **stack_b);
+void				rotate_a(t_list **stack_a);
+void				rotate_b(t_list **stack_b);
+void				rotate_a_and_rotate_b(t_list **stack_a, t_list **stack_b);
+void				reverse_rotate_a(t_list **stack_a);
+void				reverse_rotate_b(t_list **stack_b);
+void				reverse_rotate_a_and_b(t_list **stack_a, t_list **stack_b);
 
 #endif

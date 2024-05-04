@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:15:32 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/03 18:05:14 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/04 00:52:07 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ void	print_list(t_list *stack)
 {
 	t_list	*current;
 
+	
 	current = stack;
+	if (current == NULL)
+		ft_printf("NULL\n");
 	while (current)
 	{
-		printf("val = %d\n", current->value);
+		ft_printf("val = %d\n", current->value);
 		current = current->next;
 	}
 }
@@ -64,6 +67,7 @@ t_list	*ft_lstnew(int value)
 	list->next = NULL;
 	return (list);
 }
+
 void	make_list(t_data *data, t_list **stack_a)
 {
 	t_list	*temp;
@@ -86,4 +90,3 @@ void	make_list(t_data *data, t_list **stack_a)
 	}
 	return ;
 }
-
