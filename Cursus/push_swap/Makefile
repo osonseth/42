@@ -23,7 +23,9 @@ SRCNAME 	 =	main.c 			 		\
 				instructions.c   		\
 				instructions2.c  		\
 				print_instructions.c	\
-				print_instructions2.c 	
+				print_instructions2.c 	\
+				sort.c					\
+				sort2.c
 
 SRC			 = $(addprefix $(SRCPATH), $(SRCNAME))
 
@@ -33,7 +35,7 @@ NAME 		=	push_swap
 
 OBJ 		=	$(SRC:.c=.o)
 
-DEP		    = 	$(patsubst %.o,%.d, $(OBJ) $(OBJBONUS))
+DEP		    = 	$(patsubst %.o,%.d, $(OBJ) $(OBJBONUS)) $(patsubst %.a,%.d, $(LIB))
 
 $(NAME): $(OBJ) $(LIB)
 	$(CC) $(FLAGS) $(OBJ) $(LIB_PATH) -Ilibft/ $(LDLIBS) -o $(NAME)

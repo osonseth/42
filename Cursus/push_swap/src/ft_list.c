@@ -6,11 +6,27 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:15:32 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/06 08:27:46 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:05:35 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	lst_len(t_list **lst)
+{
+	int		len;
+	t_list	*current;
+
+	current = *lst;
+	len = 0;
+	while (current != NULL)
+	{
+		current->index = len;
+		len++;
+		current = current->next;
+	}
+	return (len);
+}
 
 bool	lst_is_shorted(t_list *lst)
 {
@@ -35,7 +51,15 @@ void	print_list(t_list *stack)
 		ft_printf("liste vide\n");
 	while (current)
 	{
-		ft_printf("val = %ld\n", current->value);
+		if (current->target != NULL)
+		{
+			printf(" i = %d val = %ld  -> %ld\n", current->index,
+				current->value, current->target->value);
+		}
+		else
+		{
+			printf(" i = %d val = %ld \n", current->index, current->value);
+		}
 		current = current->next;
 	}
 }
@@ -55,7 +79,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	tmp->next = new;
 }
 
-t_list	*ft_lstnew(long int value)
+t_list	*ft_lstnew(long int value, int i)
 {
 	t_list	*list;
 
@@ -63,6 +87,10 @@ t_list	*ft_lstnew(long int value)
 	if (list == NULL)
 		return (NULL);
 	list->value = value;
+	list->is_max = false;
+	list->is_min = false;
+	list->target = NULL;
+	list->index = i;
 	list->next = NULL;
 	return (list);
 }
@@ -75,7 +103,7 @@ void	make_list(t_data *data, t_list **stack_a)
 	i = 0;
 	while (i < data->array_number_height)
 	{
-		temp = ft_lstnew(ft_atoi(data->array_number[i]));
+		temp = ft_lstnew(ft_atoi(data->array_number[i]), i);
 		if (temp == NULL)
 		{
 			ft_lstclear(stack_a);

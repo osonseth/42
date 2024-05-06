@@ -6,11 +6,35 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 21:22:50 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/06 09:03:56 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:20:09 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	update_data(t_data *data, t_list **stack_a)
+{
+	t_list	*current;
+
+	current = *stack_a;
+	while (current != NULL)
+	{
+		if (current->value > data->max)
+			data->max = current->value;
+		if (current->value < data->min)
+			data->min = current->value;
+		current = current->next;
+	}
+	current = *stack_a;
+	while (current != NULL)
+	{
+		if (current->value == data->max)
+			current->is_max = true;
+		if (current->value == data->min)
+			current->is_min = true;
+		current = current->next;
+	}
+}
 
 void	check_double(t_list **lst, t_list *new, t_data *data)
 {
@@ -60,5 +84,8 @@ void	parsing_management(t_data *data, t_list **stack_a)
 		clean_parsing(data);
 		exit(EXIT_SUCCESS);
 	}
+	data->max = (*stack_a)->value;
+	data->min = (*stack_a)->value;
+	update_data(data, stack_a);
 	clean_parsing(data);
 }
