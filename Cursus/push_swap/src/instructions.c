@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:35:08 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/04 01:08:36 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/06 08:49:55 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,6 @@ void	swap_b(t_list **stack_b)
 	temp->next = temp_next->next;
 	temp_next->next = temp;
 	*stack_b = temp_next;
-}
-void	swap_a_and_swap_b(t_list **stack_a, t_list **stack_b)
-{
-	swap_a(stack_a);
-	swap_b(stack_b);
 }
 
 void	push_b(t_list **stack_a, t_list **stack_b)

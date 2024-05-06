@@ -12,17 +12,18 @@ INCLUDEPATH  =	./include/
 
 SRCPATH 	 =	./src/
 
-SRCNAME 	 =	main.c 			 \
-			    utils.c 		 \
-				display_error.c  \
-				cleaning.c		 \
-				parsing.c		 \
-				check_char.c 	 \
-				split.c 		 \
-				ft_list.c		 \
-				instructions.c   \
-				instructions2.c  \
-				instructions3.c  \
+SRCNAME 	 =	main.c 			 		\
+			    utils.c 		 		\
+				display_error.c  		\
+				cleaning.c		 		\
+				parsing.c		 		\
+				check_char.c 	 		\
+				split.c 		 		\
+				ft_list.c		 		\
+				instructions.c   		\
+				instructions2.c  		\
+				print_instructions.c	\
+				print_instructions2.c 	
 
 SRC			 = $(addprefix $(SRCPATH), $(SRCNAME))
 

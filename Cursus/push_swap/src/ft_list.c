@@ -6,38 +6,37 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:15:32 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/04 00:52:07 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/06 08:27:46 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+bool	lst_is_shorted(t_list *lst)
+{
+	t_list	*next;
+
+	while (lst->next != NULL)
+	{
+		next = lst->next;
+		if (next->value < lst->value)
+			return (false);
+		lst = lst->next;
+	}
+	return (true);
+}
+
 void	print_list(t_list *stack)
 {
 	t_list	*current;
 
-	
 	current = stack;
 	if (current == NULL)
-		ft_printf("NULL\n");
+		ft_printf("liste vide\n");
 	while (current)
 	{
-		ft_printf("val = %d\n", current->value);
+		ft_printf("val = %ld\n", current->value);
 		current = current->next;
-	}
-}
-
-void	ft_lstclear(t_list **lst)
-{
-	t_list	*next;
-	t_list	*current;
-
-	current = *lst;
-	while (current != NULL)
-	{
-		next = current->next;
-		free(current);
-		current = next;
 	}
 }
 
@@ -56,7 +55,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	tmp->next = new;
 }
 
-t_list	*ft_lstnew(int value)
+t_list	*ft_lstnew(long int value)
 {
 	t_list	*list;
 
@@ -83,6 +82,12 @@ void	make_list(t_data *data, t_list **stack_a)
 			perror("Error : memory allocation\n");
 			clean_parsing(data);
 			exit(EXIT_FAILURE);
+		}
+		if (temp->value > INT_MAX || temp->value < INT_MIN)
+		{
+			free(temp);
+			ft_lstclear(stack_a);
+			error(data);
 		}
 		check_double(stack_a, temp, data);
 		ft_lstadd_back(stack_a, temp);

@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 01:12:33 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/04 02:01:02 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/06 09:04:59 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,6 @@ void	rotate_b(t_list **stack_b)
 	first_node->next = NULL;
 }
 
-void	rotate_a_and_rotate_b(t_list **stack_a, t_list **stack_b)
-{
-	rotate_a(stack_a);
-	rotate_b(stack_b);
-}
-
 void	reverse_rotate_a(t_list **stack_a)
 {
 	t_list	*prev_node;
@@ -64,6 +58,7 @@ void	reverse_rotate_a(t_list **stack_a)
 	last_node->next = *stack_a;
 	*stack_a = last_node;
 }
+
 void	reverse_rotate_b(t_list **stack_b)
 {
 	t_list	*prev_node;
@@ -81,4 +76,11 @@ void	reverse_rotate_b(t_list **stack_b)
 	prev_node->next = NULL;
 	last_node->next = *stack_b;
 	*stack_b = last_node;
+}
+
+void	print_rrr(t_list **stack_a, t_list **stack_b)
+{
+	reverse_rotate_a(stack_a);
+	reverse_rotate_b(stack_b);
+	ft_printf("rrr\n");
 }
