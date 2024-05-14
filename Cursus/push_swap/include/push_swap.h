@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:53:43 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/06 19:10:13 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/14 19:07:11 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ typedef struct s_data
 	char			**array_number;
 	int				min;
 	int				max;
+	int				len_a;
+	int				len_b;
+	int				rr;
+	int				rrr;
+	bool			above;
 
 }					t_data;
 
@@ -36,13 +41,19 @@ typedef struct s_list
 	long int		value;
 	bool			is_max;
 	bool			is_min;
+	bool			above_median;
+	bool			is_cheaper;
 	int				index;
+	int				cost;
 	struct s_list	*next;
 	struct s_list	*target;
 
 }					t_list;
 
-//-------------------------------------------------
+void				prepare_push_b(t_list **stack_a, t_list **stack_b,
+						t_data *data);
+void				prepare_push_a(t_list **stack_a, t_list **stack_b,
+						t_data *data);
 void				clean_parsing(t_data *data);
 void				error(t_data *data);
 void				display_error(void);
@@ -70,10 +81,13 @@ void				management(t_data *data, t_list **stack_a,
 void				sort_three(t_list **lst);
 void				sort_four(t_data *data, t_list **a, t_list **b);
 void				sort_five(t_data *data, t_list **a, t_list **b);
-void				find_target(t_list **a, t_list **b);
+void				sort_big(t_list **stack_a, t_list **stack_b, t_data *data);
+void				find_target_b(t_list **a, t_list **b);
 void				update_target_b(t_list **a, t_list **b);
 t_list				*find_bigger(t_list **lst);
 t_list				*find_smallest(t_list **lst);
+void				find_target_a(t_list **stack_a, t_list **stack_b);
+void				update_target_a(t_list **a, t_list **b);
 
 //----------------------------------------------------
 void				swap_a(t_list **stack_a);

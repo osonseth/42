@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:15:32 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/06 20:05:35 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:51:26 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	lst_len(t_list **lst)
 	while (current != NULL)
 	{
 		current->index = len;
+		current->is_cheaper = false;
 		len++;
 		current = current->next;
 	}
@@ -53,12 +54,14 @@ void	print_list(t_list *stack)
 	{
 		if (current->target != NULL)
 		{
-			printf(" i = %d val = %ld  -> %ld\n", current->index,
-				current->value, current->target->value);
+			printf("i = %d val = %ld target-> %ld  cost = %d is cheaper = %d\n",
+				current->index, current->value, current->target->value,
+				current->cost, current->is_cheaper);
 		}
 		else
 		{
-			printf(" i = %d val = %ld \n", current->index, current->value);
+			printf(" i = %d val = %ld  cost = %d median = %d\n", current->index,
+				current->value, current->cost, current->above_median);
 		}
 		current = current->next;
 	}
@@ -87,8 +90,11 @@ t_list	*ft_lstnew(long int value, int i)
 	if (list == NULL)
 		return (NULL);
 	list->value = value;
+	list->cost = 0;
 	list->is_max = false;
 	list->is_min = false;
+	list->above_median = false;
+	list->is_cheaper = false;
 	list->target = NULL;
 	list->index = i;
 	list->next = NULL;

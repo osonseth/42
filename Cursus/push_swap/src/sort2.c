@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:52:00 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/06 18:55:19 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/10 17:51:12 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,46 @@ void	update_target_b(t_list **a, t_list **b)
 		(*a)->target = find_bigger(b);
 }
 
-void	find_target(t_list **lst1, t_list **lst2)
+void	find_target_b(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*current_lst;
 
-	current_lst = *lst1;
+	current_lst = *stack_a;
 	while (current_lst != NULL)
 	{
-		update_target_b(&current_lst, lst2);
+		update_target_b(&current_lst, stack_b);
 		current_lst = current_lst->next;
 	}
+}
+void	find_target_a(t_list **stack_a, t_list **stack_b)
+{
+	t_list	*current_lst;
+
+	current_lst = *stack_b;
+	while (current_lst != NULL)
+	{
+		update_target_a(&current_lst, stack_a);
+		current_lst = current_lst->next;
+	}
+}
+void	update_target_a(t_list **b, t_list **a)
+{
+	long int	bigger;
+	long int	diff;
+	t_list		*current_a;
+
+	current_a = *a;
+	bigger = LONG_MIN;
+	while (current_a != NULL)
+	{  
+		diff = (*b)->value - current_a->value;
+		if (current_a->value > (*b)->value && diff > bigger)
+		{
+			(*b)->target = current_a;
+			bigger = diff;
+		}
+		current_a = current_a->next;
+	}
+	if (bigger == LONG_MIN)
+		(*b)->target = find_smallest(a);
 }
