@@ -20,16 +20,17 @@ SRCNAME 	 =	main.c 			 		\
 				check_char.c 	 		\
 				split.c 		 		\
 				ft_list.c		 		\
+				ft_list2.c				\
 				instructions.c   		\
 				instructions2.c  		\
 				print_instructions.c	\
 				print_instructions2.c 	\
 				sort.c					\
-				sort2.c
+				sort2.c					\
+				sort3.c					\
+				sort4.c   									
 
 SRC			 = $(addprefix $(SRCPATH), $(SRCNAME))
-
-
 
 NAME 		=	push_swap
 

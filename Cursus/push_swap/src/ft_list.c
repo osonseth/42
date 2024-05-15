@@ -6,33 +6,18 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:15:32 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/14 17:51:26 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:20:44 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	lst_len(t_list **lst)
-{
-	int		len;
-	t_list	*current;
-
-	current = *lst;
-	len = 0;
-	while (current != NULL)
-	{
-		current->index = len;
-		current->is_cheaper = false;
-		len++;
-		current = current->next;
-	}
-	return (len);
-}
-
 bool	lst_is_shorted(t_list *lst)
 {
 	t_list	*next;
 
+	if (!lst)
+		return (false);
 	while (lst->next != NULL)
 	{
 		next = lst->next;

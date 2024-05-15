@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 21:22:50 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/06 13:20:09 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:22:33 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@ void	parsing_management(t_data *data, t_list **stack_a)
 		clean_parsing(data);
 	}
 	make_list(data, stack_a);
+	if (!*stack_a)
+	{
+		error(data);
+	}
 	if (lst_is_shorted(*stack_a))
 	{
 		ft_lstclear(stack_a);
