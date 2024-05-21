@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:53:43 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/14 19:07:11 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:01:21 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ typedef struct s_list
 
 }					t_list;
 
+t_list				*get_cheap(t_list **lst);
+void				set_inmotion_b(t_list **stack_a, t_list **stack_b);
+void				set_inmotion_a(t_list **stack_a, t_list **stack_b);
 void				prepare_push_b(t_list **stack_a, t_list **stack_b,
 						t_data *data);
 void				prepare_push_a(t_list **stack_a, t_list **stack_b,
@@ -57,6 +60,21 @@ void				prepare_push_a(t_list **stack_a, t_list **stack_b,
 void				clean_parsing(t_data *data);
 void				error(t_data *data);
 void				display_error(void);
+int					ft_abs_ps(int n);
+void				calculate_the_cost(t_list **lst1, t_list **lst2,
+						t_data *data);
+void				update_data_rr_ss(t_list **lst, t_data *data);
+void				move_rr_or_rrr(t_list **stack_a, t_list **stack_b,
+						t_data *data);
+void				place_node(t_list **stack_a, t_list **stack_b,
+						t_data *data);
+void				place_node_test(t_list **stack_a, t_list **stack_b,
+						t_data *data);
+void				update_mediane(t_list **lst1, t_list **lst2);
+void				two_above_median(t_list **lst1, t_list **lst2);
+void				two_below_median(t_list **lst1, t_list **lst2,
+						t_data *data);
+void				update_cheaper(t_list **lst);
 //----------------------------------------------
 void				parsing_management(t_data *data, t_list **stack_a);
 void				ft_strjoin_push_swap(t_data *data, int i);

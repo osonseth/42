@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 16:29:16 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/01 20:39:36 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:24:56 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,11 @@ void	ft_strjoin_push_swap(t_data *data, int i)
 	}
 	data->join_argv = ft_strcpy(data->join_argv, str, data->argv[i]);
 	free(str);
+}
+
+int	ft_abs_ps(int n)
+{
+	if (n < 0)
+		return (-n);
+	return (n);
 }

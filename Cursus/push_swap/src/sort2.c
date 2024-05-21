@@ -6,51 +6,11 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:52:00 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/10 17:51:12 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:10:24 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-t_list	*find_smallest(t_list **lst)
-{
-	long int	smallest_value;
-	t_list		*current;
-	t_list		*smallest;
-
-	smallest_value = LONG_MAX;
-	current = *lst;
-	while (current != NULL)
-	{
-		if (current->value < smallest_value)
-		{
-			smallest_value = current->value;
-			smallest = current;
-		}
-		current = current->next;
-	}
-	return (smallest);
-}
-
-t_list	*find_bigger(t_list **lst)
-{
-	long int	bigger_value;
-	t_list		*current;
-	t_list		*bigger;
-
-	bigger_value = LONG_MIN;
-	current = *lst;
-	while (current != NULL)
-	{
-		if (current->value > bigger_value)
-		{
-			bigger_value = current->value;
-			bigger = current;
-		}
-		current = current->next;
-	}
-	return (bigger);
-}
 
 void	update_target_b(t_list **a, t_list **b)
 {
@@ -85,6 +45,7 @@ void	find_target_b(t_list **stack_a, t_list **stack_b)
 		current_lst = current_lst->next;
 	}
 }
+
 void	find_target_a(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*current_lst;
@@ -96,24 +57,57 @@ void	find_target_a(t_list **stack_a, t_list **stack_b)
 		current_lst = current_lst->next;
 	}
 }
-void	update_target_a(t_list **b, t_list **a)
-{
-	long int	bigger;
-	long int	diff;
-	t_list		*current_a;
 
-	current_a = *a;
-	bigger = LONG_MIN;
-	while (current_a != NULL)
-	{  
-		diff = (*b)->value - current_a->value;
-		if (current_a->value > (*b)->value && diff > bigger)
-		{
-			(*b)->target = current_a;
-			bigger = diff;
-		}
-		current_a = current_a->next;
+void	update_mediane(t_list **lst1, t_list **lst2)
+{
+	t_list	*current1;
+	t_list	*current2;
+	int		len1;
+	int		len2;
+
+	len1 = lst_len(lst1);
+	len2 = lst_len(lst2);
+	current1 = *lst1;
+	current2 = *lst2;
+	while (current1 != NULL)
+	{
+		if (current1->index < len1 / 2)
+			current1->above_median = true;
+		else
+			current1->above_median = false;
+		current1 = current1->next;
 	}
-	if (bigger == LONG_MIN)
-		(*b)->target = find_smallest(a);
+	while (current2 != NULL)
+	{
+		if (current2->index < len2 / 2)
+			current2->above_median = true;
+		else
+			current2->above_median = false;
+		current2 = current2->next;
+	}
+}
+
+void	update_cheaper(t_list **lst)
+{
+	t_list	*current;
+	int		temp;
+
+	current = *lst;
+	temp = INT_MAX;
+	while (current != NULL)
+	{
+		if (current->cost < temp)
+			temp = current->cost;
+		current = current->next;
+	}
+	current = *lst;
+	while (current != NULL)
+	{
+		if (current->cost == temp)
+		{
+			current->is_cheaper = true;
+			break ;
+		}
+		current = current->next;
+	}
 }

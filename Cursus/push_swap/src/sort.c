@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 10:43:06 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/06 18:48:30 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:09:53 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,44 @@ void	sort_five(t_data *data, t_list **a, t_list **b)
 		print_ra(a);
 		print_pa(a, b);
 	}
+}
+
+t_list	*find_smallest(t_list **lst)
+{
+	long int	smallest_value;
+	t_list		*current;
+	t_list		*smallest;
+
+	smallest_value = LONG_MAX;
+	current = *lst;
+	while (current != NULL)
+	{
+		if (current->value < smallest_value)
+		{
+			smallest_value = current->value;
+			smallest = current;
+		}
+		current = current->next;
+	}
+	return (smallest);
+}
+
+t_list	*find_bigger(t_list **lst)
+{
+	long int	bigger_value;
+	t_list		*current;
+	t_list		*bigger;
+
+	bigger_value = LONG_MIN;
+	current = *lst;
+	while (current != NULL)
+	{
+		if (current->value > bigger_value)
+		{
+			bigger_value = current->value;
+			bigger = current;
+		}
+		current = current->next;
+	}
+	return (bigger);
 }
