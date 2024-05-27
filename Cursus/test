@@ -1,0 +1,77 @@
+				passer                    sur grademe
+
+
+
+
+lvl 1 :
+
+fizzbuzz  	   ->		 OUI				OUI
+first_word	   ->						OUI
+ft_putstr 	   ->						OUI
+ft_strcpy 	   ->						OUI
+ft_strlen 	   ->						OUI
+ft_swap   	   ->						OUI
+repeat_alpha 	   ->						OUI
+rev_print    	   ->						OUI
+rot_13    	   ->		 OUI				OUI
+rotone    	   ->		 OUI				OUI
+search_and_replace ->		 OUI				OUI
+ulstr		   ->
+
+lvl 2 :
+
+alpha_mirror	   ->						OUI
+camel_to_snake	   ->						OUI
+do-op		   ->						OUI
+ft_atoi		   ->						OUI	
+ft_strcmp 	   ->		 OUI				OUI
+ft_strscpn	   ->		 OUI				OUI
+ft_strdup	   ->						OUI
+ft_strpbrk	   ->						NON
+ft_strrev	   ->						NON
+ft_strspn	   ->						NON
+inter	 	   ->						OUI
+is_power_of_2 	   ->		FAILED !			OUI
+last_word	   ->						OUI
+max	 	   ->						OUI
+print_bits	   ->						OUI
+reverse_bits	   ->						NON
+snake_to_camel	   ->						OUI
+swap_bits	   ->						OUI
+union	   	   ->						OUI
+wdmatch		   ->						NON
+
+lvl 3 :
+
+add_prime_sum	   ->						OUI
+epur_str  	   ->		 OUI				OUI
+expand_str	   ->						OUI
+ft_atoi_base	   ->						OUI
+ft_list_size	   ->						OUI
+ft_range	   ->						OUI
+ft_rrange	   ->						OUI
+hidenp	   	   ->						OUI
+lcm		   ->						OUI
+paramsum	   ->						OUI
+pgcd		   ->						OUI
+print_hex	   ->						OUI
+rstr_capitalizer   ->	 	 OUI				OUI
+str_capitalizer    ->						OUI
+tab_mult	   ->						OUI
+
+lvl 4 :
+
+flood_fill	   ->						OUI
+fprime		   ->						OUI
+ft_itoa		   ->						OUI
+ft_list_foreach	   ->						NON
+ft_list_remove_if  ->						NON
+ft_split	   ->						OUI
+rev_wstr	   ->						OUI
+rostring	   ->						OUI
+sort_int_tab	   ->						NON
+sort_list 	   -> 	   OK mais a revoir !			OUI
+
+
+
+
