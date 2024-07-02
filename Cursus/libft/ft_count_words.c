@@ -1,32 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_count_words.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 14:55:45 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/09 15:18:50 by mmauchre         ###   ########.fr       */
+/*   Created: 2023/11/10 10:27:25 by mmauchre          #+#    #+#             */
+/*   Updated: 2023/11/10 14:38:13 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdbool.h>
 
-char	*ft_strdup(const char *s)
+int	ft_count_words(char *str, char c)
 {
-	char	*dest;
+	bool	new_word;
+	int		count_words;
 
-	dest = malloc(1 + ft_strlen(s) * sizeof(char));
-	if (!dest)
-		return (NULL);
-	ft_strcpy(dest, s);
-	return (dest);
+	new_word = false;
+	count_words = 0;
+	while (*str)
+	{
+		if (*str != c && new_word == false)
+		{
+			new_word = true;
+			count_words++;
+		}
+		else if (*str == c)
+		{
+			new_word = false;
+		}
+		str++;
+	}
+	return (count_words);
 }
 
 /* #include <stdio.h>
 
-int main ()
+int	main(void)
 {
-	char str[]="coucou c'est max!";
-	printf("%s\n", ft_strdup(str));
+	char str[] = "ok";
+	char c = ' ';
+
+	printf("%d\n",ft_count_words(str, c));
 } */

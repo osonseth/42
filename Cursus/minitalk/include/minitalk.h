@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 14:55:45 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/09 15:18:50 by mmauchre         ###   ########.fr       */
+/*   Created: 2024/06/06 21:49:08 by mmauchre          #+#    #+#             */
+/*   Updated: 2024/06/06 21:49:10 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef MINITALK_H
+# define MINITALK_H
+# include <signal.h>
+# include <stdbool.h>
+# include <stdint.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-char	*ft_strdup(const char *s)
-{
-	char	*dest;
+void	error_kill(void);
+void	*ft_memset(void *s, int c, size_t n);
 
-	dest = malloc(1 + ft_strlen(s) * sizeof(char));
-	if (!dest)
-		return (NULL);
-	ft_strcpy(dest, s);
-	return (dest);
-}
-
-/* #include <stdio.h>
-
-int main ()
-{
-	char str[]="coucou c'est max!";
-	printf("%s\n", ft_strdup(str));
-} */
+#endif

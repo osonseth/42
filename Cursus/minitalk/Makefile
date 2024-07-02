@@ -6,13 +6,15 @@ INCLUDEPATH     = ./include/
 
 SRCPATH 	    = ./src/
 
-SRC_CLIENT 	    =	main.c 			 		\
+SRC_CLIENT_NAME = client.c 		\
+				  utils.c	 		
 
-SRC_SERVER      =  coucou.c
+SRC_SERVER_NAME = server.c		\
+				  utils.c
 
-SRC_CLIENT	    = $(addprefix $(SRCPATH), $(SRC_CLIENT))
+SRC_CLIENT	    = $(addprefix $(SRCPATH), $(SRC_CLIENT_NAME))
 
-SRC_SERVER      = $(addprefix $(SRCPATH), $(SRC_SERVER))
+SRC_SERVER      = $(addprefix $(SRCPATH), $(SRC_SERVER_NAME))
 
 NAME_CLIENT     = client
 
@@ -24,6 +26,8 @@ OBJ_SERVER      = $(SRC_SERVER:.c=.o)
 
 DEP		        = $(patsubst %.o,%.d, $(OBJ_CLIENT) $(OBJ_SERVER))
 
+all: $(NAME_CLIENT) $(NAME_SERVER)
+
 $(NAME_CLIENT)  : $(OBJ_CLIENT)
 	$(CC) $(FLAGS) $(OBJ_CLIENT) -o $(NAME_CLIENT)
 
@@ -32,8 +36,6 @@ $(NAME_SERVER)  : $(OBJ_SERVER)
 
 %.o: %.c 
 	$(CC) $(FLAGS) -I$(INCLUDEPATH) -c $< -o $@
-
-all: $(NAME_CLIENT) $(NAME_SERVER)
 
 clean:
 	rm -f $(OBJ_CLIENT) $(OBJ_SERVER) $(DEP)

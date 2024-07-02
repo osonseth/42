@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 00:30:32 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/15 18:06:37 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/16 12:06:34 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static void	clean_split(char **array, int j)
 	}
 	free(array);
 	array = NULL;
-	perror("Error memory:\n");
-	exit(EXIT_FAILURE);
+	display_error();
 }
 
 static int	count_words(char *str, char c)

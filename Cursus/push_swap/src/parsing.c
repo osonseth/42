@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 21:22:50 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/15 19:22:33 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/16 12:04:09 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,7 @@ void	parsing_management(t_data *data, t_list **stack_a)
 	check_char(data);
 	data->array_number = split(data, data->join_argv, ' ');
 	if (data->array_number == NULL)
-	{
-		perror("Error memory:\n");
-		clean_parsing(data);
-	}
+		error(data);
 	make_list(data, stack_a);
 	if (!*stack_a)
 	{

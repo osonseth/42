@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:15:32 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/05/15 19:20:44 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/05/16 12:07:32 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,7 @@ void	make_list(t_data *data, t_list **stack_a)
 		if (temp == NULL)
 		{
 			ft_lstclear(stack_a);
-			perror("Error : memory allocation\n");
-			clean_parsing(data);
-			exit(EXIT_FAILURE);
+			error(data);
 		}
 		if (temp->value > INT_MAX || temp->value < INT_MIN)
 		{

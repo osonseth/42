@@ -6,7 +6,7 @@
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:03:32 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/15 17:51:06 by mmauchre         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:17:58 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
-
-static int	ft_count_words(char *str, char c)
-{
-	bool	new_word;
-	int		count_words;
-
-	new_word = false;
-	count_words = 0;
-	while (*str)
-	{
-		if (*str != c && new_word == false)
-		{
-			new_word = true;
-			count_words++;
-		}
-		else if (*str == c)
-		{
-			new_word = false;
-		}
-		str++;
-	}
-	return (count_words);
-}
 
 static int	ft_strlen_split(char const *s, char c)
 {

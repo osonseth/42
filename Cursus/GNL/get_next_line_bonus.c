@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 00:20:13 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/01/24 21:27:58 by mmauchre         ###   ########.fr       */
+/*   Updated: 2024/01/11 02:37:26 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*make_line(char **line, char **stash)
 {
@@ -27,8 +27,6 @@ char	*ft_clean_stash(char *str)
 	int (i) = 0;
 	len = ft_strlen_of_line(str);
 	new_stash = malloc((ft_strlen(&str[len]) + 1) * sizeof(char));
-	if (!new_stash)
-		return (NULL);
 	while (str[len + i])
 	{
 		new_stash[i] = str[len + i];
@@ -42,8 +40,6 @@ char	*ft_clean_stash(char *str)
 char	*ft_line(char *str)
 {
 	char *(line) = malloc((ft_strlen_of_line(str) + 1) * sizeof(char));
-	if (!line)
-		return (NULL);
 	int (i) = 0;
 	while (str[i] != '\n' && str[i] != '\0')
 	{
@@ -93,26 +89,26 @@ char	*ft_strjoin(char *buffer, char *stash)
 char	*get_next_line(int fd)
 {
 	char (buffer)[BUFFER_SIZE + 1] = {0};
-	static char *(stash) = NULL;
+	static char *(stash)[1024] = {0};
 	char *(line) = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (stash && check_eol(stash))
-		return (make_line(&line, &stash));
+	if (stash[fd] && check_eol(stash[fd]))
+		return (make_line(&line, &stash[fd]));
 	while (read(fd, buffer, BUFFER_SIZE) > 0)
 	{
-		stash = ft_strjoin(buffer, stash);
-		if (check_eol(stash))
-			return (make_line(&line, &stash));
+		stash[fd] = ft_strjoin(buffer, stash[fd]);
+		if (check_eol(stash[fd]))
+			return (make_line(&line, &stash[fd]));
 		ft_bzero(buffer, BUFFER_SIZE);
 	}
-	if (stash)
+	if (stash[fd])
 	{
-		if (stash[0] == '\0')
-			return (free(stash), NULL);
-		line = ft_line(stash);
-		free(stash);
-		stash = NULL;
+		if (stash[fd][0] == '\0')
+			return (free(stash[fd]), NULL);
+		line = ft_line(stash[fd]);
+		free(stash[fd]);
+		stash[fd] = NULL;
 		return (line);
 	}
 	return (NULL);

@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmauchre <mmauchre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 14:55:45 by mmauchre          #+#    #+#             */
-/*   Updated: 2023/11/09 15:18:50 by mmauchre         ###   ########.fr       */
+/*   Created: 2024/06/06 18:49:24 by max               #+#    #+#             */
+/*   Updated: 2024/06/06 21:52:35 by mmauchre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minitalk.h"
 
-char	*ft_strdup(const char *s)
+void	error_kill(void)
 {
-	char	*dest;
-
-	dest = malloc(1 + ft_strlen(s) * sizeof(char));
-	if (!dest)
-		return (NULL);
-	ft_strcpy(dest, s);
-	return (dest);
+	write(1, "Error kill\n", 11);
+	exit(EXIT_FAILURE);
 }
 
-/* #include <stdio.h>
-
-int main ()
+void	*ft_memset(void *s, int c, size_t n)
 {
-	char str[]="coucou c'est max!";
-	printf("%s\n", ft_strdup(str));
-} */
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((char *)s)[i] = c;
+		i++;
+	}
+	return (s);
+}
