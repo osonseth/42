@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:07:48 by max               #+#    #+#             */
-/*   Updated: 2024/07/02 23:02:27 by max              ###   ########.fr       */
+/*   Updated: 2024/07/03 11:21:52 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ t_commands_table *new_cmd_table_node(void *content)
     node->syntaxe_error = false;
     node->message_error = NULL;
     node->simple_cmd = content;
-    node->next = NULL;
     node->args = NULL;
+    node->token = NULL;
     node->redirects = NULL;
+    node->next = NULL;
     return (node);
 }
 
@@ -54,7 +55,7 @@ void build_cmd_table(t_data *data)
     {
         if (*(data)->line == '|')
         {
-            line_start = ft_strdup_simple_cmp(line_start);
+            line_start = ft_strdup_simple_cmd(line_start);
             if (line_start == NULL)
                 memory_error(data);
             cmd_table_node_add_back(&(data->table), new_cmd_table_node(line_start), data);
@@ -62,7 +63,7 @@ void build_cmd_table(t_data *data)
         }
         else if (*((data)->line + 1) == '\0')
         {
-            line_start = ft_strdup_simple_cmp(line_start);
+            line_start = ft_strdup_simple_cmd(line_start);
             if (line_start == NULL)
                 memory_error(data);
             cmd_table_node_add_back(&(data->table), new_cmd_table_node(line_start), data);

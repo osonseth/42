@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 07:41:20 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/03 01:02:00 by max              ###   ########.fr       */
+/*   Updated: 2024/07/03 23:33:17 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,46 @@
 #define PIPE 0
 #define QUOTE 1
 
+typedef enum
+{
+	HEREDOC,
+	OUTFILE,
+	INFILE,
+	APPEND
+
+} e_redirection_type;
+
+typedef union
+{
+	char *heredoc_content;
+	char *filename;
+
+} u_redirection_data;
+
 typedef struct s_redirects
 {
-	int type;
-	char *filename;
+	e_redirection_type type;
+	u_redirection_data data;
 	struct s_redirects *next;
+
 } t_redirects;
 
+typedef struct s_tokens
+{
+	char *word;
+	struct s_tokens *next;
+
+} t_tokens;
+
 typedef struct s_commands_table
-{	bool syntaxe_error;
+{
+	bool syntaxe_error;
 	char *message_error;
 	char *simple_cmd;
 	char **args;
-	struct s_commands_table *next;
+	t_tokens *token;
 	t_redirects *redirects;
+	struct s_commands_table *next;
 
 } t_commands_table;
 
@@ -53,6 +79,9 @@ int calculate_expanded_words(char *str);
 int calculate_expanded_lenght(t_data *data);
 int strlen_variable_name(char *str);
 void end_of_the_variable_name(char *str, int *i);
+
+//--------------------------------------------------------------------------------
+t_tokens *new_token_node(void *content);
 //-----------------------------------------------------------------------------------
 
 bool next_node_is_empty(char *str);
@@ -61,6 +90,8 @@ void parsing_management(t_data *data);
 void recursive_handle_command_node(t_data *data, t_commands_table *table);
 void opening_and_closing_quotes(char c, t_data *data);
 void check_quote(t_data *data);
+bool expand_syntax_error(t_commands_table *table, t_data *data);
+bool brace_not_closed_or_bad_syntax(char *str);
 //--------------------------------------------------------------------------------
 
 t_commands_table *new_cmd_table_node(void *content);
@@ -77,8 +108,8 @@ void print_syntax_error(t_data *data, int type);
 
 //-------------------------------------- pour tester, a supprimer
 void print_cmd_table(t_data *data);
+void print_tokens(t_data *data);
 //-------------------------------------
-
 
 char *skype_space_ptr(char *str);
 

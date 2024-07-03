@@ -26,9 +26,10 @@ typedef struct data
 } t_data;
 
 t_commands_table *new_cmd_table_node(void *content);
-void check_quote(char c, t_data *data);
+
 void check_close_quote(t_data *data);
 int number_of_expand (t_data *data);
 bool is_alnum_or_underscore(char c);
+void opening_and_closing_quotes(char c, t_data *data);
 
 #endif

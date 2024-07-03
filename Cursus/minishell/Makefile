@@ -23,7 +23,9 @@ SRC_NAME 	  =	main.c				\
 				formate_cmd_table.c	\
 				parsing.c			\
 				expand.c			\
-				quote.c
+				quote.c				\
+				token.c				\
+				check_syntax.c
 				
 
 					
