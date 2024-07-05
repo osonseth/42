@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 22:55:48 by max               #+#    #+#             */
-/*   Updated: 2024/07/03 23:40:23 by max              ###   ########.fr       */
+/*   Updated: 2024/07/04 23:56:46 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool brace_not_closed_or_bad_syntax(char *str)
     return true;
 }
 
-bool expand_syntax_error(t_commands_table *table, t_data *data)
+bool expand_has_syntax_errors(t_commands_table *table, t_data *data)
 {
     char *str;
     str = table->simple_cmd;

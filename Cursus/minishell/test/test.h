@@ -7,11 +7,23 @@
 
 #define W_BRACE 0
 #define WO_BRACE 1
+#define EMPTY_QUOTE 2
+#define IN_DOUBLE_QUOTE 3
+#define IN_SIMPLE_QUOTE 4
+
+
+typedef struct s_tokens
+{
+    char *word;
+    struct s_tokens *next;
+
+} t_tokens;
 
 typedef struct s_commands_table
 {
     char *simple_cmd;
     char **args;
+    t_tokens *token;
     struct s_commands_table *next;
 
 } t_commands_table;
@@ -26,10 +38,10 @@ typedef struct data
 } t_data;
 
 t_commands_table *new_cmd_table_node(void *content);
+t_tokens *new_tokens_node(void *content);
+void tokens_node_add_back(t_tokens **lst, t_tokens *new, t_data *data);
 
-void check_close_quote(t_data *data);
-int number_of_expand (t_data *data);
-bool is_alnum_or_underscore(char c);
 void opening_and_closing_quotes(char c, t_data *data);
+void print_tokens(t_data *data);
 
 #endif

@@ -122,30 +122,7 @@
 //     return lenght;
 // }
 
-bool ft_isdigit(char c)
-{
-    if (c >= '0' && c <= '9')
-        return (true);
-    return (false);
-}
-
-bool ft_isalpha(char c)
-{
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-        return (true);
-    return (false);
-}
-bool is_alnum_or_underscore(char c)
-{
-    return (ft_isalpha(c) || ft_isdigit(c) || c == '_');
-}
-
-bool is_alpha_or_underscore(char c)
-{
-    return (ft_isalpha(c) || c == '_');
-}
-
-static int ft_strncmp(char *s1, char *s2, size_t n)
+int ft_strncmp(char *s1, char *s2, size_t n)
 {
     size_t i;
 
@@ -154,44 +131,201 @@ static int ft_strncmp(char *s1, char *s2, size_t n)
         i++;
     return (s1[i] - s2[i]);
 }
-bool brace_not_closed_or_bad_syntax(char *str)
+bool is_space(char c)
 {
-    while (*str)
+    return (c == 9 || c == 32);
+}
+// char *skype_space_ptr(char *str)
+// {
+//     while (is_space(*str) && *str)
+//         str++;
+//     return str;
+// }
+void skype_space(char *str, int *i)
+{
+    while (is_space(*str) && *str)
     {
-        if (!is_alnum_or_underscore(*str) && *str != 125)
-            return true;
-        if (*str == 125)
-            return false;
+        (*i)++;
         str++;
     }
-    return true;
 }
 
-
-bool check_expand_syntax_error(char *str, t_data *data)
+int ft_strlen_token(char *str)
 {
-    while (*str)
+    int i;
+
+    if (str == NULL)
+        return (0);
+    i = 0;
+    while (str[i] && !is_space(str[i]))
     {
-        opening_and_closing_quotes(*str, data);
-        if (*str == '$' && !data->simple_quote)
-        {
-            if (!ft_strncmp(str, "${", 2))
-            {
-                if (!is_alpha_or_underscore(str[2]) || brace_not_closed_or_bad_syntax(str + 2))
-                {
-                    printf("Minishell: Bad substitution (Empty brace, brace not closed or bad syntaxe)\n");
-                    return true;
-                }
-            }
-            else if (!is_alnum_or_underscore(str[1]) && str[1] != 9 && str[1] != 32)
-            {
-                printf("Minishell: Bad substitution (Empty brace, brace not closed or bad syntaxe)\n");
-                return true;
-            }
-        }
+        i++;
+    }
+    return (i);
+}
+static void ft_strcpy_token(char *dst, char *src)
+{
+    size_t i;
+
+    i = 0;
+    while (src[i] && !is_space(src[i]))
+    {
+        dst[i] = src[i];
+        i++;
+    }
+    dst[i] = '\0';
+}
+
+char *ft_strdup_token(char *s)
+{
+    char *dest;
+
+    dest = malloc(1 + ft_strlen_token(s) * sizeof(char));
+
+    if (!dest)
+        return (NULL);
+    ft_strcpy_token(dest, s);
+    return (dest);
+}
+int ft_strlen_token_double_quote(char *str)
+{
+    char *end;
+    char *start;
+    if (str == NULL)
+        return (0);
+    start = str;
+    str++;
+
+    while (*str && *str != '"')
+    {
         str++;
     }
-    return false;
+    end = str + 1;
+    return (end - start);
+}
+
+static void ft_strcpy_token_double_quote(char *dst, char *src, int len)
+{
+    int i;
+
+    i = 0;
+    while (src[i] && i < len)
+    {
+        dst[i] = src[i];
+        i++;
+    }
+
+    dst[i] = '\0';
+}
+
+char *ft_strdup_token_double_quote(char *s)
+{
+    char *dest;
+    int len;
+    len = ft_strlen_token_double_quote(s);
+    dest = malloc(1 + len * sizeof(char));
+
+    if (!dest)
+        return (NULL);
+    ft_strcpy_token_double_quote(dest, s, len);
+    return (dest);
+}
+
+int ft_strlen_token_simple_quote(char *str)
+{
+    char *end;
+    char *start;
+    if (str == NULL)
+        return (0);
+    start = str;
+    str++;
+    while (*str && *str != '\'')
+    {
+        str++;
+    }
+    end = str + 1;
+    return (end - start);
+}
+static void ft_strcpy_token_simple_quote(char *dst, char *src, int len)
+{
+    int i;
+
+    i = 0;
+    while (src[i] && i < len)
+    {
+        dst[i] = src[i];
+        i++;
+    }
+    dst[i] = '\0';
+}
+
+char *ft_strdup_token_simple_quote(char *s)
+{
+    char *dest;
+    int len;
+    len = ft_strlen_token_simple_quote(s);
+    dest = malloc(1 + len * sizeof(char));
+
+    if (!dest)
+        return (NULL);
+    ft_strcpy_token_simple_quote(dest, s, len);
+    return (dest);
+}
+void create_token_double_quote(t_commands_table *table, t_data *data, int *i)
+{
+    char *line_start;
+
+    line_start = &table->simple_cmd[*i];
+    line_start = ft_strdup_token_double_quote(line_start);
+    tokens_node_add_back(&(table->token), new_tokens_node(line_start), data);
+    *i += ft_strlen_token_double_quote(line_start) - 1;
+}
+void create_token_simple_quote(t_commands_table *table, t_data *data, int *i)
+{
+    char *line_start;
+
+    line_start = &table->simple_cmd[*i];
+    line_start = ft_strdup_token_simple_quote(line_start);
+    tokens_node_add_back(&(table->token), new_tokens_node(line_start), data);
+    *i += ft_strlen_token_simple_quote(line_start) - 1;
+}
+void create_token_empty_quote(t_commands_table *table, t_data *data, int *i)
+{
+    char *line_start;
+
+    line_start = malloc(1 * sizeof(char));
+    line_start[0] = '\0';
+    tokens_node_add_back(&(table->token), new_tokens_node(line_start), data);
+    (*i)++;
+}
+void create_token(t_commands_table *table, t_data *data, int *i)
+{
+    char *line_start;
+
+    line_start = &table->simple_cmd[*i];
+    line_start = ft_strdup_token(line_start);
+    tokens_node_add_back(&(table->token), new_tokens_node(line_start), data);
+    *i += ft_strlen_token(line_start) - 1;
+}
+
+void node_tokenization(t_data *data, t_commands_table *table)
+{
+    int i;
+    i = 0;
+
+    while (table->simple_cmd[i])
+    {
+        skype_space(&table->simple_cmd[i], &i);
+        if (table->simple_cmd[i] == '"' && table->simple_cmd[i + 1] != '"')
+            create_token_double_quote(table, data, &i);
+        else if (table->simple_cmd[i] == '\'' && table->simple_cmd[i + 1] != '\'')
+            create_token_simple_quote(table, data, &i);
+        else if (!ft_strncmp(&table->simple_cmd[i], "'' ", 3) || !ft_strncmp(&table->simple_cmd[i], "\"\" ", 3) || !ft_strncmp(&table->simple_cmd[i], "\"\"\0", 3) || !ft_strncmp(&table->simple_cmd[i], "''\0", 3))
+            create_token_empty_quote(table, data, &i);
+        else if (table->simple_cmd[i])
+            create_token(table, data, &i);
+        i++;
+    }
 }
 
 int main()
@@ -199,13 +333,11 @@ int main()
     t_data(data) = {0};
 
     char *str = calloc(50, sizeof(char));
-    strncpy(str, "echo ${   } | echo $_USER", 50);
+    strncpy(str, "echo '' ''  on'test'ok  ''encore''un test    ''", 50);
+    printf("%s\n", str);
     data.table = new_cmd_table_node(str);
-    bool syntax = check_expand_syntax_error(str,&data);
-    if (syntax)
-        printf("Mauvaise syntaxe\n");
-    else
-        printf("Bonne syntaxe\n");
+    node_tokenisation(&data, data.table);
+    print_tokens(&data);
 
     return 0;
 }

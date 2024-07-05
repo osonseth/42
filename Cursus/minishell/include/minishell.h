@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 07:41:20 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/03 23:33:17 by max              ###   ########.fr       */
+/*   Updated: 2024/07/04 23:56:46 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void parsing_management(t_data *data);
 void recursive_handle_command_node(t_data *data, t_commands_table *table);
 void opening_and_closing_quotes(char c, t_data *data);
 void check_quote(t_data *data);
-bool expand_syntax_error(t_commands_table *table, t_data *data);
+bool expand_has_syntax_errors(t_commands_table *table, t_data *data);
 bool brace_not_closed_or_bad_syntax(char *str);
 //--------------------------------------------------------------------------------
 
@@ -111,7 +111,7 @@ void print_cmd_table(t_data *data);
 void print_tokens(t_data *data);
 //-------------------------------------
 
-char *skype_space_ptr(char *str);
+char *skype_space_ptr(char *string);
 
 /*
 void ft_lstadd_back(t_node **lst, t_node *new);
