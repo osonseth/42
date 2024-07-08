@@ -101,7 +101,7 @@
 //     while (str[i])
 //     {
 //         if (str[i] == '"' || str[i] == '\'')
-//             check_quote(str[i], data);
+//             quote_syntax_errors(str[i], data);
 //         if (str[i] == '$' && str[i + 1] == '{' && !data->simple_quote)
 //         {
 //             lenght += calculate_expanded_words(&str[i + 2], W_BRACE, data);
@@ -122,211 +122,34 @@
 //     return lenght;
 // }
 
-int ft_strncmp(char *s1, char *s2, size_t n)
-{
-    size_t i;
 
-    i = 0;
-    while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i] && i < n - 1)
-        i++;
-    return (s1[i] - s2[i]);
-}
-bool is_space(char c)
-{
-    return (c == 9 || c == 32);
-}
+
 // char *skype_space_ptr(char *str)
 // {
 //     while (is_space(*str) && *str)
 //         str++;
 //     return str;
 // }
-void skype_space(char *str, int *i)
-{
-    while (is_space(*str) && *str)
-    {
-        (*i)++;
-        str++;
-    }
-}
 
-int ft_strlen_token(char *str)
-{
-    int i;
 
-    if (str == NULL)
-        return (0);
-    i = 0;
-    while (str[i] && !is_space(str[i]))
-    {
-        i++;
-    }
-    return (i);
-}
-static void ft_strcpy_token(char *dst, char *src)
-{
-    size_t i;
 
-    i = 0;
-    while (src[i] && !is_space(src[i]))
-    {
-        dst[i] = src[i];
-        i++;
-    }
-    dst[i] = '\0';
-}
 
-char *ft_strdup_token(char *s)
-{
-    char *dest;
 
-    dest = malloc(1 + ft_strlen_token(s) * sizeof(char));
 
-    if (!dest)
-        return (NULL);
-    ft_strcpy_token(dest, s);
-    return (dest);
-}
-int ft_strlen_token_double_quote(char *str)
-{
-    char *end;
-    char *start;
-    if (str == NULL)
-        return (0);
-    start = str;
-    str++;
 
-    while (*str && *str != '"')
-    {
-        str++;
-    }
-    end = str + 1;
-    return (end - start);
-}
 
-static void ft_strcpy_token_double_quote(char *dst, char *src, int len)
-{
-    int i;
 
-    i = 0;
-    while (src[i] && i < len)
-    {
-        dst[i] = src[i];
-        i++;
-    }
 
-    dst[i] = '\0';
-}
 
-char *ft_strdup_token_double_quote(char *s)
-{
-    char *dest;
-    int len;
-    len = ft_strlen_token_double_quote(s);
-    dest = malloc(1 + len * sizeof(char));
 
-    if (!dest)
-        return (NULL);
-    ft_strcpy_token_double_quote(dest, s, len);
-    return (dest);
-}
 
-int ft_strlen_token_simple_quote(char *str)
-{
-    char *end;
-    char *start;
-    if (str == NULL)
-        return (0);
-    start = str;
-    str++;
-    while (*str && *str != '\'')
-    {
-        str++;
-    }
-    end = str + 1;
-    return (end - start);
-}
-static void ft_strcpy_token_simple_quote(char *dst, char *src, int len)
-{
-    int i;
 
-    i = 0;
-    while (src[i] && i < len)
-    {
-        dst[i] = src[i];
-        i++;
-    }
-    dst[i] = '\0';
-}
 
-char *ft_strdup_token_simple_quote(char *s)
-{
-    char *dest;
-    int len;
-    len = ft_strlen_token_simple_quote(s);
-    dest = malloc(1 + len * sizeof(char));
 
-    if (!dest)
-        return (NULL);
-    ft_strcpy_token_simple_quote(dest, s, len);
-    return (dest);
-}
-void create_token_double_quote(t_commands_table *table, t_data *data, int *i)
-{
-    char *line_start;
 
-    line_start = &table->simple_cmd[*i];
-    line_start = ft_strdup_token_double_quote(line_start);
-    tokens_node_add_back(&(table->token), new_tokens_node(line_start), data);
-    *i += ft_strlen_token_double_quote(line_start) - 1;
-}
-void create_token_simple_quote(t_commands_table *table, t_data *data, int *i)
-{
-    char *line_start;
 
-    line_start = &table->simple_cmd[*i];
-    line_start = ft_strdup_token_simple_quote(line_start);
-    tokens_node_add_back(&(table->token), new_tokens_node(line_start), data);
-    *i += ft_strlen_token_simple_quote(line_start) - 1;
-}
-void create_token_empty_quote(t_commands_table *table, t_data *data, int *i)
-{
-    char *line_start;
 
-    line_start = malloc(1 * sizeof(char));
-    line_start[0] = '\0';
-    tokens_node_add_back(&(table->token), new_tokens_node(line_start), data);
-    (*i)++;
-}
-void create_token(t_commands_table *table, t_data *data, int *i)
-{
-    char *line_start;
 
-    line_start = &table->simple_cmd[*i];
-    line_start = ft_strdup_token(line_start);
-    tokens_node_add_back(&(table->token), new_tokens_node(line_start), data);
-    *i += ft_strlen_token(line_start) - 1;
-}
-
-void node_tokenization(t_data *data, t_commands_table *table)
-{
-    int i;
-    i = 0;
-
-    while (table->simple_cmd[i])
-    {
-        skype_space(&table->simple_cmd[i], &i);
-        if (table->simple_cmd[i] == '"' && table->simple_cmd[i + 1] != '"')
-            create_token_double_quote(table, data, &i);
-        else if (table->simple_cmd[i] == '\'' && table->simple_cmd[i + 1] != '\'')
-            create_token_simple_quote(table, data, &i);
-        else if (!ft_strncmp(&table->simple_cmd[i], "'' ", 3) || !ft_strncmp(&table->simple_cmd[i], "\"\" ", 3) || !ft_strncmp(&table->simple_cmd[i], "\"\"\0", 3) || !ft_strncmp(&table->simple_cmd[i], "''\0", 3))
-            create_token_empty_quote(table, data, &i);
-        else if (table->simple_cmd[i])
-            create_token(table, data, &i);
-        i++;
-    }
-}
 
 int main()
 {

@@ -1,6 +1,8 @@
 CC 			  =  cc
 
-FLAGS 		  =	-Wall -Wextra -Werror -MMD -MP  -g
+FLAGS 		  =	-Wall -Wextra -Werror -MMD -MP  -g 
+
+#-fsanitize=address
 
 LDLIBS		  = -lft -lreadline
 
@@ -14,18 +16,18 @@ INCLUDEPATH   =	./include/
 
 SRCPATH 	  =	./src/
 
-SRC_NAME 	  =	main.c				\
-				utils.c				\
-				print_test.c		\
-				clean.c				\
-				error.c				\
-				cmd_table.c			\
-				formate_cmd_table.c	\
-				parsing.c			\
-				expand.c			\
-				quote.c				\
-				token.c				\
-				check_syntax.c
+SRC_NAME 	  =	main.c					\
+				utils.c					\
+				print_test.c			\
+				clean.c					\
+				error.c					\
+				build_cmd_table.c		\
+				parsing.c				\
+				expand.c				\
+				quote.c					\
+				token_node.c			\
+				check_syntax.c			\
+				create_token.c
 				
 
 					

@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 07:41:27 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/03 22:53:17 by max              ###   ########.fr       */
+/*   Updated: 2024/07/06 09:56:30 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char *ft_strdup(char *s);
 char *ft_strdup_simple_cmd(char *s);
 int ft_strlen_simple_cmd(char *str);
 int ft_strlen(char *str);
+bool is_space(char c);
 bool ft_isalpha(char c);
 bool ft_isdigit(char c);
 bool is_alnum_or_underscore(char c);

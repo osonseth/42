@@ -6,16 +6,11 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 09:08:22 by max               #+#    #+#             */
-/*   Updated: 2024/07/04 23:56:46 by max              ###   ########.fr       */
+/*   Updated: 2024/07/07 23:23:57 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void node_tokenization(t_commands_table *table)
-// {
-
-// }
 
 void recursive_handle_command_node(t_data *data, t_commands_table *table)
 {
@@ -29,23 +24,17 @@ void recursive_handle_command_node(t_data *data, t_commands_table *table)
 		return;
 	}
 	else
+		node_tokenization(data, table);
 
-		printf("\n\nRien ici pour le moment\n\n");
-	//{
-	// node_tokenization(table);
-
-	// implémenté les fonctions qui gere les commandes simples
-	// fonction1(table);
-	// fonction2(table);
-	// fonction3(table);
-	//}
 	recursive_handle_command_node(data, table->next);
 }
 
 void parsing_management(t_data *data)
 {
-	check_pipe(data);
-	check_quote(data);
+	if (pipe_syntax_errors(data))
+		return;
+	if (quote_syntax_errors(data))
+		return;
 	build_cmd_table(data);
 	recursive_handle_command_node(data, data->table);
 }

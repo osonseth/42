@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 22:55:48 by max               #+#    #+#             */
-/*   Updated: 2024/07/04 23:56:46 by max              ###   ########.fr       */
+/*   Updated: 2024/07/07 00:31:03 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,10 @@ bool expand_has_syntax_errors(t_commands_table *table, t_data *data)
     while (*str)
     {
         opening_and_closing_quotes(*str, data);
-        if (*str == '$' && !data->simple_quote)
+        if ((!ft_strncmp(str, "${", 2)) && !data->simple_quote)
         {
-            if (!ft_strncmp(str, "${", 2))
-            {
-                if (!is_alpha_or_underscore(str[2]) || brace_not_closed_or_bad_syntax(str + 2))
-                {
-                    update_cmd_table(table, data);
-                    return true;
-                }
-            }
-            else if (!is_alnum_or_underscore(str[1]) && str[1] != 9 && str[1] != 32)
+
+            if (!is_alpha_or_underscore(str[2]) || brace_not_closed_or_bad_syntax(str + 2))
             {
                 update_cmd_table(table, data);
                 return true;
@@ -72,19 +65,26 @@ bool next_node_is_empty(char *str)
     return false;
 }
 
-void check_pipe(t_data *data)
+bool pipe_syntax_errors(t_data *data)
 {
     char *str;
     str = skype_space_ptr(data->line);
     if (*str == '|')
-        print_syntax_error(data, PIPE);
+    {
+        print_syntax_error(PIPE);
+        return true;
+    }
     while (*str)
     {
         if (*str == '|')
         {
             if (!(next_node_is_empty(&str[1])))
-                print_syntax_error(data, PIPE);
+            {
+                print_syntax_error(PIPE);
+                return true;
+            }
         }
         str++;
     }
+    return false;
 }

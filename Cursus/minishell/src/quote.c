@@ -6,16 +6,25 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:38:54 by max               #+#    #+#             */
-/*   Updated: 2024/07/03 01:02:53 by max              ###   ########.fr       */
+/*   Updated: 2024/07/06 13:28:38 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+static void quotes_reset(t_data *data)
+{
+    data->simple_quote = false;
+    data->double_quote = false;
+}
 
-void check_close_quote(t_data *data)
+static bool check_close_quote(t_data *data)
 {
     if (data->simple_quote || data->double_quote)
-        print_syntax_error(data, QUOTE);
+    {
+        print_syntax_error(QUOTE);
+        return true;
+    }
+    return false;
 }
 
 void opening_and_closing_quotes(char c, t_data *data)
@@ -37,7 +46,7 @@ void opening_and_closing_quotes(char c, t_data *data)
     }
 }
 
-void check_quote(t_data *data)
+bool quote_syntax_errors(t_data *data)
 {
     char *str;
     str = data->line;
@@ -47,11 +56,19 @@ void check_quote(t_data *data)
             opening_and_closing_quotes(*str, data);
         else if (*str == '|')
         {
-            check_close_quote(data);
-            data->simple_quote = false;
-            data->double_quote = false;
+            if (check_close_quote(data))
+            {
+                quotes_reset(data);
+                return true;
+            }
+            quotes_reset(data);
         }
         str++;
     }
-    check_close_quote(data);
+    if (check_close_quote(data))
+    {
+        quotes_reset(data);
+        return true;
+    }
+    return false;
 }

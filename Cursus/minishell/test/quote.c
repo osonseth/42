@@ -8,7 +8,7 @@
 //     while (*str)
 //     {
 //         if (*str == '"' || *str == '\'')
-//             check_quote(*str, data);
+//             quote_syntax_errors(*str, data);
 //         if (*str == '$' && str[1] == '{' && !data->simple_quote)
 //             nbr++;
 //         else if (*str == '$' && !data->simple_quote && is_alnum_or_underscore(str[1]))

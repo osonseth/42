@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 07:41:20 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/04 23:56:46 by max              ###   ########.fr       */
+/*   Updated: 2024/07/08 08:39:12 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,45 +74,52 @@ typedef struct data
 	bool double_quote;
 
 } t_data;
+
 //---------------------------------------------------------------------------------
 int calculate_expanded_words(char *str);
 int calculate_expanded_lenght(t_data *data);
 int strlen_variable_name(char *str);
 void end_of_the_variable_name(char *str, int *i);
 
-//--------------------------------------------------------------------------------
+//----------------------   Liste token   ---------------------------------------
 t_tokens *new_token_node(void *content);
+void token_node_add_back(t_tokens **lst, t_tokens *new, t_data *data);
+int create_token(char *str, t_commands_table *table, t_data *data);
+
+void node_tokenization(t_data *data, t_commands_table *table);
 //-----------------------------------------------------------------------------------
 
 bool next_node_is_empty(char *str);
-void check_pipe(t_data *data);
+bool pipe_syntax_errors(t_data *data);
 void parsing_management(t_data *data);
 void recursive_handle_command_node(t_data *data, t_commands_table *table);
 void opening_and_closing_quotes(char c, t_data *data);
-void check_quote(t_data *data);
+bool quote_syntax_errors(t_data *data);
 bool expand_has_syntax_errors(t_commands_table *table, t_data *data);
 bool brace_not_closed_or_bad_syntax(char *str);
 //--------------------------------------------------------------------------------
 
+// -------------  Liste cmd_table -----------------
 t_commands_table *new_cmd_table_node(void *content);
 void cmd_table_node_add_back(t_commands_table **lst, t_commands_table *new, t_data *data);
 void build_cmd_table(t_data *data);
 
+// -------------  Clean memory -----------------
 void clean_cmd_table(t_data *data);
 void clean_all(t_data *data);
 
-bool next_node_is_empty(char *str);
-
+// -------------  Message d'erreur-----------------
 void memory_error(t_data *data);
-void print_syntax_error(t_data *data, int type);
+void print_syntax_error(int type);
 
-//-------------------------------------- pour tester, a supprimer
+//-----------------  pour tester, a supprimer  ---------------------
 void print_cmd_table(t_data *data);
 void print_tokens(t_data *data);
 //-------------------------------------
 
+// -------------  Utils  -----------------
 char *skype_space_ptr(char *string);
-
+void skype_space(char *str, int *i);
 /*
 void ft_lstadd_back(t_node **lst, t_node *new);
 t_node *ft_lstnew(void *content);

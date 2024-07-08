@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:11:32 by max               #+#    #+#             */
-/*   Updated: 2024/07/03 23:31:26 by max              ###   ########.fr       */
+/*   Updated: 2024/07/08 00:31:53 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void print_cmd_table(t_data *data)
 		printf("Empty cmd table node\n");
 	while (current_table)
 	{
-		printf("simple cmd : %s\n", current_table->simple_cmd);
+		printf("\n\nsimple cmd : %s\n", current_table->simple_cmd);
 		printf("%s\n", current_table->syntaxe_error ? current_table->message_error : "syntaxe error = false");
 		t_tokens *current_token = current_table->token;
 		if (current_token == NULL)
