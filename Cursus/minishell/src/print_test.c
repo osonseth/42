@@ -6,11 +6,25 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:11:32 by max               #+#    #+#             */
-/*   Updated: 2024/07/08 00:31:53 by max              ###   ########.fr       */
+/*   Updated: 2024/07/10 13:48:56 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void print_variable_value (t_data *data)
+{
+	t_variable * current_var = data->variable;
+	
+	while (current_var)
+	{
+		if (current_var == NULL)
+			printf("Empty variable node\n");
+		else
+			printf("variable value lst = %s\n",current_var->value);
+		current_var = current_var->next;
+	}
+}
 
 void print_cmd_table(t_data *data)
 {
@@ -21,7 +35,9 @@ void print_cmd_table(t_data *data)
 	{
 		printf("\n\nsimple cmd : %s\n", current_table->simple_cmd);
 		printf("%s\n", current_table->syntaxe_error ? current_table->message_error : "syntaxe error = false");
+		
 		t_tokens *current_token = current_table->token;
+		
 		if (current_token == NULL)
 			printf("Empty token node\n");
 		else
@@ -32,6 +48,7 @@ void print_cmd_table(t_data *data)
 				current_token = current_token->next;
 			}
 		}
+	
 
 		current_table = current_table->next;
 	}

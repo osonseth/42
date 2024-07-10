@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_node.c                                       :+:      :+:    :+:   */
+/*   create_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:12:53 by max               #+#    #+#             */
-/*   Updated: 2024/07/08 08:32:24 by max              ###   ########.fr       */
+/*   Updated: 2024/07/10 08:17:51 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static int ft_strlen_token(char *str, t_data *data)
             break;
         i++;
     }
+    quotes_reset(data);
     return (i);
 }
 int create_token(char *str, t_commands_table *table, t_data *data)

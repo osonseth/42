@@ -12,6 +12,7 @@ SRCS 		=	$(SRCPATH)check_char.c		\
 				$(SRCPATH)ft_strdup.c		\
 				$(SRCPATH)ft_strlen.c		\
 				$(SRCPATH)ft_strncmp.c		
+				
 
 OBJ 		=	$(SRCS:.c=.o)
 

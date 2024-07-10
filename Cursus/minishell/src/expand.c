@@ -5,73 +5,85 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/27 19:20:01 by max               #+#    #+#             */
-/*   Updated: 2024/06/27 22:10:33 by max              ###   ########.fr       */
+/*   Created: 2024/07/10 18:26:03 by max               #+#    #+#             */
+/*   Updated: 2024/07/10 18:28:39 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void end_of_the_variable_name(char *str, int *i)
+static void ft_strncpy_expanded_word(char *variable_value, char *expanded_word)
 {
-    while (*str && *str != '}')
-    {
-        (*i)++;
-        str++;
-    }
+	int len;
+	int i;
+	if (!variable_value)
+		return;
+
+	len = ft_strlen(variable_value);
+
+	i = 0;
+
+	while (i < len)
+	{
+		
+
+		expanded_word[i] = variable_value[i];
+
+		i++;
+	}
 }
 
-int strlen_variable_name(char *str)
+static char *make_expanded_word(char *word, char *expanded_word, t_data *data)
 {
-    int i;
-    i = 0;
-    while (str[i] && str[i] != '}')
-        i++;
 
-    return i;
+	int(i) = 0;
+	int(j) = 0;
+	t_variable(*current) = data->variable;
+
+	while (word[i])
+	{
+
+		opening_and_closing_quotes(word[i], data);
+		if (!ft_strncmp(&word[i], "${", 2) && is_alpha_or_underscore(word[i + 2]) && !data->simple_quote)
+		{
+			ft_strncpy_expanded_word(current->value, &expanded_word[j]);
+			i += skip_to_closing_brace(&word[i + 2]);
+			j += ft_strlen(current->value);
+			current = current->next;
+		}
+		else if (word[i] == '$' && is_alpha_or_underscore(word[i + 1]) && !data->simple_quote)
+		{
+			ft_strncpy_expanded_word(current->value, &expanded_word[j]);
+			i += skip_to_end_of_variable(&word[i + 1]);
+			j += ft_strlen(current->value);
+			current = current->next;
+		}
+		else
+		{
+			expanded_word[j] = word[i];
+			i++;
+			j++;
+		}
+	}
+	quotes_reset(data);
+    return expanded_word;
 }
 
-int calculate_expanded_words(char *str)
+char *expand_management(char *word, t_data *data)
 {
+	if (no_expand(word, data))
+		return word;
+	int expanded_word_len;
+	char *expanded_word;
+	expanded_word_len = calculate_expanded_len(word, data);
 
-    int variable_name_lenght;
-    variable_name_lenght = strlen_variable_name(str);
-    char *variable_name = malloc((1 + variable_name_lenght) * sizeof(char));
-    /*implémenter l'erreur avec la structure data
-    if( !variable_name)
-        memory_error
-    */
-    variable_name[variable_name_lenght] = '\0';
-
-    int i;
-    i = 0;
-
-    while (str[i] && str[i] != '}')
-    {
-        variable_name[i] = str[i];
-        i++;
-    }
-
-    return (ft_strlen(getenv(variable_name)));
-}
-int calculate_expanded_lenght(t_data *data)
-{
-    int i;
-    int lenght;
-    i = 0;
-    lenght = 0;
-    while (data->line[i])
-    {
-
-        if (data->line[i] == '$' && data->line[i + 1] == '{')
-        {
-            lenght += calculate_expanded_words(&data->line[i + 2]);
-            end_of_the_variable_name(&data->line[i], &i);
-        }
-        else 
-            lenght++;
-        i++;
-       
-    }
-    return lenght;
+	expanded_word = malloc((expanded_word_len + 1) * sizeof(char));
+	if (!expanded_word)
+		memory_error(data);
+	expanded_word[expanded_word_len] = '\0';
+	expanded_word = make_expanded_word(word, expanded_word, data);
+	if (word)
+		free(word);
+	return expanded_word;
+	// a changer pour expanded word
 }

@@ -21,7 +21,7 @@
 
 //     if (var == W_BRACE)
 //     {
-//         while (*str && *str != 125)
+//         while (*str && *str != CLOSING_BRACE)
 //         {
 //             (*i)++;
 //             str++;
@@ -47,7 +47,7 @@
 //     i = 0;
 //     if (var == W_BRACE)
 //     {
-//         while (str[i] && str[i] != 125)
+//         while (str[i] && str[i] != CLOSING_BRACE)
 //             i++;
 //     }
 //     else
@@ -74,7 +74,7 @@
 
 //     if (var == W_BRACE)
 //     {
-//         while (str[i] && str[i] != 125)
+//         while (str[i] && str[i] != CLOSING_BRACE)
 //         {
 //             variable_name[i] = str[i];
 //             i++;

@@ -6,13 +6,13 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:38:54 by max               #+#    #+#             */
-/*   Updated: 2024/07/06 13:28:38 by max              ###   ########.fr       */
+/*   Updated: 2024/07/10 08:53:52 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-static void quotes_reset(t_data *data)
-{
+void quotes_reset(t_data *data)
+{  
     data->simple_quote = false;
     data->double_quote = false;
 }
@@ -70,5 +70,6 @@ bool quote_syntax_errors(t_data *data)
         quotes_reset(data);
         return true;
     }
+    quotes_reset(data);
     return false;
 }

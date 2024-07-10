@@ -6,11 +6,22 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:20 by max               #+#    #+#             */
-/*   Updated: 2024/07/06 16:11:20 by max              ###   ########.fr       */
+/*   Updated: 2024/07/10 03:25:01 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+void clean_variable_lst(t_variable *lst)
+{
+    if (lst == NULL)
+        return;
+    t_variable *next_lst;
+    next_lst = lst->next;
+    if (lst)
+        free(lst);
+    lst = next_lst;
+    clean_variable_lst(lst);
+}
 
 void clean_token_lst(t_tokens *lst)
 {
@@ -54,4 +65,6 @@ void clean_all(t_data *data)
         free(data->line);
     if (data->table)
         clean_cmd_table(data);
+    if (data->variable)
+        clean_variable_lst(data->variable);
 }

@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 07:41:27 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/06 09:56:30 by max              ###   ########.fr       */
+/*   Updated: 2024/07/10 03:11:58 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ bool ft_isdigit(char c);
 bool is_alnum_or_underscore(char c);
 bool is_alpha_or_underscore(char c);
 int ft_strncmp(char *s1, char *s2, size_t n);
+
 
 #endif
