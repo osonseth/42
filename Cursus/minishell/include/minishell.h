@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 07:41:20 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/10 18:31:03 by max              ###   ########.fr       */
+/*   Updated: 2024/07/10 22:24:17 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void node_tokenization(t_data *data, t_commands_table *table);
 void opening_and_closing_quotes(char c, t_data *data);
 bool quote_syntax_errors(t_data *data);
 void quotes_reset(t_data *data);
+char *remove_unnecessary_quotes(char *word, t_data *data);
 //-------------------------- check syntax pipe & expand----------------------------------------
 bool pipe_syntax_errors(t_data *data);
 bool expand_has_syntax_errors(t_commands_table *table, t_data *data);

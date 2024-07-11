@@ -6,19 +6,18 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 09:08:22 by max               #+#    #+#             */
-/*   Updated: 2024/07/10 18:27:06 by max              ###   ########.fr       */
+/*   Updated: 2024/07/10 22:24:38 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 void recursive_handle_expand_token(t_tokens *token, t_data *data)
 {
 	if (token == NULL)
 		return;
 	token->word = expand_management(token->word, data);
+	token->word = remove_unnecessary_quotes(token->word, data);
 	//----------------------------------------------------------------
 	print_variable_value(data);
 	printf("\n");

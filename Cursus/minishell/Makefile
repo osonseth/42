@@ -34,7 +34,8 @@ SRC_NAME 	  =	main.c					\
 				variable_node.c			\
 				calculate_expand.c 		\
 				expand_utils.c			\
-				expand.c	
+				expand.c				\
+				remove_quotes.c
 				
 
 					
@@ -60,13 +61,13 @@ libft/libft.a:
 all: $(NAME)
 	
 clean:
-	rm -f $(DEPDIR)*.d $(OBJDIR)*.o
-	rm -f $(OBJ) $(DEP)
-	$(MAKE) -C libft clean
+	@rm -f $(DEPDIR)*.d $(OBJDIR)*.o
+	@rm -f $(OBJ) $(DEP)
+	@$(MAKE) -C libft clean
 	
 fclean: clean
 	rm -f $(NAME) 
-	$(MAKE) -C libft fclean
+	@$(MAKE) -C libft fclean
 
 re : fclean all
 
