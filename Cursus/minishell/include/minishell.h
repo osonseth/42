@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 07:41:20 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/10 22:24:17 by max              ###   ########.fr       */
+/*   Updated: 2024/07/12 12:47:13 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct data
 	char *line;
 	bool simple_quote;
 	bool double_quote;
+	t_tokens *new_lst;
+	t_tokens *old_lst;
 
 } t_data;
 
@@ -90,10 +92,22 @@ t_variable *new_variable_node(void *content);
 t_commands_table *new_cmd_table_node(void *content);
 void cmd_table_node_add_back(t_commands_table **lst, t_commands_table *new, t_data *data);
 void build_cmd_table(t_data *data);
-//------------------------ List token node & token word ---------------------------------------
+//------------------------------ Redirections token ---------------------------------------------
+void create_normal_token(char *str, t_tokens **lst, int *i, t_data *data);
+void heredoc_token(t_tokens **lst, int *i, t_data *data);
+void append_redirect_token(t_tokens **lst, int *i, t_data *data);
+void output_redirect_token(t_tokens **lst, t_data *data);
+void input_redirect_token(t_tokens **lst, t_data *data);
+//----------------------------- Redirections tokenization ---------------------------------------
+char *ft_strdup_redir_token(char *s);
+int ft_strlen_redir_token(char *str);
+void ft_strcpy_redir_token(char *dst, const char *src);
+int create_token(char *str, t_commands_table *table, t_data *data);
+void redir_tokenization(t_tokens **lst, t_data *data);
+//---------------------------------- List token node ---------------------------------------
+void token_lst_add_back(t_tokens **new_lst, t_tokens *lst);
 t_tokens *new_token_node(void *content);
 void token_node_add_back(t_tokens **lst, t_tokens *new, t_data *data);
-int create_token(char *str, t_commands_table *table, t_data *data);
 void node_tokenization(t_data *data, t_commands_table *table);
 //------------------------------------ Quote --------------------------------------------------
 void opening_and_closing_quotes(char c, t_data *data);
@@ -108,6 +122,7 @@ void parsing_management(t_data *data);
 void recursive_handle_command_node(t_data *data, t_commands_table *table);
 
 // --------------------------------- Clean memory ----------------------------------------------
+void clean_token_lst(t_tokens *lst);
 void clean_variable_lst(t_variable *lst);
 void clean_cmd_table(t_data *data);
 void clean_all(t_data *data);
@@ -118,6 +133,8 @@ void print_syntax_error(int type);
 void print_cmd_table(t_data *data);
 void print_tokens(t_data *data);
 void print_variable_value(t_data *data);
+void print_test(t_tokens *lst);
+void print_test_two(t_tokens *lst);
 // ---------------------------------- Expand functions ---------------------------------------------
 char *expand_management(char *word, t_data *data);
 bool no_expand(char *word, t_data *data);
@@ -134,5 +151,7 @@ void ft_strncpy_variable_name(char *dest, char *src, int len);
 // ------------------------------------- Utils -------------------------------------------------
 char *skype_space_ptr(char *string);
 void skype_space(char *str, int *i);
+void free_old_node(t_tokens *node);
+bool have_redirections(char *str);
 
 #endif

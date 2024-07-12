@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:53:25 by max               #+#    #+#             */
-/*   Updated: 2024/07/10 08:20:44 by max              ###   ########.fr       */
+/*   Updated: 2024/07/12 05:38:49 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ int main(void)
 		
 		clean_all(&data);
 	}
-	// data.line = readline("Minishell$");
-	// parsing_management(&data);
-	// print_cmd_table(&data);
-	// clean_all(&data);
+
 	return (0);
 }

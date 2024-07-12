@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:20 by max               #+#    #+#             */
-/*   Updated: 2024/07/10 03:25:01 by max              ###   ########.fr       */
+/*   Updated: 2024/07/12 05:42:00 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void clean_token_lst(t_tokens *lst)
     lst = next_lst;
     clean_token_lst(lst);
 }
+
 void clean_cmd_table(t_data *data)
 {
     if (data->table == NULL)
@@ -63,8 +64,10 @@ void clean_all(t_data *data)
 {
     if (data->line)
         free(data->line);
-    if (data->table)
-        clean_cmd_table(data);
     if (data->variable)
         clean_variable_lst(data->variable);
+    if (data->old_lst)
+        clean_token_lst(data->old_lst);
+    if (data->table)
+        clean_cmd_table(data);
 }

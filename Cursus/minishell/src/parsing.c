@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 09:08:22 by max               #+#    #+#             */
-/*   Updated: 2024/07/10 22:24:38 by max              ###   ########.fr       */
+/*   Updated: 2024/07/12 05:16:38 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,8 @@ void recursive_handle_expand_token(t_tokens *token, t_data *data)
 		return;
 	token->word = expand_management(token->word, data);
 	token->word = remove_unnecessary_quotes(token->word, data);
-	//----------------------------------------------------------------
-	print_variable_value(data);
-	printf("\n");
-	//---------------------------------------------------------------
 	clean_variable_lst(data->variable);
-
 	data->variable = NULL;
-
 	recursive_handle_expand_token(token->next, data);
 }
 
@@ -42,6 +36,9 @@ void recursive_handle_command_node(t_data *data, t_commands_table *table)
 	{
 		node_tokenization(data, table);
 		recursive_handle_expand_token(table->token, data);
+		
+		redir_tokenization(&(table->token), data);
+	
 	}
 
 	recursive_handle_command_node(data, table->next);
