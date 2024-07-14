@@ -6,11 +6,74 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 09:08:22 by max               #+#    #+#             */
-/*   Updated: 2024/07/12 05:16:38 by max              ###   ########.fr       */
+/*   Updated: 2024/07/15 00:08:58 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int calculate_cmd_and_args(t_tokens *token)
+{
+
+	t_tokens *current;
+	int nbr;
+
+	nbr = 0;
+	current = token;
+
+	while (current)
+	{
+		if (current->not_redir)
+			nbr++;
+		current = current->next;
+	}
+	return nbr;
+}
+
+char **fill_array(char **args, t_tokens *token, t_data *data)
+{
+	int i;
+	t_tokens *current;
+
+	current = token;
+	i = 0;
+
+	while (current)
+	{
+		if (current->not_redir == true)
+		{
+			args[i] = ft_strdup(current->word);
+			if (!args[i])
+			{
+				clean_array(args);
+				memory_error(data);
+			}
+			i++;
+		}
+		current = current->next;
+	}
+	return args;
+}
+
+char **create_args_array(t_commands_table *table, t_data *data)
+{
+
+	char **args;
+	int number_of_args;
+	int i;
+
+	i = 0;
+	number_of_args = calculate_cmd_and_args(table->token);
+	args = malloc((number_of_args + 1) * sizeof(char *));
+	if (!args)
+		return NULL;
+	while (i <= number_of_args)
+		args[i++] = NULL;
+	args = fill_array(args, table->token, data);
+	return args;
+}
+
+//----------------------------------------------------------------------------------------------
 
 void recursive_handle_expand_token(t_tokens *token, t_data *data)
 {
@@ -23,34 +86,37 @@ void recursive_handle_expand_token(t_tokens *token, t_data *data)
 	recursive_handle_expand_token(token->next, data);
 }
 
-void recursive_handle_command_node(t_data *data, t_commands_table *table)
+bool recursive_handle_command_node(t_data *data, t_commands_table *table)
 {
 	if (table == NULL)
-		return;
+		return false;
+
 	if (expand_has_syntax_errors(table, data) || table->syntaxe_error)
 	{
 		recursive_handle_command_node(data, table->next);
-		return;
+		return false;
 	}
-	else
-	{
-		node_tokenization(data, table);
-		recursive_handle_expand_token(table->token, data);
-		
-		redir_tokenization(&(table->token), data);
-	
-	}
-
-	recursive_handle_command_node(data, table->next);
+	node_tokenization(data, table);
+	recursive_handle_expand_token(table->token, data);
+	redir_tokenization(&(table->token), data);
+	if (redirection_syntax_errors(table->token))
+		return true;
+	table->redirects = create_redirection_lst(&(table->token), data);
+	table->args = create_args_array(table, data);
+	if (!table->args)
+		memory_error(data);
+	return (recursive_handle_command_node(data, table->next));
 }
 
-void parsing_management(t_data *data)
+bool parsing_management(t_data *data)
 {
 	quotes_reset(data);
 	if (pipe_syntax_errors(data))
-		return;
+		return false;
 	if (quote_syntax_errors(data))
-		return;
+		return false;
 	build_cmd_table(data);
-	recursive_handle_command_node(data, data->table);
+	if (recursive_handle_command_node(data, data->table))
+		return false;
+	return true;
 }

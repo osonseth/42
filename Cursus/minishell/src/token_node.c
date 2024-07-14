@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 09:07:12 by max               #+#    #+#             */
-/*   Updated: 2024/07/12 12:18:39 by max              ###   ########.fr       */
+/*   Updated: 2024/07/14 16:15:16 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_tokens *new_token_node(void *content)
     if (node == NULL)
         return NULL;
     node->word = content;
+    node->not_redir = false;
     node->next = NULL;
     return (node);
 }

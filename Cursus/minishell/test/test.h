@@ -37,11 +37,9 @@ typedef struct data
 
 } t_data;
 
-t_commands_table *new_cmd_table_node(void *content);
-t_tokens *new_tokens_node(void *content);
-void tokens_node_add_back(t_tokens **lst, t_tokens *new, t_data *data);
+
 
 void opening_and_closing_quotes(char c, t_data *data);
-void print_tokens(t_data *data);
+
 
 #endif

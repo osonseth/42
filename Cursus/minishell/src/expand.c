@@ -6,11 +6,37 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:26:03 by max               #+#    #+#             */
-/*   Updated: 2024/07/12 15:26:19 by max              ###   ########.fr       */
+/*   Updated: 2024/07/14 01:34:22 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char *remove_dollars_before_quote(char *str, t_data *data)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+
+	while (str[i])
+	{
+		opening_and_closing_quotes(str[i], data);
+		if ((!strncmp(&str[i], "$\"", 2) || !strncmp(&str[i], "$'", 2)) && !data->simple_quote & !data->double_quote)
+			i++;
+		else if (!strncmp(&str[i], "$", 1) && ft_isdigit(str[i + 1]) && !data->simple_quote)
+			i += 2;
+		else
+			str[j++] = str[i++];
+	}
+	while (str[j])
+	{
+		str[j] = '\0';
+		j++;
+	}
+	return str;
+}
 
 static void ft_strncpy_expanded_word(char *variable_value, char *expanded_word)
 {
@@ -57,24 +83,24 @@ static char *make_expanded_word(char *word, char *expanded_word, t_data *data)
 		}
 		else
 			expanded_word[j++] = word[i++];
-		quotes_reset(data);
-		return expanded_word;
 	}
+	quotes_reset(data);
+	return expanded_word;
 }
 
-	char *expand_management(char *word, t_data *data)
-	{
-		if (no_expand(word, data))
-			return word;
-		int expanded_word_len;
-		char *expanded_word;
-		expanded_word_len = calculate_expanded_len(word, data);
-		expanded_word = malloc((expanded_word_len + 1) * sizeof(char));
-		if (!expanded_word)
-			memory_error(data);
-		expanded_word[expanded_word_len] = '\0';
-		expanded_word = make_expanded_word(word, expanded_word, data);
-		if (word)
-			free(word);
-		return expanded_word;
-	}
+char *expand_management(char *word, t_data *data)
+{
+	if (no_expand(word, data))
+		return word;
+	int expanded_word_len;
+	char *expanded_word;
+	expanded_word_len = calculate_expanded_len(word, data);
+	expanded_word = malloc((expanded_word_len + 1) * sizeof(char));
+	if (!expanded_word)
+		memory_error(data);
+	expanded_word[expanded_word_len] = '\0';
+	expanded_word = make_expanded_word(word, expanded_word, data);
+	if (word)
+		free(word);
+	return expanded_word;
+}

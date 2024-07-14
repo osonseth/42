@@ -24,12 +24,14 @@ SRC_NAME 	  =	main.c						\
 				utils.c						\
 				print_test.c				\
 				clean.c						\
+				clean_utils.c 				\
 				error.c						\
 				build_cmd_table.c			\
 				parsing.c					\
 				quote.c						\
 				token_node.c				\
-				check_syntax.c				\
+				syntax_pipe_and_quote.c		\
+				syntax_redirections.c		\
 				create_token.c 				\
 				variable_node.c				\
 				calculate_expand.c 			\
@@ -37,7 +39,9 @@ SRC_NAME 	  =	main.c						\
 				expand.c					\
 				remove_quotes.c				\
 				redirections_token.c		\
-				redirections_tokenization.c
+				redirections_tokenization.c \
+				redirection_list.c			\
+				redirection_node.c
 				
 
 					

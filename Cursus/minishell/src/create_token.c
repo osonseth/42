@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:12:53 by max               #+#    #+#             */
-/*   Updated: 2024/07/12 04:11:06 by max              ###   ########.fr       */
+/*   Updated: 2024/07/14 01:14:01 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void node_tokenization(t_data *data, t_commands_table *table)
 {
     int i;
     i = 0;
-
+    table->simple_cmd = remove_dollars_before_quote(table->simple_cmd,data);
     while (table->simple_cmd[i])
     {
         if (!is_space(table->simple_cmd[i]))

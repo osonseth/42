@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 07:41:20 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/12 12:47:13 by max              ###   ########.fr       */
+/*   Updated: 2024/07/15 00:12:27 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define PIPE 0
-#define QUOTE 1
+#define PIPE 124
+#define QUOTE 34
 #define CLOSING_BRACE 125
 
 typedef enum
@@ -33,13 +33,6 @@ typedef enum
 
 } e_redirection_type;
 
-typedef union
-{
-	char *heredoc_content;
-	char *filename;
-
-} u_redirection_data;
-
 typedef struct s_variable
 {
 	char *value;
@@ -49,13 +42,13 @@ typedef struct s_variable
 typedef struct s_redirects
 {
 	e_redirection_type type;
-	u_redirection_data data;
+	char *content;
 	struct s_redirects *next;
-
 } t_redirects;
 
 typedef struct s_tokens
 {
+	bool not_redir;
 	char *word;
 	struct s_tokens *next;
 
@@ -63,9 +56,9 @@ typedef struct s_tokens
 
 typedef struct s_commands_table
 {
+	char *simple_cmd;
 	bool syntaxe_error;
 	char *message_error;
-	char *simple_cmd;
 	char **args;
 	t_tokens *token;
 	t_redirects *redirects;
@@ -80,6 +73,7 @@ typedef struct data
 	char *line;
 	bool simple_quote;
 	bool double_quote;
+	bool syntax_error;
 	t_tokens *new_lst;
 	t_tokens *old_lst;
 
@@ -92,6 +86,12 @@ t_variable *new_variable_node(void *content);
 t_commands_table *new_cmd_table_node(void *content);
 void cmd_table_node_add_back(t_commands_table **lst, t_commands_table *new, t_data *data);
 void build_cmd_table(t_data *data);
+// ------------------------------ List redirections ----------------------------------------------
+
+t_redirects *create_redirection_lst(t_tokens **lst, t_data *data);
+t_redirects *create_redirection_node(t_tokens *token, t_redirects *list, t_data *data);
+t_redirects *new_redirection_node(char *content, e_redirection_type type);
+void redirection_node_add_back(t_redirects **lst, t_redirects *new, t_data *data);
 //------------------------------ Redirections token ---------------------------------------------
 void create_normal_token(char *str, t_tokens **lst, int *i, t_data *data);
 void heredoc_token(t_tokens **lst, int *i, t_data *data);
@@ -114,17 +114,23 @@ void opening_and_closing_quotes(char c, t_data *data);
 bool quote_syntax_errors(t_data *data);
 void quotes_reset(t_data *data);
 char *remove_unnecessary_quotes(char *word, t_data *data);
-//-------------------------- check syntax pipe & expand----------------------------------------
+//-------------------------- check syntax pipe & expand & redirections----------------------------------------
 bool pipe_syntax_errors(t_data *data);
 bool expand_has_syntax_errors(t_commands_table *table, t_data *data);
+int redirection_syntax_errors(t_tokens *token);
+bool is_redirection_token(char *word);
 //---------------------------------- Core parsing ---------------------------------------------
-void parsing_management(t_data *data);
-void recursive_handle_command_node(t_data *data, t_commands_table *table);
+bool parsing_management(t_data *data);
+bool recursive_handle_command_node(t_data *data, t_commands_table *table);
 
 // --------------------------------- Clean memory ----------------------------------------------
+void clean_redirection_lst_and_memory_error(t_redirects *lst, t_data *data);
+void clean_redirection_lst(t_redirects *lst);
+void clean_token_lst_and_memory_error(t_tokens *lst, t_data *data);
 void clean_token_lst(t_tokens *lst);
 void clean_variable_lst(t_variable *lst);
 void clean_cmd_table(t_data *data);
+void clean_array(char **arg);
 void clean_all(t_data *data);
 // -------------------------------- Message d'erreur -------------------------------------------
 void memory_error(t_data *data);
@@ -133,8 +139,7 @@ void print_syntax_error(int type);
 void print_cmd_table(t_data *data);
 void print_tokens(t_data *data);
 void print_variable_value(t_data *data);
-void print_test(t_tokens *lst);
-void print_test_two(t_tokens *lst);
+void print_array(char ** array);
 // ---------------------------------- Expand functions ---------------------------------------------
 char *expand_management(char *word, t_data *data);
 bool no_expand(char *word, t_data *data);
@@ -142,6 +147,7 @@ int make_var_value_lst_and_calculate_len(char *var_name, t_data *data);
 int calculate_variable_value_without_brace_len(char *word, t_data *data);
 int calculate_variable_value_brace_len(char *word, t_data *data);
 int calculate_expanded_len(char *word, t_data *data);
+char *remove_dollars_before_quote(char *str, t_data *data);
 // ---------------------------------- Expand utils -------------------------------------------------
 int skip_to_closing_brace(char *word);
 int skip_to_end_of_variable(char *word);

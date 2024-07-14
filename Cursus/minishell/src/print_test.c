@@ -6,11 +6,30 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:11:32 by max               #+#    #+#             */
-/*   Updated: 2024/07/12 05:07:37 by max              ###   ########.fr       */
+/*   Updated: 2024/07/15 00:19:23 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+const char *redirection_type_to_string(e_redirection_type type)
+{
+	switch (type)
+	{
+	case HEREDOC:
+		return "HEREDOC";
+	case OUTFILE:
+		return "OUTFILE";
+	case INFILE:
+		return "INFILE";
+	case APPEND:
+		return "APPEND";
+	default:
+		return "UNKNOWN";
+	}
+}
+
+//-----------------------------------------------------------
 
 void print_variable_value(t_data *data)
 {
@@ -26,22 +45,13 @@ void print_variable_value(t_data *data)
 	}
 }
 
-void print_test(t_tokens *lst)
+void print_array(char ** array)
 {
-	t_tokens *current = lst;
-	while (current)
+	int i = 0;
+	while (array[i])
 	{
-		printf("Token adresse cleaned : %p\n", current);
-		current = current->next;
-	}
-}
-void print_test_two(t_tokens *lst)
-{
-	t_tokens *current = lst;
-	while (current)
-	{
-		printf("Token adresse lst : %p\n", current);
-		current = current->next;
+		printf("args[%d] = %s\n",i,array[i]);
+		i++;
 	}
 }
 
@@ -56,18 +66,27 @@ void print_cmd_table(t_data *data)
 		printf("%s\n", current_table->syntaxe_error ? current_table->message_error : "syntaxe error = false");
 
 		t_tokens *current_token = current_table->token;
+		t_redirects *redir = current_table->redirects;
 
 		if (current_token == NULL)
 			printf("Empty token node\n");
-		else
+		if (redir == NULL)
+			printf("Empty redirection node\n");
+		// printf("\n\n-------------------------------- TOKEN -----------------------------------------------\n\n");
+		// while (current_token)
+		// {
+		// 	printf("Token: %-15s  -> %d\n", current_token->word, current_token->not_redir);
+		// 	current_token = current_token->next;
+		// }
+		printf("\n-------------------------------- ARRAY -----------------------------------------------\n");
+		print_array(current_table->args);
+		printf("\n---------------------------- REDIRECTIONS --------------------------------------------\n");
+		while (redir)
 		{
-			while (current_token)
-			{
-				printf("Token: %s\n", current_token->word);
-				current_token = current_token->next;
-			}
+			printf("Type: %s, Content: %s\n", redirection_type_to_string(redir->type), redir->content);
+			redir = redir->next;
 		}
-
+		printf("\n--------------------------------------------------------------------------------------\n");
 		current_table = current_table->next;
 	}
 }
