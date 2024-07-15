@@ -2,42 +2,51 @@
 #include "test.h"
 #include "string.h"
 
-char *remove_dollars_before_quote(char *str, t_data *data)
+char **create_own_env()
 {
-    int i;
-    int j;
-    i = 0;
-    j = 0;
-    while (str[i])
-    {
-        opening_and_closing_quotes(str[i], data);
-        if ((!strncmp(&str[i], "$\"", 2) || !strncmp(&str[i], "$'", 2)) && !data->simple_quote & !data->double_quote)
-        {
-            i++;
-            continue;
-        }
-        else
-        {
-            str[j++] = str[i++];
-        }
-    }
-    while (str[j])
-    {
-        str[j] = '\0';
-        j++;
-    }
-    return str;
+    char **array;
+    array = malloc(5 * sizeof(char *));
+    array[0] = strdup(ENV_USER);
+    array[1] = strdup(ENV_HOME);
+    array[2] = strdup(ENV_PWD);
+    array[3] = strdup(ENV_PATH);
+    array[4] = NULL;
+    return array;
 }
 
-int main()
+int main(int argc, char **argv, char **envp)
 {
     t_data(data) = {0};
+    (void)argc;
+    (void)argv;
 
-    char *str = calloc(50, sizeof(char));
-    strncpy(str, "echo $\"USER\"   '${USER}' $'USER ", 50);
-    printf("avant : %s\n", str);
-    str = remove_dollars(str, &data);
-    printf("apres : %s\n", str);
+    int size = 0;
+
+    if (envp[0]!= NULL)
+
+    {
+        while (envp[size] != NULL)
+            size++;
+        data.shell_env = malloc((size + 1) * sizeof(char *));
+
+        int i = 0;
+        while (envp[i] != NULL)
+        {
+            data.shell_env[i] = strdup(envp[i]);
+            i++;
+        }
+        data.shell_env[i] = NULL;
+    }
+    else
+    data.shell_env = create_own_env();
+
+    // char *str = calloc(50, sizeof(char));
+    // strncpy(str, "echo $\"USER\"   '${USER}' $'USER ", 50);
+
+    for (char **env = data.shell_env; *env != NULL; env++)
+    {
+        printf("%s\n", *env);
+    }
 
     return 0;
 }

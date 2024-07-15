@@ -6,24 +6,11 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:48:12 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/10 03:12:20 by max              ###   ########.fr       */
+/*   Updated: 2024/07/15 23:11:38 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-int ft_strlen_simple_cmd(char *str)
-{
-	int i;
-
-	if (str == NULL)
-		return (0);
-	i = 0;
-	while (str[i] && str[i] != '|')
-	{
-		i++;
-	}
-	return (i);
-}
 
 int ft_strlen(char *str)
 {

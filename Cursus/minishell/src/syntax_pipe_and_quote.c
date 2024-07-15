@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_syntax.c                                     :+:      :+:    :+:   */
+/*   syntax_pipe_and_quote.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 22:55:48 by max               #+#    #+#             */
-/*   Updated: 2024/07/10 08:17:15 by max              ###   ########.fr       */
+/*   Updated: 2024/07/15 22:59:05 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static bool next_node_is_empty(char *str)
             return true;
         str++;
     }
-    return false;
+   return false;
 }
 
 bool expand_has_syntax_errors(t_commands_table *table, t_data *data)
@@ -77,7 +77,8 @@ bool pipe_syntax_errors(t_data *data)
     }
     while (*str)
     {
-        if (*str == '|')
+        opening_and_closing_quotes(*str, data);
+        if (*str == '|' && !data->double_quote && !data->simple_quote)
         {
             if (!(next_node_is_empty(&str[1])))
             {
@@ -87,5 +88,6 @@ bool pipe_syntax_errors(t_data *data)
         }
         str++;
     }
+    quotes_reset(data);
     return false;
 }

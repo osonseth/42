@@ -6,13 +6,13 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:38:54 by max               #+#    #+#             */
-/*   Updated: 2024/07/10 08:53:52 by max              ###   ########.fr       */
+/*   Updated: 2024/07/15 23:01:43 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 void quotes_reset(t_data *data)
-{  
+{
     data->simple_quote = false;
     data->double_quote = false;
 }
@@ -54,7 +54,7 @@ bool quote_syntax_errors(t_data *data)
     {
         if (*str == '"' || *str == '\'')
             opening_and_closing_quotes(*str, data);
-        else if (*str == '|')
+        else if (*str == '|' && !data->double_quote && !data->simple_quote)
         {
             if (check_close_quote(data))
             {

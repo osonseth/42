@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 09:08:22 by max               #+#    #+#             */
-/*   Updated: 2024/07/15 00:08:58 by max              ###   ########.fr       */
+/*   Updated: 2024/07/16 00:10:58 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,12 @@ bool recursive_handle_command_node(t_data *data, t_commands_table *table)
 		return false;
 	}
 	node_tokenization(data, table);
-	recursive_handle_expand_token(table->token, data);
+	print_lst(table->token);
+	
 	redir_tokenization(&(table->token), data);
+	recursive_handle_expand_token(table->token, data);
+	printf("\n-------------------------------------------------------------------------\n");
+	print_lst2(table->token);
 	if (redirection_syntax_errors(table->token))
 		return true;
 	table->redirects = create_redirection_lst(&(table->token), data);

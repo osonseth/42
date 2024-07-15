@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 07:41:20 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/15 00:12:27 by max              ###   ########.fr       */
+/*   Updated: 2024/07/15 23:59:32 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 #define MINISHELL_H
 
 #include "libft.h"
+#include "define.h"
 #include <readline/history.h>
 #include <readline/readline.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-#define PIPE 124
-#define QUOTE 34
-#define CLOSING_BRACE 125
+// #define PIPE 124
+// #define QUOTE 34
+// #define CLOSING_BRACE 125
 
 typedef enum
 {
@@ -68,17 +69,20 @@ typedef struct s_commands_table
 
 typedef struct data
 {
-	t_commands_table *table;
-	t_variable *variable;
-	char *line;
 	bool simple_quote;
 	bool double_quote;
 	bool syntax_error;
+	char *line;
+	char ** shell_env;
+	t_commands_table *table;
+	t_variable *variable;
 	t_tokens *new_lst;
 	t_tokens *old_lst;
 
 } t_data;
 
+//------------------------------------ ENV ----------------------------------------------------
+char **env_management(char **envp, t_data *data);
 // ------------------------------ List variable ----------------------------------------------
 void variable_node_add_back(t_variable **lst, t_variable *new, t_data *data);
 t_variable *new_variable_node(void *content);
@@ -86,6 +90,7 @@ t_variable *new_variable_node(void *content);
 t_commands_table *new_cmd_table_node(void *content);
 void cmd_table_node_add_back(t_commands_table **lst, t_commands_table *new, t_data *data);
 void build_cmd_table(t_data *data);
+char *ft_strdup_simple_cmd(char *s,t_data *data);
 // ------------------------------ List redirections ----------------------------------------------
 
 t_redirects *create_redirection_lst(t_tokens **lst, t_data *data);
@@ -139,7 +144,10 @@ void print_syntax_error(int type);
 void print_cmd_table(t_data *data);
 void print_tokens(t_data *data);
 void print_variable_value(t_data *data);
-void print_array(char ** array);
+void print_array(char **array);
+void print_all (t_data *data);
+void print_lst (t_tokens *lst);
+void print_lst2 (t_tokens *lst);
 // ---------------------------------- Expand functions ---------------------------------------------
 char *expand_management(char *word, t_data *data);
 bool no_expand(char *word, t_data *data);
@@ -158,6 +166,6 @@ void ft_strncpy_variable_name(char *dest, char *src, int len);
 char *skype_space_ptr(char *string);
 void skype_space(char *str, int *i);
 void free_old_node(t_tokens *node);
-bool have_redirections(char *str);
+bool have_redirections(char *str,t_data *data);
 
 #endif

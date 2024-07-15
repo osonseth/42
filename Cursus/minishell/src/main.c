@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:53:25 by max               #+#    #+#             */
-/*   Updated: 2024/07/12 22:51:12 by max              ###   ########.fr       */
+/*   Updated: 2024/07/15 12:20:42 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,18 @@ void exec()
 	printf("\nON RENTRE DANS L'EXEC\n");
 }
 
-int main(void)
+int main(int argc, char **argv, char **envp)
 {
+	(void)argc;
+	(void)argv;
 	t_data(data) = {0};
+	data.shell_env = env_management(envp, &data);
 	while (1)
 	{
 		data.line = readline("Minishell$");
 		if (!ft_strncmp(data.line, "exit", 4))
 		{
+			clean_array(data.shell_env);
 			clean_all(&data);
 			exit(EXIT_SUCCESS);
 		}
@@ -34,10 +38,8 @@ int main(void)
 			continue;
 		}
 		exec();
-		print_cmd_table(&data);
-
+		print_all(&data);
 		clean_all(&data);
 	}
-
 	return (0);
 }

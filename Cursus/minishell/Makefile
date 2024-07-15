@@ -21,12 +21,14 @@ OBJDIR 		  = ./obj/
 DEPDIR 		  = ./dep/
 
 SRC_NAME 	  =	main.c						\
+				env.c						\
 				utils.c						\
 				print_test.c				\
 				clean.c						\
 				clean_utils.c 				\
 				error.c						\
 				build_cmd_table.c			\
+				cmd_table_utils.c 			\
 				parsing.c					\
 				quote.c						\
 				token_node.c				\

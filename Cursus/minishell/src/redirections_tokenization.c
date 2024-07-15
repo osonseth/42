@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 22:47:09 by max               #+#    #+#             */
-/*   Updated: 2024/07/12 12:47:20 by max              ###   ########.fr       */
+/*   Updated: 2024/07/15 23:59:16 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void redir_tokenization(t_tokens **lst, t_data *data)
         next_node = current->next;
         data->new_lst = new_lst;
         data->old_lst = current;
-        if (have_redirections(current->word))
+        if (have_redirections(current->word,data))
         {
             t_tokens *new_tokens = split_token(current->word, data);
             token_lst_add_back(&new_lst, new_tokens);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_table.c                                        :+:      :+:    :+:   */
+/*   build_cmd_table.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:07:48 by max               #+#    #+#             */
-/*   Updated: 2024/07/04 23:53:10 by max              ###   ########.fr       */
+/*   Updated: 2024/07/15 23:28:59 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,18 @@ t_commands_table *new_cmd_table_node(void *content)
 }
 
 void build_cmd_table(t_data *data)
-{
+{ 
     int i;
     i = 0;
     char *line_start;
     line_start = data->line;
     while (data->line[i] != '\0')
     {
-        if (data->line[i] == '|')
-        {
-            line_start = ft_strdup_simple_cmd(line_start);
+        opening_and_closing_quotes(data->line[i],data);
+       
+        if (data->line[i] == '|' && !data->double_quote && !data->simple_quote)
+        {  
+            line_start = ft_strdup_simple_cmd(line_start,data);
             if (line_start == NULL)
                 memory_error(data);
             cmd_table_node_add_back(&(data->table), new_cmd_table_node(line_start), data);
@@ -72,7 +74,7 @@ void build_cmd_table(t_data *data)
         }
         else if (data->line[i + 1] == '\0')
         {
-            line_start = ft_strdup_simple_cmd(line_start);
+            line_start = ft_strdup_simple_cmd(line_start,data);
             if (line_start == NULL)
                 memory_error(data);
             cmd_table_node_add_back(&(data->table), new_cmd_table_node(line_start), data);

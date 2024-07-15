@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 18:55:54 by max               #+#    #+#             */
-/*   Updated: 2024/07/14 21:35:41 by max              ###   ########.fr       */
+/*   Updated: 2024/07/15 11:40:26 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void memory_error(t_data *data)
 {
+    clean_array(data->shell_env);
     clean_all(data);        
     perror("malloc failed");
     exit(EXIT_FAILURE);
