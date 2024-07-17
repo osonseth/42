@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 22:47:09 by max               #+#    #+#             */
-/*   Updated: 2024/07/15 23:59:16 by max              ###   ########.fr       */
+/*   Updated: 2024/07/16 11:45:38 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ char *ft_strdup_redir_token(char *s)
 
     return (dest);
 }
+/*
+Envoie le token a différentes sous fonction pour le diviser selon le type de redirection
+*/
 static t_tokens *split_token(char *str, t_data *data)
 {
     t_tokens *lst;
@@ -74,6 +77,13 @@ static t_tokens *split_token(char *str, t_data *data)
     return lst;
 }
 
+/*
+Split les tokens contenant des redirections et les rajoute dans l'odre a la liste de token
+next node             = save le pointeur du prochain noeud
+data new et old list  = save les pointeurs de la nouvelle liste et du noeud ou l'ont se trouve dans l'ancienne liste afin de clean en cas de fail malloc
+have redirection      = si redirections dans le token le divise, l'ajoute a la nouvelle liste et free l'ancien noeud
+si pas de redirection = ajoute le noeud de l'ancienne liste a la nouvelle et free l'ancien
+*/
 void redir_tokenization(t_tokens **lst, t_data *data)
 {
     t_tokens(*current) = *lst;

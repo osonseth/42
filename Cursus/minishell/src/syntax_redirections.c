@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 19:11:03 by max               #+#    #+#             */
-/*   Updated: 2024/07/13 02:02:53 by max              ###   ########.fr       */
+/*   Updated: 2024/07/16 12:01:30 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ int redirection_type(char *word)
         return OUTFILE;
     return false;
 }
+/*
+Check les redirections sans fichiers ou EOF pour les heredoc
+*/
 
 int redirection_syntax_errors(t_tokens *token)
 {

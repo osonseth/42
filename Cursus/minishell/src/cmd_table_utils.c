@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 23:08:46 by max               #+#    #+#             */
-/*   Updated: 2024/07/15 23:50:14 by max              ###   ########.fr       */
+/*   Updated: 2024/07/16 02:52:26 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,7 @@ static void ft_strcpy_simple_cmd(char *dst, char *src, t_data *data)
     {
         opening_and_closing_quotes(src[i], data);
         if (src[i] == '|' && !data->double_quote && !data->simple_quote)
-        {
-            i++;
             break;
-        }
         dst[i] = src[i];
         i++;
     }

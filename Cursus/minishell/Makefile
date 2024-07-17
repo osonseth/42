@@ -35,6 +35,7 @@ SRC_NAME 	  =	main.c						\
 				syntax_pipe_and_quote.c		\
 				syntax_redirections.c		\
 				create_token.c 				\
+				create_args.c 				\
 				variable_node.c				\
 				calculate_expand.c 			\
 				expand_utils.c				\

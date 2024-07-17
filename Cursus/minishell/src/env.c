@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:08:06 by max               #+#    #+#             */
-/*   Updated: 2024/07/15 18:03:08 by max              ###   ########.fr       */
+/*   Updated: 2024/07/16 03:01:21 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ char **env_management(char **envp, t_data *data)
     size = 0;
 
     // if (envp[0] == NULL)
-    if (envp[0] == NULL || !ft_strncmp(envp[0], "LD_LIBRARY_PATH=/usr/lib/debug", 30))
+    if (envp[0] == NULL)
+    // || !ft_strncmp(envp[0], "LD_LIBRARY_PATH=/usr/lib/debug", 30))
         my_env = create_own_env(data);
     else
     {

@@ -6,11 +6,15 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 22:55:48 by max               #+#    #+#             */
-/*   Updated: 2024/07/15 22:59:05 by max              ###   ########.fr       */
+/*   Updated: 2024/07/16 11:36:26 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+Initialise le bool et le message d'erreur si probleme de syntaxe trouvé
+*/
 
 static void update_cmd_table(t_commands_table *table, t_data *data)
 {
@@ -20,6 +24,9 @@ static void update_cmd_table(t_commands_table *table, t_data *data)
         clean_all(data);
 }
 
+/*
+Check la fermeture de ${ et la syntaxe a l'interieur des {}
+*/
 static bool brace_not_closed_or_bad_syntax(char *str)
 {
     while (*str)
@@ -32,6 +39,9 @@ static bool brace_not_closed_or_bad_syntax(char *str)
     }
     return true;
 }
+/*
+Check si il y'a rien entre 2 pipes
+*/
 static bool next_node_is_empty(char *str)
 {
     while (*str && *str != '|')
@@ -42,7 +52,11 @@ static bool next_node_is_empty(char *str)
     }
    return false;
 }
+/*
 
+Check les erreurs de syntaxe pour ${}
+
+*/
 bool expand_has_syntax_errors(t_commands_table *table, t_data *data)
 {
     char *str;
@@ -66,6 +80,11 @@ bool expand_has_syntax_errors(t_commands_table *table, t_data *data)
     return false;
 }
 
+/*
+
+Check les erreurs de syntaxe des pipes
+
+*/
 bool pipe_syntax_errors(t_data *data)
 {
     char *str;

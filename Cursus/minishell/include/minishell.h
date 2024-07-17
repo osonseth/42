@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 07:41:20 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/15 23:59:32 by max              ###   ########.fr       */
+/*   Updated: 2024/07/16 11:48:27 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct data
 
 } t_data;
 
+//----------------------------------- ARGS ------------------------------------------------------
+char **create_args_array(t_commands_table *table, t_data *data);
 //------------------------------------ ENV ----------------------------------------------------
 char **env_management(char **envp, t_data *data);
 // ------------------------------ List variable ----------------------------------------------
@@ -150,6 +152,7 @@ void print_lst (t_tokens *lst);
 void print_lst2 (t_tokens *lst);
 // ---------------------------------- Expand functions ---------------------------------------------
 char *expand_management(char *word, t_data *data);
+void recursive_handle_expand_token(t_tokens *token, t_data *data);
 bool no_expand(char *word, t_data *data);
 int make_var_value_lst_and_calculate_len(char *var_name, t_data *data);
 int calculate_variable_value_without_brace_len(char *word, t_data *data);

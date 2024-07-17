@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 00:52:48 by max               #+#    #+#             */
-/*   Updated: 2024/07/14 16:09:46 by max              ###   ########.fr       */
+/*   Updated: 2024/07/16 12:03:10 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ void redirection_node_add_back(t_redirects **lst, t_redirects *new, t_data *data
     tmp->next = new;
 }
 
+/* Crée la liste des redictions apartir de la liste des tokens
+Met a jour un bool dans chaque noeud afin de savoir si le token faite partie d'une redirection ou pas
+*/
 t_redirects *create_redirection_lst(t_tokens **lst, t_data *data)
 {
     bool(cmd_and_args) = false;

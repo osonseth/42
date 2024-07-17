@@ -18,6 +18,6 @@ if [ ! -x "$PROGRAM" ]; then
 fi
 
 
-env -i PATH=/usr/bin:/bin valgrind --leak-check=full --show-leak-kinds=all --suppressions="$SUPPRESSIONS_FILE" ./"$PROGRAM"
+env -i valgrind --leak-check=full --show-leak-kinds=all --suppressions="$SUPPRESSIONS_FILE" ./"$PROGRAM"
 
 

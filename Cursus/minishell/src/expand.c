@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:26:03 by max               #+#    #+#             */
-/*   Updated: 2024/07/14 01:34:22 by max              ###   ########.fr       */
+/*   Updated: 2024/07/16 12:00:15 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ static void ft_strncpy_expanded_word(char *variable_value, char *expanded_word)
 		i++;
 	}
 }
+/*
+Crée le nouveau token avec les varibles expand (via list des valeur récupérer avant) et le renvoie a la fonction principale
+*/
 
 static char *make_expanded_word(char *word, char *expanded_word, t_data *data)
 {
@@ -88,6 +91,11 @@ static char *make_expanded_word(char *word, char *expanded_word, t_data *data)
 	return expanded_word;
 }
 
+/*
+ no expand  : renvoie le token tel quel
+ calcule de la len du nouveau token avec les expands
+ crée le token avec les expands
+*/
 char *expand_management(char *word, t_data *data)
 {
 	if (no_expand(word, data))
@@ -103,4 +111,20 @@ char *expand_management(char *word, t_data *data)
 	if (word)
 		free(word);
 	return expanded_word;
+}
+/*
+Récursivité sur les tokens afin d'expand la valeur des variables d'env
+expand management  		  : fonction pricipale
+remove unnecessary quotes : enleve les quotes hors quote du token
+
+*/
+void recursive_handle_expand_token(t_tokens *token, t_data *data)
+{
+	if (token == NULL)
+		return;
+	token->word = expand_management(token->word, data);
+	token->word = remove_unnecessary_quotes(token->word, data);
+	clean_variable_lst(data->variable);
+	data->variable = NULL;
+	recursive_handle_expand_token(token->next, data);
 }

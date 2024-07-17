@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   calculate_expand.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 11:48:10 by max               #+#    #+#             */
-/*   Updated: 2024/07/10 15:25:33 by max              ###   ########.fr       */
+/*   Updated: 2024/07/16 11:58:25 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+Check si il y'a des expand a faire dans le token
+*/
 
 bool no_expand(char *word, t_data *data)
 {
@@ -34,7 +38,9 @@ bool no_expand(char *word, t_data *data)
     quotes_reset(data);
     return true;
 }
-
+/*
+crée la liste des valeur de variable a expand et renvoie la leur len 
+*/
 int make_var_value_lst_and_calculate_len(char *var_name, t_data *data)
 {
     int var_value_len;
@@ -43,6 +49,9 @@ int make_var_value_lst_and_calculate_len(char *var_name, t_data *data)
     variable_node_add_back(&(data->variable), new_variable_node(getenv(var_name)), data);
     return var_value_len;
 }
+/*
+Recupere la len de la valeur des variable $ 
+*/
 int calculate_variable_value_without_brace_len(char *word, t_data *data)
 {
     char *variable_name;
@@ -58,6 +67,9 @@ int calculate_variable_value_without_brace_len(char *word, t_data *data)
     free(variable_name);
     return variable_value_len;
 }
+/*
+Recupere la len de la valeur des variable ${}
+*/
 int calculate_variable_value_brace_len(char *word, t_data *data)
 {
     char *variable_name;
@@ -74,6 +86,9 @@ int calculate_variable_value_brace_len(char *word, t_data *data)
     return variable_value_len;
 }
 
+/*
+Quand trouve un ${} ou $ hors quote récupere et ajoute a la len total la len de la valeur de la variable via 2 sous fonction 
+*/
 int calculate_expanded_len(char *word, t_data *data)
 {
     int i;
