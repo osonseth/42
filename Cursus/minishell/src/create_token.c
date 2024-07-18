@@ -6,12 +6,11 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 11:12:53 by max               #+#    #+#             */
-/*   Updated: 2024/07/16 11:38:41 by max              ###   ########.fr       */
+/*   Updated: 2024/07/18 12:24:18 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static void ft_strcpy_token(char *dst, char *src, int len)
 {
@@ -55,31 +54,35 @@ static int ft_strlen_token(char *str, t_data *data)
     return (i);
 }
 
-int create_token(char *str, t_commands_table *table, t_data *data)
+bool create_token(char *str, t_commands_table *table, t_data *data, int *i)
 {
     int len;
     len = ft_strlen_token(str, data);
     char *token;
     token = ft_strdup_token(str, len);
     if (token == NULL)
-        memory_error(data);
-
-    token_node_add_back(&(table->token), new_token_node(token), data);
-
-    return len - 1;
+        return false;
+    if (!token_node_add_back(&(table->token), new_token_node(token)))
+        return false;
+    (*i) += len - 1;
+    return true;
 }
 /*
 Parcours la cmd pour créer les tokens a partir des espaces hors quote et ignore les $ suivi d'une quote
 */
-void node_tokenization(t_data *data, t_commands_table *table)
+bool node_tokenization(t_data *data, t_commands_table *table)
 {
     int i;
     i = 0;
-    table->simple_cmd = remove_dollars_before_quote(table->simple_cmd,data);
+    table->simple_cmd = remove_dollars_before_quote(table->simple_cmd, data);
     while (table->simple_cmd[i])
     {
         if (!is_space(table->simple_cmd[i]))
-            i += create_token(&table->simple_cmd[i], table, data);
+        {
+            if(!create_token(&table->simple_cmd[i], table, data, &i))
+                return false;
+        }
         i++;
     }
+    return true;
 }

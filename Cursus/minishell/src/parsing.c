@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 09:08:22 by max               #+#    #+#             */
-/*   Updated: 2024/07/17 12:39:32 by max              ###   ########.fr       */
+/*   Updated: 2024/07/18 12:24:42 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ bool recursive_handle_command_node(t_data *data, t_commands_table *table)
 		recursive_handle_command_node(data, table->next);
 		return false;
 	}
-	node_tokenization(data, table);
-	redir_tokenization(&(table->token), data);
-	recursive_handle_expand_token(table->token, data);
+	if (!node_tokenization(data, table))
+		return true;
+	if (!redir_tokenization(&(table->token), data))
+		return true;
 	if (redirection_syntax_errors(table->token))
 		return true;
 	table->redirects = create_redirection_lst(&(table->token), data);
+	recursive_handle_expand_token(table->token, data);
 	table->args = create_args_array(table, data);
 	if (!table->args)
 		memory_error(data);
@@ -55,7 +57,11 @@ bool parsing_management(t_data *data)
 		return false;
 	if (quote_syntax_errors(data))
 		return false;
-	build_cmd_table(data);
+	if (!build_cmd_table(data))
+	{
+		write(2, "Malloc failed: memory allocation error\n", 39);
+		return false;
+	}
 	if (recursive_handle_command_node(data, data->table))
 		return false;
 	return true;

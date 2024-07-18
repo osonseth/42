@@ -6,71 +6,78 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 22:47:09 by max               #+#    #+#             */
-/*   Updated: 2024/07/16 11:45:38 by max              ###   ########.fr       */
+/*   Updated: 2024/07/18 12:23:16 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_strcpy_redir_token(char *dst, const char *src)
-{
-    size_t i;
+/*
+    Crée les token < , << , > ou >>
+    Renvoie NULL en cas de fail malloc
+*/
 
-    i = 0;
-    while (src[i] && src[i] != '<' && src[i] != '>')
+t_tokens *create_redirection_token(t_tokens *lst, char *str, int *i)
+{
+    if (!ft_strncmp(str, "<<", 2))
     {
-        dst[i] = src[i];
-        i++;
+        if (!token_node_add_back(&lst, new_token_node(heredoc_token())))
+            return NULL;
+        (*i)++;
     }
-    dst[i] = '\0';
-}
-
-int ft_strlen_redir_token(char *str)
-{
-    int i;
-
-    if (str == NULL)
-        return (0);
-    i = 0;
-    while (str[i] && str[i] != '<' && str[i] != '>')
-        i++;
-    return (i);
-}
-
-char *ft_strdup_redir_token(char *s)
-{
-    char *dest;
-
-    dest = malloc(1 + ft_strlen_redir_token(s) * sizeof(char));
-    if (!dest)
-        return (NULL);
-    ft_strcpy_redir_token(dest, s);
-
-    return (dest);
+    else if (!ft_strncmp(str, ">>", 2))
+    {
+        if (!token_node_add_back(&lst, new_token_node(append_redirect_token())))
+            return NULL;
+        (*i)++;
+    }
+    else if (!ft_strncmp(str, "<", 1))
+    {
+        if (!token_node_add_back(&lst, new_token_node(input_redirect_token())))
+            return NULL;
+    }
+    else if (!ft_strncmp(str, ">", 1))
+    {
+        if (!token_node_add_back(&lst, new_token_node(output_redirect_token())))
+            return NULL;
+    }
+    return lst;
 }
 /*
-Envoie le token a différentes sous fonction pour le diviser selon le type de redirection
+Crée les tokens contenu des redirections
+Renvoie NULL en cas de fail malloc
 */
-static t_tokens *split_token(char *str, t_data *data)
-{
-    t_tokens *lst;
-    int i;
 
-    lst = NULL;
-    i = 0;
+t_tokens *create_redirection_token_content(t_tokens *lst, char *str, int *i)
+{
+    if (!token_node_add_back(&lst, new_token_node(redirection_token_content(str))))
+        return NULL;
+    (*i) += ft_strlen_redir_token_content(str);
+    return lst;
+}
+
+/*
+Divise le token en token redirections et contenu des redirections
+renvoie NULL en cas de fail malloc
+*/
+static t_tokens *split_token(char *str)
+{
+    t_tokens(*lst) = NULL;
+    t_tokens(*save_lst) = NULL;
+    int(i) = 0;
 
     while (str[i])
     {
-        if (!ft_strncmp(&str[i], "<<", 2))
-            heredoc_token(&lst, &i, data);
-        else if (!ft_strncmp(&str[i], ">>", 2))
-            append_redirect_token(&lst, &i, data);
-        else if (!ft_strncmp(&str[i], ">", 1))
-            output_redirect_token(&lst, data);
-        else if (!ft_strncmp(&str[i], "<", 1))
-            input_redirect_token(&lst, data);
-        else if (str[i] != '\0')
-            create_normal_token(&str[i], &lst, &i, data);
+        if (is_redirection_token(&str[i]))
+            lst = create_redirection_token(lst, &str[i], &i);
+        else
+            lst = create_redirection_token_content(lst, &str[i], &i);
+        if (!lst)
+        {
+            clean_token_lst(save_lst);
+            return NULL;
+        }
+        save_lst = lst;
         if (str[i])
             i++;
     }
@@ -78,36 +85,50 @@ static t_tokens *split_token(char *str, t_data *data)
 }
 
 /*
-Split les tokens contenant des redirections et les rajoute dans l'odre a la liste de token
-next node             = save le pointeur du prochain noeud
-data new et old list  = save les pointeurs de la nouvelle liste et du noeud ou l'ont se trouve dans l'ancienne liste afin de clean en cas de fail malloc
-have redirection      = si redirections dans le token le divise, l'ajoute a la nouvelle liste et free l'ancien noeud
-si pas de redirection = ajoute le noeud de l'ancienne liste a la nouvelle et free l'ancien
+Découpage de la fonction principale
+Si le token a des redirections = decoupe le token avec split et l'ajoute a la nouvelle liste
+Sinon rajoute l'ancien token a la nouvelle liste
 */
-void redir_tokenization(t_tokens **lst, t_data *data)
+
+bool redir_tokenization_step(t_tokens **new_lst, t_tokens **current, t_data *data)
 {
-    t_tokens(*current) = *lst;
-    t_tokens(*new_lst) = NULL;
+    if (have_redirections((*current)->word, data))
+    {
+        if (!token_lst_add_back(new_lst, split_token((*current)->word)))
+        {
+            clean_new_and_old_token_lst(new_lst, current);
+            return false;
+        }
+        free((*current)->word);
+    }
+    else
+    {
+        if (!token_node_add_back(new_lst, new_token_node((*current)->word)))
+        {
+            clean_new_and_old_token_lst(new_lst, current);
+            return false;
+        }
+    }
+    return true;
+}
+
+/*
+Fonction decoupé qui crée une nouvelle liste de token en rajoutant les tokens de redirections et leur contenu si le token de base en contient
+*/
+bool redir_tokenization(t_tokens **lst, t_data *data)
+{
+    t_tokens *current = *lst;
+    t_tokens *new_lst = NULL;
     t_tokens *next_node;
 
     while (current != NULL)
     {
         next_node = current->next;
-        data->new_lst = new_lst;
-        data->old_lst = current;
-        if (have_redirections(current->word,data))
-        {
-            t_tokens *new_tokens = split_token(current->word, data);
-            token_lst_add_back(&new_lst, new_tokens);
-            free_old_node(current);
-            current = next_node;
-            continue;
-        }
-        token_node_add_back(&new_lst, new_token_node(current->word), data);
+        if (!redir_tokenization_step(&new_lst, &current, data))
+            return false;
         free(current);
         current = next_node;
     }
-    data->new_lst = NULL;
-    data->old_lst = NULL;
     *lst = new_lst;
+    return true;
 }

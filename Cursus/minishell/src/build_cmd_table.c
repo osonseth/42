@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:07:48 by max               #+#    #+#             */
-/*   Updated: 2024/07/16 11:00:15 by max              ###   ########.fr       */
+/*   Updated: 2024/07/17 17:04:12 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,21 @@ static void initialize_node(t_commands_table *node, void *content)
 /*
 Ajout des nouveaux neud a la fin de la liste
 */
-void cmd_table_node_add_back(t_commands_table **lst, t_commands_table *new, t_data *data)
+bool cmd_table_node_add_back(t_commands_table **lst, t_commands_table *new)
 {
     t_commands_table *tmp;
     if (new == NULL)
-        memory_error(data);
+        return false;
     if (!*lst)
     {
         *lst = new;
-        return;
+        return true;
     }
     tmp = *lst;
     while (tmp->next != NULL)
         tmp = tmp->next;
     tmp->next = new;
+    return true;
 }
 /*
 Creation des noeuds de la table des commandes
@@ -72,32 +73,26 @@ t_commands_table *new_cmd_table_node(void *content)
 /*
 Creation d'1 noeud par commande  simple a chaque '|' hors quote trouvé ou a la fin de la string
 Pointeur line start qui se deplace a chaque '|' char +1 pour dup
-Creation de chaque noeud avec node add back et new node 
+Creation de chaque noeud avec node add back et new node
 */
-void build_cmd_table(t_data *data)
+bool build_cmd_table(t_data *data)
 {
     int i;
     i = 0;
+    
     char *line_start;
     line_start = data->line;
     while (data->line[i] != '\0')
     {
         opening_and_closing_quotes(data->line[i], data);
-        if (data->line[i] == '|' && !data->double_quote && !data->simple_quote)
+        if ((data->line[i] == '|' && !data->double_quote && !data->simple_quote) || data->line[i + 1] == '\0')
         {
             line_start = ft_strdup_simple_cmd(line_start, data);
-            if (line_start == NULL)
-                memory_error(data);
-            cmd_table_node_add_back(&(data->table), new_cmd_table_node(line_start), data);
+            if (line_start == NULL || !cmd_table_node_add_back(&(data->table), new_cmd_table_node(line_start)))
+                return false;
             line_start = &data->line[i + 1];
-        }
-        else if (data->line[i + 1] == '\0')
-        {
-            line_start = ft_strdup_simple_cmd(line_start, data);
-            if (line_start == NULL)
-                memory_error(data);
-            cmd_table_node_add_back(&(data->table), new_cmd_table_node(line_start), data);
         }
         i++;
     }
+    return true;
 }

@@ -6,11 +6,12 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:38:42 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/16 11:44:39 by max              ###   ########.fr       */
+/*   Updated: 2024/07/18 08:32:51 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 char *skype_space_ptr(char *str)
 {
@@ -50,6 +51,6 @@ bool have_redirections(char *str, t_data *data)
             return true;
         i++;
     }
-
+    quotes_reset(data);
     return false;
 }

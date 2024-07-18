@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:20 by max               #+#    #+#             */
-/*   Updated: 2024/07/15 11:39:10 by max              ###   ########.fr       */
+/*   Updated: 2024/07/18 08:41:31 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void clean_redirection_lst(t_redirects *lst)
     next_lst = lst->next;
     if (lst)
     {
-        printf("content redir to clean = %s\n", lst->content);
+
         if (lst->content)
             free(lst->content);
         free(lst);

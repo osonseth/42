@@ -6,76 +6,58 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:13:21 by max               #+#    #+#             */
-/*   Updated: 2024/07/14 10:50:45 by max              ###   ########.fr       */
+/*   Updated: 2024/07/18 09:17:02 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void input_redirect_token(t_tokens **lst, t_data *data)
+char *input_redirect_token(void)
 {
     char *tmp;
 
     tmp = ft_strdup("<");
     if (tmp == NULL)
-    {
-        data->table->token = data->new_lst;
-        clean_token_lst_and_memory_error(*lst, data);
-    }
-    token_node_add_back(lst, new_token_node(tmp), data);
+        return NULL;
+    return tmp;
 }
 
-void output_redirect_token(t_tokens **lst, t_data *data)
+char *output_redirect_token(void)
 {
     char *tmp;
 
     tmp = ft_strdup(">");
     if (tmp == NULL)
-    {
-        data->table->token = data->new_lst;
-        clean_token_lst_and_memory_error(*lst, data);
-    }
-    token_node_add_back(lst, new_token_node(tmp), data);
+        return NULL;
+    return tmp;
 }
 
-void append_redirect_token(t_tokens **lst, int *i, t_data *data)
+char *append_redirect_token(void)
 {
     char *tmp;
 
     tmp = ft_strdup(">>");
     if (tmp == NULL)
-    {
-        data->table->token = data->new_lst;
-        clean_token_lst_and_memory_error(*lst, data);
-    }
-    token_node_add_back(lst, new_token_node(tmp), data);
-    (*i)++;
+        return NULL;
+    return tmp;
 }
 
-void heredoc_token(t_tokens **lst, int *i, t_data *data)
+char *heredoc_token(void)
 {
     char *tmp;
 
     tmp = ft_strdup("<<");
     if (tmp == NULL)
-    {
-        data->table->token = data->new_lst;
-        clean_token_lst_and_memory_error(*lst, data);
-    }
-    token_node_add_back(lst, new_token_node(tmp), data);
-    (*i)++;
+        return NULL;
+    return tmp;
 }
 
-void create_normal_token(char *str, t_tokens **lst, int *i, t_data *data)
+char *redirection_token_content(char *str)
 {
     char *tmp;
 
-    tmp = ft_strdup_redir_token(str);
+    tmp = ft_strdup_redir_token_content(str);
     if (tmp == NULL)
-    {
-        data->table->token = data->new_lst;
-        clean_token_lst_and_memory_error(*lst, data);
-    }
-    token_node_add_back(lst, new_token_node(tmp), data);
-    (*i) += (ft_strlen_redir_token(str) - 1);
+        return NULL;
+    return tmp;
 }

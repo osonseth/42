@@ -6,15 +6,19 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 19:11:03 by max               #+#    #+#             */
-/*   Updated: 2024/07/16 12:01:30 by max              ###   ########.fr       */
+/*   Updated: 2024/07/17 15:35:20 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
- bool is_redirection_token(char *word)
+// bool is_redirection_token(char *word)
+// {
+//     return ((!ft_strncmp(word, "<<", 2) && ft_strlen(word) == 2) || (!ft_strncmp(word, ">>", 2) && ft_strlen(word) == 2) || (!ft_strncmp(word, "<", 1) && ft_strlen(word) == 1) || (!ft_strncmp(word, ">", 1) && ft_strlen(word) == 1));
+// }
+bool is_redirection_token(char *word)
 {
-    return (!ft_strncmp(word, "<<", 2) || !ft_strncmp(word, ">>", 2) || !ft_strncmp(word, "<", 1) || !ft_strncmp(word, ">", 1));
+    return (!ft_strncmp(word, "<<", 2)  || !ft_strncmp(word, ">>", 2)  || !ft_strncmp(word, "<", 1)  || !ft_strncmp(word, ">", 1) );
 }
 int redirection_type(char *word)
 {
@@ -48,7 +52,7 @@ int redirection_syntax_errors(t_tokens *token)
         {
             if (is_redirection_token(current->word) && is_redirection_token(current->next->word))
             {
-                print_syntax_error(redirection_type(current->next->word));
+                print_syntax_error(redirection_type(current->word));
                 return true;
             }
         }

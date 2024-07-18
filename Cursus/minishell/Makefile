@@ -1,8 +1,6 @@
 CC 			  =  cc
 
-FLAGS 		  =	-Wall -Wextra -Werror -MMD -MP  -g 
-
-#-fsanitize=address
+FLAGS 		  =	-Wall -Wextra -Werror -MMD -MP  -g -fsanitize=address
 
 LDLIBS		  = -lft -lreadline
 
@@ -44,7 +42,8 @@ SRC_NAME 	  =	main.c						\
 				redirections_token.c		\
 				redirections_tokenization.c \
 				redirection_list.c			\
-				redirection_node.c
+				redirection_node.c			\
+				redirections_utils.c 		
 				
 
 					
