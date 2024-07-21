@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:11:32 by max               #+#    #+#             */
-/*   Updated: 2024/07/16 11:27:38 by max              ###   ########.fr       */
+/*   Updated: 2024/07/20 08:43:00 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ void print_variable_value(t_data *data)
 	}
 }
 
-void print_array(char ** array)
+void print_array(char **array)
 {
 	int i = 0;
 	while (array[i])
 	{
-		printf("args[%d] = %s\n",i,array[i]);
+		printf("args[%d] = %s\n", i, array[i]);
 		i++;
 	}
 }
@@ -79,7 +79,8 @@ void print_cmd_table(t_data *data)
 			current_token = current_token->next;
 		}
 		printf("\n-------------------------------- ARRAY -----------------------------------------------\n");
-		print_array(current_table->args);
+		if (current_table->args)
+			print_array(current_table->args);
 		printf("\n---------------------------- REDIRECTIONS --------------------------------------------\n");
 		while (redir)
 		{
@@ -88,39 +89,6 @@ void print_cmd_table(t_data *data)
 		}
 		printf("\n--------------------------------------------------------------------------------------\n");
 		current_table = current_table->next;
-	}
-}
-
-void print_lst (t_tokens *lst)
-{
-	t_tokens *current = lst;
-	while (current)
-	{
-		if (current == NULL)
-		{
-			printf("liste vide\n");
-		}
-		else
-		{
-			printf("Token AVANT redirection tokenisation = %s\n",current->word);
-		}
-		current = current->next;
-	}
-}
-void print_lst2 (t_tokens *lst)
-{
-	t_tokens *current = lst;
-	while (current)
-	{
-		if (current == NULL)
-		{
-			printf("liste vide\n");
-		}
-		else
-		{
-			printf("Token APRES redirection tokenisation = %s\n",current->word);
-		}
-		current = current->next;
 	}
 }
 
@@ -152,13 +120,46 @@ void print_env(char **env)
 	printf("\n----------ENV-----------\n");
 	while (env[i])
 	{
-		printf("%s\n",env[i]);
+		printf("%s\n", env[i]);
 		i++;
 	}
 }
 
-void print_all (t_data *data)
+void print_all(t_data *data)
 {
 	print_cmd_table(data);
 	// print_env(data->shell_env);
 }
+
+void print_lst (t_redirects *lst)
+{
+	t_redirects *current = lst;
+	while (current)
+	{
+		if (current == NULL)
+		{
+			printf("liste vide\n");
+		}
+		else
+		{
+			printf("Type: %s, Content: %s\n", redirection_type_to_string(lst->type), lst->content);
+		}
+		current = current->next;
+	}
+}
+// void print_lst2 (t_tokens *lst)
+// {
+// 	t_tokens *current = lst;
+// 	while (current)
+// 	{
+// 		if (current == NULL)
+// 		{
+// 			printf("liste vide\n");
+// 		}
+// 		else
+// 		{
+// 			printf("Token APRES redirection tokenisation = %s\n",current->word);
+// 		}
+// 		current = current->next;
+// 	}
+// }

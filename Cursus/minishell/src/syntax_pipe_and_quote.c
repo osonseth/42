@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 22:55:48 by max               #+#    #+#             */
-/*   Updated: 2024/07/16 11:36:26 by max              ###   ########.fr       */
+/*   Updated: 2024/07/18 19:21:45 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ static bool next_node_is_empty(char *str)
     while (*str && *str != '|')
     {
         if (!(*str == 32 || *str == 9))
-            return true;
+            return false;
         str++;
     }
-   return false;
+    return true;
 }
 /*
 
@@ -64,15 +64,11 @@ bool expand_has_syntax_errors(t_commands_table *table, t_data *data)
     while (*str)
     {
         opening_and_closing_quotes(*str, data);
-        if ((!ft_strncmp(str, "${", 2)) && !data->simple_quote)
+        if (!data->simple_quote && (!ft_strncmp(str, "${", 2)) && (!is_alpha_or_underscore(str[2]) || brace_not_closed_or_bad_syntax(str + 2)))
         {
-
-            if (!is_alpha_or_underscore(str[2]) || brace_not_closed_or_bad_syntax(str + 2))
-            {
-                update_cmd_table(table, data);
-                quotes_reset(data);
-                return true;
-            }
+            update_cmd_table(table, data);
+            quotes_reset(data);
+            return true;
         }
         str++;
     }
@@ -97,16 +93,12 @@ bool pipe_syntax_errors(t_data *data)
     while (*str)
     {
         opening_and_closing_quotes(*str, data);
-        if (*str == '|' && !data->double_quote && !data->simple_quote)
+        if (*str == '|' && !data->double_quote && !data->simple_quote && (next_node_is_empty(&str[1])))
         {
-            if (!(next_node_is_empty(&str[1])))
-            {
-                print_syntax_error(PIPE);
-                return true;
-            }
+            print_syntax_error(PIPE);
+            return true;
         }
         str++;
     }
-    quotes_reset(data);
     return false;
 }

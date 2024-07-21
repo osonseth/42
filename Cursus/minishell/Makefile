@@ -1,6 +1,7 @@
 CC 			  =  cc
 
-FLAGS 		  =	-Wall -Wextra -Werror -MMD -MP  -g -fsanitize=address
+FLAGS 		  =	-Wall -Wextra -Werror -MMD -MP  -g 
+#-fsanitize=address
 
 LDLIBS		  = -lft -lreadline
 

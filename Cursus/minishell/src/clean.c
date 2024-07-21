@@ -6,22 +6,33 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:20 by max               #+#    #+#             */
-/*   Updated: 2024/07/18 08:41:31 by max              ###   ########.fr       */
+/*   Updated: 2024/07/20 12:19:43 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-void clean_variable_lst(t_variable *lst)
+
+void clean_variable_lst(t_data *data)
 {
-    if (lst == NULL)
+    t_variable *current;
+    t_variable *next;
+
+    if (data == NULL || data->variable == NULL)
         return;
-    t_variable *next_lst;
-    next_lst = lst->next;
-    if (lst)
-        free(lst);
-    lst = next_lst;
-    clean_variable_lst(lst);
+
+    current = data->variable;
+
+    while (current != NULL)
+    {
+        next = current->next;  // Sauvegarder le pointeur vers le prochain nœud
+        free(current); // Libérer le nœud actuel
+        current = next; // Passer au nœud suivant
+    }
+
+    data->variable = NULL; // Mettre le pointeur de la tête de la liste à NULL
 }
+
+
 void clean_redirection_lst(t_redirects *lst)
 {
     if (lst == NULL)
@@ -39,19 +50,23 @@ void clean_redirection_lst(t_redirects *lst)
     clean_redirection_lst(lst);
 }
 
-void clean_token_lst(t_tokens *lst)
+void clean_token_lst(t_tokens **lst)
 {
-    if (lst == NULL)
+    if (*lst == NULL)
         return;
     t_tokens *next_lst;
-    next_lst = lst->next;
-    if (lst)
+    next_lst = (*lst)->next;
+    if (*lst)
     {
-        if (lst->word)
-            free(lst->word);
-        free(lst);
+        if ((*lst)->word)
+        {
+            free((*lst)->word);
+            (*lst)->word = NULL;
+        }
+        free(*lst);
+        *lst = NULL;
     }
-    lst = next_lst;
+    *lst = next_lst;
     clean_token_lst(lst);
 }
 
@@ -65,7 +80,7 @@ void clean_cmd_table(t_data *data)
     if (data->table)
     {
         if (data->table->token)
-            clean_token_lst(data->table->token);
+            clean_token_lst(&data->table->token);
         if (data->table->redirects)
             clean_redirection_lst(data->table->redirects);
         if (data->table->simple_cmd)
@@ -85,9 +100,7 @@ void clean_all(t_data *data)
     if (data->line)
         free(data->line);
     if (data->variable)
-        clean_variable_lst(data->variable);
-    if (data->old_lst)
-        clean_token_lst(data->old_lst);
+        clean_variable_lst(data);
     if (data->table)
         clean_cmd_table(data);
 }

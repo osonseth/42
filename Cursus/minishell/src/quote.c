@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 19:38:54 by max               #+#    #+#             */
-/*   Updated: 2024/07/15 23:01:43 by max              ###   ########.fr       */
+/*   Updated: 2024/07/18 18:55:41 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,10 @@ bool quote_syntax_errors(t_data *data)
     {
         if (*str == '"' || *str == '\'')
             opening_and_closing_quotes(*str, data);
-        else if (*str == '|' && !data->double_quote && !data->simple_quote)
+        else if (*str == '|' && !data->double_quote && !data->simple_quote && check_close_quote(data))
         {
-            if (check_close_quote(data))
-            {
-                quotes_reset(data);
-                return true;
-            }
             quotes_reset(data);
+            return true;
         }
         str++;
     }
@@ -70,6 +66,5 @@ bool quote_syntax_errors(t_data *data)
         quotes_reset(data);
         return true;
     }
-    quotes_reset(data);
-    return false;
+   return false;
 }

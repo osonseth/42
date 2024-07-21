@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 22:47:09 by max               #+#    #+#             */
-/*   Updated: 2024/07/18 12:23:16 by max              ###   ########.fr       */
+/*   Updated: 2024/07/19 00:50:15 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_tokens *create_redirection_token_content(t_tokens *lst, char *str, int *i)
 {
     if (!token_node_add_back(&lst, new_token_node(redirection_token_content(str))))
         return NULL;
-    (*i) += ft_strlen_redir_token_content(str);
+    (*i) += ft_strlen_redir_token_content(str) - 1;
     return lst;
 }
 
@@ -74,7 +74,7 @@ static t_tokens *split_token(char *str)
             lst = create_redirection_token_content(lst, &str[i], &i);
         if (!lst)
         {
-            clean_token_lst(save_lst);
+            clean_token_lst(&save_lst);
             return NULL;
         }
         save_lst = lst;
@@ -92,10 +92,11 @@ Sinon rajoute l'ancien token a la nouvelle liste
 
 bool redir_tokenization_step(t_tokens **new_lst, t_tokens **current, t_data *data)
 {
-    if (have_redirections((*current)->word, data))
+    if (have_redirections((*current)->word, data) && ft_strlen((*current)->word) > 2)
     {
         if (!token_lst_add_back(new_lst, split_token((*current)->word)))
         {
+
             clean_new_and_old_token_lst(new_lst, current);
             return false;
         }
@@ -103,8 +104,10 @@ bool redir_tokenization_step(t_tokens **new_lst, t_tokens **current, t_data *dat
     }
     else
     {
+
         if (!token_node_add_back(new_lst, new_token_node((*current)->word)))
         {
+
             clean_new_and_old_token_lst(new_lst, current);
             return false;
         }
@@ -115,7 +118,7 @@ bool redir_tokenization_step(t_tokens **new_lst, t_tokens **current, t_data *dat
 /*
 Fonction decoupé qui crée une nouvelle liste de token en rajoutant les tokens de redirections et leur contenu si le token de base en contient
 */
-bool redir_tokenization(t_tokens **lst, t_data *data)
+bool redir_tokenization(t_tokens **lst, t_commands_table *table, t_data *data)
 {
     t_tokens *current = *lst;
     t_tokens *new_lst = NULL;
@@ -125,7 +128,10 @@ bool redir_tokenization(t_tokens **lst, t_data *data)
     {
         next_node = current->next;
         if (!redir_tokenization_step(&new_lst, &current, data))
+        {
+            table->token = NULL;
             return false;
+        }
         free(current);
         current = next_node;
     }

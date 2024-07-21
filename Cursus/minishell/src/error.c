@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 18:55:54 by max               #+#    #+#             */
-/*   Updated: 2024/07/15 11:40:26 by max              ###   ########.fr       */
+/*   Updated: 2024/07/18 23:54:56 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void clean_redirection_lst_and_memory_error(t_redirects *lst, t_data *data)
 }
 void clean_token_lst_and_memory_error(t_tokens *lst, t_data *data)
 {
-    clean_token_lst(lst);
+    clean_token_lst(&lst);
     memory_error(data);
 }
 

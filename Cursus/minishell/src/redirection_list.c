@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 00:52:48 by max               #+#    #+#             */
-/*   Updated: 2024/07/16 12:03:10 by max              ###   ########.fr       */
+/*   Updated: 2024/07/20 08:52:56 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 t_redirects *new_redirection_node(char *content, e_redirection_type type)
 {
     t_redirects *node;
-
-    node = malloc(sizeof(t_tokens));
+    if (content == NULL)
+        return NULL;
+    node = malloc(sizeof(t_redirects));
     if (node == NULL)
     {
         free(content);
@@ -27,50 +28,51 @@ t_redirects *new_redirection_node(char *content, e_redirection_type type)
     node->next = NULL;
     return (node);
 }
-void redirection_node_add_back(t_redirects **lst, t_redirects *new, t_data *data)
+t_redirects *redirection_node_add_back(t_redirects *lst, t_redirects *new)
 {
     t_redirects *tmp;
     if (new == NULL)
-        clean_redirection_lst_and_memory_error(*lst, data);
-    if (!*lst)
+        return NULL;
+    if (!lst)
     {
-        *lst = new;
-        return;
+        lst = new;
+        return lst;
     }
-    tmp = *lst;
+    tmp = lst;
     while (tmp->next != NULL)
         tmp = tmp->next;
     tmp->next = new;
+    return lst;
 }
 
 /* Crée la liste des redictions apartir de la liste des tokens
 Met a jour un bool dans chaque noeud afin de savoir si le token faite partie d'une redirection ou pas
 */
-t_redirects *create_redirection_lst(t_tokens **lst, t_data *data)
+
+bool create_redirection_lst(t_tokens *lst, t_redirects **redirection_list)
 {
-    bool(cmd_and_args) = false;
-    t_redirects(*redirection_list) = NULL;
-    t_tokens(*current) = *lst;
+    t_tokens(*current) = lst;
+    t_redirects(*save_lst) = NULL;
 
     while (current)
     {
         if (is_redirection_token(current->word))
         {
-            cmd_and_args = false;
-            redirection_list = create_redirection_node(current, redirection_list, data);
+            *redirection_list = create_redirection_node(current, *redirection_list);
             current = current->next->next;
-        }
-        else if (cmd_and_args == false)
-        {
-            current->not_redir = true;
-            cmd_and_args = true;
-            current = current->next;
         }
         else
         {
             current->not_redir = true;
             current = current->next;
+            continue;
         }
+        if (!*redirection_list)
+        {
+            clean_redirection_lst(save_lst);
+            return false;
+        }
+        save_lst = *redirection_list;
     }
-    return redirection_list;
+    return true;
 }

@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:26:03 by max               #+#    #+#             */
-/*   Updated: 2024/07/16 12:00:15 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 10:03:45 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,7 @@ static char *make_expanded_word(char *word, char *expanded_word, t_data *data)
 		else
 			expanded_word[j++] = word[i++];
 	}
-	quotes_reset(data);
-	return expanded_word;
+	return (quotes_reset(data), expanded_word);
 }
 
 /*
@@ -103,9 +102,18 @@ char *expand_management(char *word, t_data *data)
 	int expanded_word_len;
 	char *expanded_word;
 	expanded_word_len = calculate_expanded_len(word, data);
+	if (data->error)
+	{
+		free(word);
+		return NULL;
+	}
 	expanded_word = malloc((expanded_word_len + 1) * sizeof(char));
 	if (!expanded_word)
-		memory_error(data);
+	{
+		free(word);
+		data->error = true;
+		return NULL;
+	}
 	expanded_word[expanded_word_len] = '\0';
 	expanded_word = make_expanded_word(word, expanded_word, data);
 	if (word)
@@ -118,13 +126,18 @@ expand management  		  : fonction pricipale
 remove unnecessary quotes : enleve les quotes hors quote du token
 
 */
-void recursive_handle_expand_token(t_tokens *token, t_data *data)
+bool recursive_handle_expand_token(t_tokens *token, t_data *data)
 {
 	if (token == NULL)
-		return;
+		return true;
 	token->word = expand_management(token->word, data);
+	if (data->error)
+	{
+		data->error = false;
+		return false;
+	}
 	token->word = remove_unnecessary_quotes(token->word, data);
-	clean_variable_lst(data->variable);
-	data->variable = NULL;
-	recursive_handle_expand_token(token->next, data);
+	if (data->variable)
+		clean_variable_lst(data);
+	return (recursive_handle_expand_token(token->next, data));
 }

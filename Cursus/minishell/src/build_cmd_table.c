@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:07:48 by max               #+#    #+#             */
-/*   Updated: 2024/07/17 17:04:12 by max              ###   ########.fr       */
+/*   Updated: 2024/07/18 19:14:09 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ Pointeur line start qui se deplace a chaque '|' char +1 pour dup
 Creation de chaque noeud avec node add back et new node
 */
 bool build_cmd_table(t_data *data)
-{
+{ 
     int i;
     i = 0;
-    
+
     char *line_start;
     line_start = data->line;
     while (data->line[i] != '\0')
@@ -89,7 +89,7 @@ bool build_cmd_table(t_data *data)
         {
             line_start = ft_strdup_simple_cmd(line_start, data);
             if (line_start == NULL || !cmd_table_node_add_back(&(data->table), new_cmd_table_node(line_start)))
-                return false;
+               return false;
             line_start = &data->line[i + 1];
         }
         i++;

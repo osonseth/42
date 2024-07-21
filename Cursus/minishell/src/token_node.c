@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 09:07:12 by max               #+#    #+#             */
-/*   Updated: 2024/07/18 12:22:14 by max              ###   ########.fr       */
+/*   Updated: 2024/07/19 00:47:30 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ bool token_lst_add_back(t_tokens **new_lst, t_tokens *lst)
 }
 t_tokens *new_token_node(void *content)
 {
-
+    if(content == NULL)
+        return NULL;
     t_tokens *node;
 
     node = malloc(sizeof(t_tokens));

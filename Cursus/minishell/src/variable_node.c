@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 02:24:16 by max               #+#    #+#             */
-/*   Updated: 2024/07/10 02:26:50 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 09:44:27 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,19 @@ t_variable *new_variable_node(void *content)
     return (node);
 }
 
-void variable_node_add_back(t_variable **lst, t_variable *new, t_data *data)
+bool variable_node_add_back(t_variable **lst, t_variable *new)
 {
     t_variable *tmp;
     if (new == NULL)
-        memory_error(data);
+        return false;
     if (!*lst)
     {
         *lst = new;
-        return;
+        return true;
     }
     tmp = *lst;
     while (tmp->next != NULL)
         tmp = tmp->next;
     tmp->next = new;
+    return true;
 }

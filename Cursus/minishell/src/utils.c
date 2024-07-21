@@ -6,12 +6,17 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:38:42 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/18 08:32:51 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 07:31:08 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void increment(int *i, int *expanded_len)
+{
+    (*i)++;
+    (*expanded_len)++;
+}
 
 char *skype_space_ptr(char *str)
 {

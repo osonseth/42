@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:13:21 by max               #+#    #+#             */
-/*   Updated: 2024/07/18 09:17:02 by max              ###   ########.fr       */
+/*   Updated: 2024/07/19 00:44:08 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char *input_redirect_token(void)
 }
 
 char *output_redirect_token(void)
-{
+{  
     char *tmp;
 
     tmp = ft_strdup(">");
@@ -33,7 +33,7 @@ char *output_redirect_token(void)
 }
 
 char *append_redirect_token(void)
-{
+{ 
     char *tmp;
 
     tmp = ft_strdup(">>");
