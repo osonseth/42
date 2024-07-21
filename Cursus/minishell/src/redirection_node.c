@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 10:13:32 by max               #+#    #+#             */
-/*   Updated: 2024/07/20 08:47:59 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 22:00:23 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ t_redirects *create_redirection_node(t_tokens *token, t_redirects *lst)
         lst = infile_node(token, lst);
     else if (!ft_strncmp(token->word, ">", 1))
         lst = outfile_node(token, lst);
-
-    print_lst(lst);
 
     if (!lst)
         return NULL;

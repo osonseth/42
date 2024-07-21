@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 07:41:20 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/21 18:13:41 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 21:55:13 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct data
 
 
 //----------------------------------- ARGS ------------------------------------------------------
-char **create_args_array(t_commands_table *table, t_data *data);
+char **create_args_array(t_commands_table *table);
 //------------------------------------ ENV ----------------------------------------------------
 void env_management(char **envp, t_data *data);
 // ------------------------------ List variable ----------------------------------------------
@@ -139,7 +139,8 @@ void clean_new_and_old_token_lst(t_tokens **new, t_tokens **old);
 void clean_token_lst(t_tokens **lst);
 void clean_variable_lst(t_data *data);
 void clean_cmd_table(t_data *data);
-void clean_array(char **arg);
+void clean_args(char **args);
+void clean_env(t_data *data);
 void clean_all(t_data *data);
 // -------------------------------- Message d'erreur -------------------------------------------
 void memory_error(t_data *data);

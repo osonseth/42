@@ -6,14 +6,14 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:13:37 by max               #+#    #+#             */
-/*   Updated: 2024/07/16 12:05:15 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 21:55:46 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-Calcule la taille du char ** args 
+Calcule la taille du char ** args
 */
 
 static int calculate_cmd_and_args(t_tokens *token)
@@ -37,7 +37,7 @@ static int calculate_cmd_and_args(t_tokens *token)
 Crée le char ** args pour execve via la liste des tokens, si bool redirection = false alors l'ajoue dans le char **
 */
 
-static char **fill_array(char **args, t_tokens *token, t_data *data)
+static char **fill_array(char **args, t_tokens *token)
 {
 	int i;
 	t_tokens *current;
@@ -52,8 +52,8 @@ static char **fill_array(char **args, t_tokens *token, t_data *data)
 			args[i] = ft_strdup(current->word);
 			if (!args[i])
 			{
-				clean_array(args);
-				memory_error(data);
+				clean_args(args);
+				return NULL;
 			}
 			i++;
 		}
@@ -64,7 +64,7 @@ static char **fill_array(char **args, t_tokens *token, t_data *data)
 /*
 fonction pricipale pour créer le char ** args envoyé a execve
 */
-char **create_args_array(t_commands_table *table, t_data *data)
+char **create_args_array(t_commands_table *table)
 {
 
 	char **args;
@@ -73,11 +73,11 @@ char **create_args_array(t_commands_table *table, t_data *data)
 
 	i = 0;
 	number_of_args = calculate_cmd_and_args(table->token);
-	args = malloc((number_of_args + 1) * sizeof(char *));
+	args = ft_calloc((size_t)(number_of_args + 1), sizeof(char *));
 	if (!args)
 		return NULL;
-	while (i <= number_of_args)
-		args[i++] = NULL;
-	args = fill_array(args, table->token, data);
+	args = fill_array(args, table->token);
+	if (!args)
+		return NULL;
 	return args;
 }

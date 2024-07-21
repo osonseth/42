@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 09:08:22 by max               #+#    #+#             */
-/*   Updated: 2024/07/21 07:40:26 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 21:55:28 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ bool recursive_handle_command_node(t_data *data, t_commands_table *table)
 		return true;
 	if (!recursive_handle_expand_token(table->token, data))
 		return true;
-	table->args = create_args_array(table, data);
+	table->args = create_args_array(table);
 	if (!table->args)
-		memory_error(data);
+		return true;
 	return (recursive_handle_command_node(data, table->next));
 }
 /*

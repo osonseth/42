@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:20 by max               #+#    #+#             */
-/*   Updated: 2024/07/21 16:51:22 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 19:35:25 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void clean_cmd_table(t_data *data)
         if (data->table->message_error)
             free(data->table->message_error);
         if (data->table->args)
-            clean_array(data->table->args);
+            clean_args(data->table->args);
         free(data->table);
     }
     data->table = ptr_next;
@@ -103,4 +103,6 @@ void clean_all(t_data *data)
         clean_variable_lst(data);
     if (data->table)
         clean_cmd_table(data);
+    if (data->shell_env)
+        clean_env(data);
 }
