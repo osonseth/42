@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:08:06 by max               #+#    #+#             */
-/*   Updated: 2024/07/21 18:13:24 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 22:13:28 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ char *safe_strdup(const char *s, t_data *data)
 
 void create_own_env(t_data *data)
 {
-    (void)data;
-
     data->shell_env = ft_calloc((size_t)5, sizeof(char *));
     if (!data->shell_env)
         memory_error(data);

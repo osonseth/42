@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:47:35 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/15 23:10:58 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 22:06:26 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char *ft_strdup(char *s)
 	char *dest;
 
 	dest = malloc(1 + ft_strlen(s) * sizeof(char));
-
 	if (!dest)
 		return (NULL);
 	ft_strcpy(dest, s);
