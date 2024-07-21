@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_utils.c                                      :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/14 23:59:26 by max               #+#    #+#             */
-/*   Updated: 2024/07/21 17:42:16 by max              ###   ########.fr       */
+/*   Created: 2024/07/21 17:16:32 by max               #+#    #+#             */
+/*   Updated: 2024/07/21 17:17:52 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void clean_array(char **arg)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-    int i;
-    i = 0;
+	void	*p;
 
-    while (arg[i])
-        free(arg[i++]);
-    free(arg);
-}
-void clean_new_and_old_token_lst(t_tokens **new, t_tokens **old)
-{
-    clean_token_lst(new);
-    clean_token_lst(old);
+	if (nmemb == 0 || size == 0)
+		return (malloc(0));
+	if (nmemb > INT_MAX / size)
+		return (NULL);
+	p = malloc(nmemb * size * sizeof(char));
+	if (!p)
+		return (NULL);
+	ft_bzero(p, nmemb * size);
+	return (p);
 }

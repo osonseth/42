@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 07:41:20 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/21 10:00:08 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 18:13:41 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,11 @@ typedef struct data
 
 } t_data;
 
-//---------------------------------TEST----------------------------------------------------
-t_tokens *create_redirection_token(t_tokens *lst, char *str, int *i);
-t_tokens *create_redirection_token_content(t_tokens *lst, char *str, int *i);
-int ft_strlen_redir_token_content(char *str);
+
 //----------------------------------- ARGS ------------------------------------------------------
 char **create_args_array(t_commands_table *table, t_data *data);
 //------------------------------------ ENV ----------------------------------------------------
-char **env_management(char **envp, t_data *data);
+void env_management(char **envp, t_data *data);
 // ------------------------------ List variable ----------------------------------------------
 bool variable_node_add_back(t_variable **lst, t_variable *new);
 t_variable *new_variable_node(void *content);
@@ -103,7 +100,9 @@ t_redirects *create_redirection_node(t_tokens *token, t_redirects *list);
 t_redirects *new_redirection_node(char *content, e_redirection_type type);
 t_redirects *redirection_node_add_back(t_redirects *lst, t_redirects *new);
 //------------------------------ Redirections token ---------------------------------------------
-
+t_tokens *create_redirection_token(t_tokens *lst, char *str, int *i);
+t_tokens *create_redirection_token_content(t_tokens *lst, char *str, int *i);
+int ft_strlen_redir_token_content(char *str);
 char *redirection_token_content(char *str);
 char *heredoc_token(void);
 char *append_redirect_token(void);
@@ -134,11 +133,8 @@ bool is_redirection_token(char *word);
 //---------------------------------- Core parsing ---------------------------------------------
 bool parsing_management(t_data *data);
 bool recursive_handle_command_node(t_data *data, t_commands_table *table);
-
 // --------------------------------- Clean memory ----------------------------------------------
-void clean_redirection_lst_and_memory_error(t_redirects *lst, t_data *data);
 void clean_redirection_lst(t_redirects *lst);
-void clean_token_lst_and_memory_error(t_tokens *lst, t_data *data);
 void clean_new_and_old_token_lst(t_tokens **new, t_tokens **old);
 void clean_token_lst(t_tokens **lst);
 void clean_variable_lst(t_data *data);

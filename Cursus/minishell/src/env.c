@@ -6,48 +6,56 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:08:06 by max               #+#    #+#             */
-/*   Updated: 2024/07/16 03:01:21 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 18:13:24 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **create_own_env(t_data *data)
+char *safe_strdup(const char *s, t_data *data)
 {
-    (void)data;
-    char **array;
-    array = malloc(5 * sizeof(char *));
-    array[0] = ft_strdup(ENV_USER);
-    array[1] = ft_strdup(ENV_HOME);
-    array[2] = ft_strdup(ENV_PWD);
-    array[3] = ft_strdup(ENV_PATH);
-    array[4] = NULL;
-    return array;
+    char *dup = strdup(s);
+    if (!dup)
+        memory_error(data);
+    return dup;
 }
 
-char **env_management(char **envp, t_data *data)
+void create_own_env(t_data *data)
 {
-    char **my_env;
+    (void)data;
+
+    data->shell_env = ft_calloc((size_t)5, sizeof(char *));
+    if (!data->shell_env)
+        memory_error(data);
+    data->shell_env[0] = safe_strdup(ENV_USER, data);
+    data->shell_env[1] = safe_strdup(ENV_HOME, data);
+    data->shell_env[2] = safe_strdup(ENV_PWD, data);
+    data->shell_env[3] = safe_strdup(ENV_PATH, data);
+    data->shell_env[4] = NULL;
+}
+
+void env_management(char **envp, t_data *data)
+{
     int size;
     size = 0;
 
-    // if (envp[0] == NULL)
     if (envp[0] == NULL)
-    // || !ft_strncmp(envp[0], "LD_LIBRARY_PATH=/usr/lib/debug", 30))
-        my_env = create_own_env(data);
+        create_own_env(data);
     else
     {
         int i;
         i = 0;
         while (envp[size] != NULL)
             size++;
-        my_env = malloc((size + 1) * sizeof(char *));
+        data->shell_env = ft_calloc((size_t)(size + 1), sizeof(char *));
+        if (!data->shell_env)
+            memory_error(data);
         while (envp[i] != NULL)
         {
-            my_env[i] = ft_strdup(envp[i]);
+            data->shell_env[i] = ft_strdup(envp[i]);
+            if (!data->shell_env[i])
+                memory_error(data);
             i++;
         }
-        my_env[i] = NULL;
     }
-    return my_env;
 }

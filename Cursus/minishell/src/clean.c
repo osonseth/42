@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:20 by max               #+#    #+#             */
-/*   Updated: 2024/07/20 12:19:43 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 16:51:22 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void clean_variable_lst(t_data *data)
 
     while (current != NULL)
     {
-        next = current->next;  // Sauvegarder le pointeur vers le prochain nœud
-        free(current); // Libérer le nœud actuel
-        current = next; // Passer au nœud suivant
+        next = current->next;  
+        free(current); 
+        current = next; 
     }
 
-    data->variable = NULL; // Mettre le pointeur de la tête de la liste à NULL
+    data->variable = NULL; 
 }
 
 

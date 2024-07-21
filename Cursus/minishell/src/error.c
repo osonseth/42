@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 18:55:54 by max               #+#    #+#             */
-/*   Updated: 2024/07/18 23:54:56 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 17:45:01 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,8 @@
 void memory_error(t_data *data)
 {
     clean_array(data->shell_env);
-    clean_all(data);        
     perror("malloc failed");
     exit(EXIT_FAILURE);
-}
-void clean_redirection_lst_and_memory_error(t_redirects *lst, t_data *data)
-{
-    clean_redirection_lst(lst);
-    memory_error(data);
-}
-void clean_token_lst_and_memory_error(t_tokens *lst, t_data *data)
-{
-    clean_token_lst(&lst);
-    memory_error(data);
 }
 
 void print_syntax_error(int type)

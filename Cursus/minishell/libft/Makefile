@@ -11,7 +11,9 @@ INCLUDEPATH =	./
 SRCS 		=	$(SRCPATH)check_char.c		\
 				$(SRCPATH)ft_strdup.c		\
 				$(SRCPATH)ft_strlen.c		\
-				$(SRCPATH)ft_strncmp.c		
+				$(SRCPATH)ft_strncmp.c		\
+				$(SRCPATH)ft_calloc.c		\
+				$(SRCPATH)ft_bzero.c
 				
 
 OBJ 		=	$(SRCS:.c=.o)

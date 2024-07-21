@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:53:25 by max               #+#    #+#             */
-/*   Updated: 2024/07/18 19:27:46 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 18:08:16 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	t_data(data) = {0};
-	data.shell_env = env_management(envp, &data);
+	env_management(envp, &data);
 	while (1)
 	{
 		data.line = readline("Minishell$");
-		if (!ft_strncmp(data.line, "exit", 4))
+		if (!data.line || !ft_strncmp(data.line, "exit", 4))
 		{
 			clean_array(data.shell_env);
 			clean_all(&data);
