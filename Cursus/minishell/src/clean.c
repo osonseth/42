@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:20 by max               #+#    #+#             */
-/*   Updated: 2024/07/21 19:35:25 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 23:50:23 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,5 @@ void clean_all(t_data *data)
         clean_variable_lst(data);
     if (data->table)
         clean_cmd_table(data);
-    if (data->shell_env)
-        clean_env(data);
+
 }

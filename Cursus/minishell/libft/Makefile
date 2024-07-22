@@ -13,7 +13,8 @@ SRCS 		=	$(SRCPATH)check_char.c		\
 				$(SRCPATH)ft_strlen.c		\
 				$(SRCPATH)ft_strncmp.c		\
 				$(SRCPATH)ft_calloc.c		\
-				$(SRCPATH)ft_bzero.c
+				$(SRCPATH)ft_bzero.c		\
+				$(SRCPATH)ft_split.c
 				
 
 OBJ 		=	$(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 11:48:10 by max               #+#    #+#             */
-/*   Updated: 2024/07/21 10:02:08 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 22:20:13 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int make_var_value_lst_and_calculate_len(char *var_name, t_data *data)
 {
     int var_value_len;
 
-    var_value_len = ft_strlen(getenv(var_name));
-    if (!variable_node_add_back(&(data->variable), new_variable_node(getenv(var_name))))
+    var_value_len = ft_strlen(ft_getenv(var_name,data));
+    if (!variable_node_add_back(&(data->variable), new_variable_node(ft_getenv(var_name,data))))
     {
         data->error = true;
         return 0;

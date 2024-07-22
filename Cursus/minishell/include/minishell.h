@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 07:41:20 by mmauchre          #+#    #+#             */
-/*   Updated: 2024/07/21 21:55:13 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 22:20:49 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ typedef struct data
 char **create_args_array(t_commands_table *table);
 //------------------------------------ ENV ----------------------------------------------------
 void env_management(char **envp, t_data *data);
+char *ft_getenv(char *name, t_data *data);
+char *start_variable_value(char *str);
 // ------------------------------ List variable ----------------------------------------------
 bool variable_node_add_back(t_variable **lst, t_variable *new);
 t_variable *new_variable_node(void *content);

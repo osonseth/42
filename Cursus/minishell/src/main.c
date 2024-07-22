@@ -6,7 +6,7 @@
 /*   By: max <max@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:53:25 by max               #+#    #+#             */
-/*   Updated: 2024/07/21 19:43:54 by max              ###   ########.fr       */
+/*   Updated: 2024/07/21 23:53:19 by max              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,19 @@ char *ft_getenv(char *name, t_data *data)
 	return NULL;
 }
 
-void exec()
+void exec(t_data *data)
 {
-	printf("\nON RENTRE DANS L'EXEC\n");
+	char **test = ft_split(ft_getenv("PATH",data));
+	
+	   for (char **t = test; *t != NULL; t++)
+    {
+        printf("%s\n", *t);
+    }
+	 for (char **t = test; *t != NULL; t++)
+    {
+        free(*t);
+    }
+    free(test);
 }
 
 int main(int argc, char **argv, char **envp)
@@ -59,6 +69,7 @@ int main(int argc, char **argv, char **envp)
 		data.line = readline("Minishell$");
 		if (!data.line || !ft_strncmp(data.line, "exit", 4))
 		{
+			clean_env(&data);
 			clean_all(&data);
 			exit(EXIT_SUCCESS);
 		}
@@ -68,7 +79,7 @@ int main(int argc, char **argv, char **envp)
 			clean_all(&data);
 			continue;
 		}
-		exec();
+		exec(&data);
 		print_all(&data);
 		clean_all(&data);
 	}
