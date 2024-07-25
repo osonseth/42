@@ -2,7 +2,7 @@ CC 			  =  cc
 
 FLAGS 		  =	-Wall -Wextra -Werror -MMD -MP  -g 
 
-#-fsanitize=address
+DEBUG_FLAG	  = 	-fsanitize=address
 
 LDLIBS		  = -lft -lreadline
 
@@ -47,29 +47,31 @@ SRC_NAME 	  =	main.c						\
 				redirection_node.c			\
 				redirections_utils.c 		
 				
-
+OBJ_NAME 	 =	$(SRC:.c=.o)
 					
 SRC	    	  = $(addprefix $(SRCPATH), $(SRC_NAME))
+OBJ	    	  = $(addprefix $(OBJDIR), $(OBJ_NAME))
 
 NAME 		  =	 minishell
 
-OBJ 		  =	$(SRC:.c=.o)
 
 DEP		      = $(patsubst %.o,%.d, $(OBJ))
 
 $(NAME): $(OBJ) $(LIB)
 	$(CC) $(FLAGS) $(OBJ) $(LIB_PATH) $(LIBFT_INCLUDE) $(LDLIBS) -o $(NAME)
-	
-%.o: %.c 
+$(OBJDIR)%.o: %.c 
+	@mkdir -p $(@D)
 	$(CC) $(FLAGS) -I$(INCLUDEPATH) $(LIBFT_INCLUDE) -c $< -o $@
  
 libft/libft.a:
 	$(MAKE) -C libft
 
 all: $(NAME)
-	
+
+debug: $(OBJ) $(LIB) 
+	$(CC) $(DEBUG_FLAG) $(FLAGS) $(OBJ) $(LIB_PATH) $(LIBFT_INCLUDE) $(LDLIBS) -o $(NAME)
 clean:
-	@rm -f $(OBJ) $(DEP)
+	@rm -rf $(OBJDIR) $(DEP)
 	@$(MAKE) -C libft clean
 	
 fclean: clean
@@ -80,4 +82,4 @@ re : fclean all
 
 -include $(DEP)
 
-.PHONY: clean fclean all re bonus
+.PHONY: clean fclean all re bonus debug
