@@ -1,0 +1,121 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution_pipe.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: junsan <junsan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/19 21:28:11 by junsan            #+#    #+#             */
+/*   Updated: 2024/08/03 12:12:54 by junsan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+void	cleanup_and_exit(int status, char **args, char **env, t_info *info)
+{
+	if (env)
+		(clear_env_arr(env), env = NULL);
+	free_tree(info->root);
+	info->root = NULL;
+	if (args)
+		free_args(args);
+	if (info->path)
+		(free(info->path), info->path = NULL);
+	clear_env(info->env);
+	info->env = NULL;
+	exit(status);
+}
+
+static void	execute_cmd_with_pipe(\
+				char *cmd, char **args, t_info *info, char **env)
+{
+	if (ft_strlen(cmd) == 4 && ft_strncmp(cmd, "true", 4) == 0)
+		cleanup_and_exit(SUCCESS, args, env, info);
+	else if (ft_strlen(cmd) == 5 && ft_strncmp(cmd, "false", 5) == 0)
+		cleanup_and_exit(FAILURE, args, env, info);
+	if (ft_strlen(args[0]) > 2 && args[0][0] == '.' && args[0][1] == '/'
+		&& execve(cmd, args, env) == -1)
+		cleanup_and_exit(125 + execve_log_error(cmd, errno), args, env, info);
+	else if (info->path)
+		cleanup_and_exit(execve(info->path, args, env), args, env, info);
+	if (execve(cmd, args, env) == -1)
+		cleanup_and_exit(126 + execve_log_error(cmd, errno), args, env, info);
+}
+
+void	first_pipe(char *cmd, char **env, char **args, t_info *info)
+{
+	int		built_in;
+	int		(*arr_built_in[7])(\
+			const char *, const char **, t_env *);
+
+	if (info->pid == 0)
+	{
+		dup2(info->tmp_pipe[2], STDOUT_FILENO);
+		close_tmp_pipe(info->tmp_pipe);
+		init_builtin(arr_built_in);
+		built_in = handler_builtin(cmd);
+		if (built_in != NONE)
+		{
+			if (built_in == EXIT)
+				cleanup_and_exit(0, args, env, info);
+			cleanup_and_exit(arr_built_in[built_in](\
+			(const char *)cmd, (const char **)args, info->env), \
+					args, env, info);
+		}
+		else
+			execute_cmd_with_pipe(cmd, args, info, env);
+	}
+}
+
+void	middle_pipe(char *cmd, char **env, char **args, t_info *info)
+{
+	int		built_in;
+	int		(*arr_built_in[7])(\
+			const char *, const char **, t_env *);
+
+	if (info->pid == 0)
+	{
+		dup2(info->tmp_pipe[0], STDIN_FILENO);
+		dup2(info->tmp_pipe[2], STDOUT_FILENO);
+		close_tmp_pipe(info->tmp_pipe);
+		init_builtin(arr_built_in);
+		built_in = handler_builtin(cmd);
+		if (built_in != NONE)
+		{
+			if (built_in == EXIT)
+				cleanup_and_exit(0, args, env, info);
+			cleanup_and_exit(arr_built_in[built_in](\
+			(const char *)cmd, (const char **)args, info->env), \
+					args, env, info);
+		}
+		else
+			execute_cmd_with_pipe(cmd, args, info, env);
+	}
+}
+
+void	last_pipe(char *cmd, char **env, char **args, t_info *info)
+{
+	int		status;
+	int		built_in;
+	int		(*arr_built_in[7])(\
+			const char *, const char **, t_env *);
+
+	if (info->pid == 0)
+	{
+		dup2(info->tmp_pipe[0], STDIN_FILENO);
+		close_tmp_pipe(info->tmp_pipe);
+		init_builtin(arr_built_in);
+		built_in = handler_builtin(cmd);
+		if (built_in != NONE)
+		{
+			if (built_in == EXIT)
+				cleanup_and_exit(0, args, env, info);
+			status = (arr_built_in[built_in](\
+			(const char *)cmd, (const char **)args, info->env));
+			cleanup_and_exit(status, args, env, info);
+		}
+		else
+			execute_cmd_with_pipe(cmd, args, info, env);
+	}
+}
